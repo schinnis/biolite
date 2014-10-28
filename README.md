@@ -7,7 +7,7 @@ Repo for the Biolite Shopify theme development.
 ### Development Environment Config
 
 
-1. Cloen the repo and open the main folder. Copy `config-sample.yml` and rename it to `config.yml`. 
+1. Clone the repo and open the main folder. Copy `config-sample.yml` and rename it to `config.yml`. 
 
 2. Install `shopify_theme` ruby gem with `gem install shopify_theme`. (May need sudo)
 
