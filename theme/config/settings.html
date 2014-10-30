@@ -160,7 +160,26 @@
 <!-- Home Page -->
 <fieldset>
   <legend>Home Page</legend>
-  <p>No home page settings are predefined in Timber.</p>
+	<h3>Hero</h3>
+	<table>	
+      <tr>
+          <td><label for="home_slide_1">Slide 1</label></td>
+          <td><input type="file" id="home_slide_1" name="home_slide_1" /></td>
+      </tr>
+      <tr>
+          <td><label for="slide_1_copy">Slide 1 Copy</label></td>
+          <td><input type="text" id="slide_1_copy" name="slide_1_copy" /></td>
+      </tr>
+      <tr>
+          <td><label for="home_slide_2">Slide 2</label></td>
+          <td><input type="file" id="home_slide_2" name="home_slide_2" /></td>
+      </tr>
+      <tr>
+          <td><label for="slide_2_copy">Slide 2 Copy</label></td>
+          <td><input type="text" id="slide_2_copy" name="slide_2_copy" /></td>
+      </tr>
+	</table>
+
 </fieldset>
 
 <!-- Product Pages -->
@@ -221,6 +240,47 @@
           <option value="modal">Modal</option>
         </select>
       </td>
+    </tr>
+  </table>
+</fieldset>
+
+<!-- Money Options -->
+<fieldset>
+  <legend>Money options</legend>
+  <table>
+    <tr>
+      <td><label for="show_multiple_currencies">Show currency selector?</label></td>
+      <td><input type="checkbox" id="show_multiple_currencies" name="show_multiple_currencies" checked="checked" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>Although you will be able to display prices on your store front in different currencies, Shopify will still process orders in your shop's currency.</small></td>
+    </tr>
+    <tr>
+      <td><label for="currency_format">Money format</label></td>
+      <td>
+        <select name="currency_format" id="currency_format">
+          <option value="money_format">
+            Without Currency, ex: $10.00
+          </option>
+          <option value="money_with_currency_format" selected="selected">
+            With Currency, ex: $10 CAD
+          </option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="supported_currencies">Currencies you wish to support</label></td>
+      <td><input type="text" class="text long" name="supported_currencies" id="supported_currencies" value="CAD USD" /></td>
+    </tr>
+    <tr>
+      <td><label for="default_currency">Default currency</label></td>
+      <td><input type="text" class="text" name="default_currency" id="default_currency" value="CAD" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>Separate your currency codes with a space. Use the ISO 4217 3-letter currency code. Click <a target="_blank" href="http://www.xe.com/iso4217.php">here</a> for a complete list of currency codes. Example: <i>CAD USD</i>.</small></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>* For this functionality to work in your shop, you are required to edit your money formats as per <a href="http://wiki.shopify.com/Do_Tell_Where_The_Money_Is" target="_blank">these instructions</a> (â€œDo tell where the money isâ€).</small></td>
     </tr>
   </table>
 </fieldset>
