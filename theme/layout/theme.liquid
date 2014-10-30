@@ -119,6 +119,10 @@
             {% endif %}
           </p>
           {% endif %}
+          
+          <!--Select Currency dropdown -->
+          {% include 'currencies-switcher' %}
+        
         </div>
       </div>
 
@@ -187,5 +191,9 @@
 
 
 <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
+ 
+<!--For showing multiple currencies, defined in settings-->  
+{% include 'currencies' %}
+
 </body>
 </html>

@@ -134,6 +134,7 @@
 
         <div class="product-description rte" itemprop="description">
           {{ product.description }}
+          {% include 'addthis' %}
         </div>
 
       </div>
@@ -167,7 +168,11 @@
     </div>
   </div>
 
+
 </div>
+
+  <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+
 
 
 {% comment %}

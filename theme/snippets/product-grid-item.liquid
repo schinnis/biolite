@@ -80,6 +80,7 @@
     {% if on_sale %}
       <br><strong>On Sale</strong> from {{ product.compare_at_price | money }}
     {% endif %}
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
   </p>
 
 </div>
