@@ -1,3 +1,36 @@
+<!-- Bold Apps: Customer Pricing -->
+{% include 'shappify-csp' %}
+
+
+<!-- csp tag-HIDE --> 
+{% assign csp_visible = true %}
+{% for product_tag in product.tags %}
+{% if csp_visible == true %}
+{% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+{% if last_tag_piece == 'HIDE' %}
+{% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+ 
+{% if first_tag_piece == 'default' %}
+{% assign csp_visible = false %}
+{% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+{% for csp_tag in csp_tag_group %}
+{% if customer.tags contains csp_tag %}
+{% assign csp_visible = true %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% if customer.tags contains first_tag_piece %}
+{% assign csp_visible = false %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+ 
+ 
+{% if csp_visible == false %} 
+Product is not available
+{% else %}
 {% comment %}
 
   Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
@@ -100,9 +133,12 @@
                 {% comment %}
                   Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
                 {% endcomment %}
-                <option value="{{variant.id}}">
-                  {{ variant.title }} - {{ variant.price | money_with_currency }}
-                </option>
+                {% include 'shappify-variant-is-csp' %}
+                {% if csp_variant == 1 %}
+                  <option value="{{variant.id}}">
+                    {{ variant.title }} - {{ variant.price | money_with_currency }}
+                  </option>
+                {% endif %}
 
               {% else %}
                 <option disabled="disabled">
@@ -264,3 +300,5 @@ jQuery(function($) {
 
 });
 </script>
+
+{% endif %}

@@ -55,7 +55,34 @@
             {% if grid_results == false %}
 
               {% for item in search.results %}
+
+              <!-- csp tag-HIDE --> 
+              {% assign csp_visible = true %}
+              {% for product_tag in item.tags %}
+              {% if csp_visible == true %}
+              {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+              {% if last_tag_piece == 'HIDE' %}
+              {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+               
+              {% if first_tag_piece == 'default' %}
+              {% assign csp_visible = false %}
+              {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+              {% for csp_tag in csp_tag_group %}
+              {% if customer.tags contains csp_tag %}
+              {% assign csp_visible = true %}
+              {% endif %}
+              {% endfor %}
+              {% else %}
+              {% if customer.tags contains first_tag_piece %}
+              {% assign csp_visible = false %}
+              {% endif %}
+              {% endif %}
+              {% endif %}{% endif %}
+              {% endfor %}
+               
+              {% if csp_visible == false %}{% else %}
                 {% include 'search-result' %}
+              {% endif %}
               {% endfor %}
 
             {% else %}
