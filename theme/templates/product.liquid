@@ -1,3 +1,36 @@
+<!-- Bold Apps: Customer Pricing -->
+{% include 'shappify-csp' %}
+
+
+<!-- csp tag-HIDE --> 
+{% assign csp_visible = true %}
+{% for product_tag in product.tags %}
+{% if csp_visible == true %}
+{% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
+{% if last_tag_piece == 'HIDE' %}
+{% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
+ 
+{% if first_tag_piece == 'default' %}
+{% assign csp_visible = false %}
+{% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
+{% for csp_tag in csp_tag_group %}
+{% if customer.tags contains csp_tag %}
+{% assign csp_visible = true %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% if customer.tags contains first_tag_piece %}
+{% assign csp_visible = false %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+ 
+ 
+{% if csp_visible == false %} 
+Product is not available
+{% else %}
 {% comment %}
 
   Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
@@ -100,9 +133,12 @@
                 {% comment %}
                   Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
                 {% endcomment %}
-                <option value="{{variant.id}}">
-                  {{ variant.title }} - {{ variant.price | money_with_currency }}
-                </option>
+                {% include 'shappify-variant-is-csp' %}
+                {% if csp_variant == 1 %}
+                  <option value="{{variant.id}}">
+                    {{ variant.title }} - {{ variant.price | money_with_currency }}
+                  </option>
+                {% endif %}
 
               {% else %}
                 <option disabled="disabled">
@@ -115,6 +151,23 @@
           {% comment %}
             Optionally show the 'compare at' or original price of the product.
           {% endcomment %}
+
+
+          {% assign tag_price = 0 %}
+          {% assign tag = 'default' %}
+          {% if customer.tags.size > 0 %}
+          {% for cust_tag in customer.tags %}
+          {% if product.metafields.shappify_csp[cust_tag] %}
+          {% assign tag = cust_tag %}
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+          {% if product.metafields.shappify_csp[tag] %}
+          {% assign tag_price = 1 %}
+          {% endif %}
+          {% if tag_price != 1 %}
+
+
           <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
             {{ product.price | money }}
           </span>
@@ -125,6 +178,35 @@
               {{ product.compare_at_price_max | money }}
             </span>
           {% endif %}
+
+
+
+
+          
+          {% else %}
+          {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+          {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+          {% capture attribute_price %}{{tag}}{% endcapture %}
+           
+            <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
+              {{ product.metafields.shappify_csp[attribute_price] }}
+            </span>
+
+            {% if product.compare_at_price > product.price %}
+              <span id="comparePrice" class="h5">
+                Compare at:
+                {{ product.compare_at_price_max | money }}
+              </span>
+            {% endif %}
+           
+          {% endif %}
+
+
+
+
+
+
+
 
           <label for="quantity">Quantity</label>
           <input type="number" id="quantity" name="quantity" value="1" min="1">
@@ -247,7 +329,7 @@ jQuery(function($) {
   {% endif %}
 
   // Hide selectors if we only have 1 variant and its title contains 'Default'.
-  {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+  {% if shappify_csp_options_count == 1 and product.variants.first.title contains 'Default' %}
     $('.selector-wrapper').hide();
   {% endif %}
 
@@ -264,3 +346,5 @@ jQuery(function($) {
 
 });
 </script>
+
+{% endif %}

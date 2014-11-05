@@ -68,18 +68,63 @@
     <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
   </p>
   <p>
+
     {% comment %}
       You can show a leading 'from' or 'up to' by checking 'product.price_varies'
       if your variants have different prices.
     {% endcomment %}
-    {% if product.price_varies %}From{% endif %}
-    {{ product.price | money }}
-    {% if sold_out %}
-      <br><strong>Sold Out</strong>
+
+    <!--For customer pricing-->
+    {% assign tag_price = 0 %}
+    {% assign tag = 'default' %}
+    {% if customer.tags.size > 0 %}
+    {% for cust_tag in customer.tags %}
+    {% if product.metafields.shappify_csp[cust_tag] %}
+    {% assign tag = cust_tag %}
     {% endif %}
-    {% if on_sale %}
-      <br><strong>On Sale</strong> from {{ product.compare_at_price | money }}
+    {% endfor %}
     {% endif %}
+    {% if product.metafields.shappify_csp[tag] %}
+    {% assign tag_price = 1 %}
+    {% endif %}
+    {% if tag_price != 1 %}
+    <!--end-->
+
+
+
+      {% if product.price_varies %}From{% endif %}
+      {{ product.price | money }}
+      {% if sold_out %}
+        <br><strong>Sold Out</strong>
+      {% endif %}
+      {% if on_sale %}
+        <br><strong>On Sale</strong> from {{ product.compare_at_price | money }}
+      {% endif %}
+
+
+
+    
+    {% else %}
+    {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+    {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+    {% capture attribute_price %}{{tag}}{% endcapture %}
+     
+        {% if product.metafields.shappify_csp[attribute_ind] %}From{% endif %}
+        {{ product.metafields.shappify_csp[attribute_price] }}
+        {% if sold_out %}
+          <br><strong>Sold Out</strong>
+        {% endif %}
+        {% if on_sale %}
+          <br><strong>On Sale</strong> from {{ product.compare_at_price | money }}
+        {% endif %}
+     
+    {% endif %}
+
+
+
+
+
+
     <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
   </p>
   
