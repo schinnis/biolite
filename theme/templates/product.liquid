@@ -151,6 +151,23 @@ Product is not available
           {% comment %}
             Optionally show the 'compare at' or original price of the product.
           {% endcomment %}
+
+
+          {% assign tag_price = 0 %}
+          {% assign tag = 'default' %}
+          {% if customer.tags.size > 0 %}
+          {% for cust_tag in customer.tags %}
+          {% if product.metafields.shappify_csp[cust_tag] %}
+          {% assign tag = cust_tag %}
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+          {% if product.metafields.shappify_csp[tag] %}
+          {% assign tag_price = 1 %}
+          {% endif %}
+          {% if tag_price != 1 %}
+
+
           <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
             {{ product.price | money }}
           </span>
@@ -161,6 +178,35 @@ Product is not available
               {{ product.compare_at_price_max | money }}
             </span>
           {% endif %}
+
+
+
+
+          
+          {% else %}
+          {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+          {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+          {% capture attribute_price %}{{tag}}{% endcapture %}
+           
+            <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
+              {{ product.metafields.shappify_csp[attribute_price] }}
+            </span>
+
+            {% if product.compare_at_price > product.price %}
+              <span id="comparePrice" class="h5">
+                Compare at:
+                {{ product.compare_at_price_max | money }}
+              </span>
+            {% endif %}
+           
+          {% endif %}
+
+
+
+
+
+
+
 
           <label for="quantity">Quantity</label>
           <input type="number" id="quantity" name="quantity" value="1" min="1">
@@ -283,7 +329,7 @@ jQuery(function($) {
   {% endif %}
 
   // Hide selectors if we only have 1 variant and its title contains 'Default'.
-  {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+  {% if shappify_csp_options_count == 1 and product.variants.first.title contains 'Default' %}
     $('.selector-wrapper').hide();
   {% endif %}
 

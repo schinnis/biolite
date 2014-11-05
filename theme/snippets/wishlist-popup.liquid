@@ -81,9 +81,10 @@ var currency = "{{shop.money_format | strip_html}}";
 jQuery(function ($) {
     // Load dialog on click
     $('input#add-to-wishlist').click(function (e) {
-        if ({{ shop.metafields.wishlist_settings.wishlist_customer_checkout }} && customer == '') {
-            window.location = '/account/login';
-        } else {
+
+        //if ({{ shop.metafields.wishlist_settings.wishlist_customer_checkout }} && customer == '') {
+         //   window.location = '/account/login';
+       // } else {
             if ($(this).attr('name') == 'wishlist') {
                 productId = $(this).prev().val();
                 productHandle = $(this).prev().attr('id');
@@ -94,7 +95,7 @@ jQuery(function ($) {
             $('input#productId').val(productId);
             $('input#productId').attr('class', productHandle);
             loadCategories(userId, $('div#categories'), 0);
-        }
+        //}
         return false;
     });
 });
