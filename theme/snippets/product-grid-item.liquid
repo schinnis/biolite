@@ -128,8 +128,9 @@
     <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
   </p>
   
-  <p id="p-wishlist" class="p-float">
-    <input type="hidden" value="{{product.id}}" id="{{product.handle}}" />
-  </p>
+
+    <!-- <input type="hidden" value="{{product.id}}" id="{{product.handle}}" /> -->
+    <input onclick="addToWishlist('{{product.id}}', '{{product.handle}}')" class="add-to-wishlist-btn" type="button" name="add-wishlist" value="+" />
+
 
 </div>

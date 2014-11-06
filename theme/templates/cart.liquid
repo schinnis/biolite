@@ -102,7 +102,38 @@
             </div>
 
             <div class="grid-item one-third medium-down--one-third medium-down--text-left text-right">
+
+              {% assign tag_price = 0 %}
+              {% assign tag = 'default' %}
+              {% if customer.tags.size > 0 %}
+              {% for cust_tag in customer.tags %}
+              {% if item.metafields.shappify_csp[cust_tag] %}
+              {% assign tag = cust_tag %}
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+              {% if item.metafields.shappify_csp[tag] %}
+              {% assign tag_price = 1 %}
+              {% endif %}
+              {% if tag_price != 1 %}
+
+
               <span class="h4">{{ item.price | money }}</span>
+
+
+              {% else %}
+              {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+              {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+              {% capture attribute_price %}{{tag}}{% endcapture %}
+               
+               <span class="h4">{{ item.metafields.shappify_csp[attribute_price] }}</span>
+               
+              {% endif %}
+            
+
+
+
+
             </div>
 
             <div class="grid-item one-third medium-down--one-third text-right">

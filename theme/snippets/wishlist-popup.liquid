@@ -406,17 +406,17 @@ function addNote(el, wishlistId){
     );
 }
 
-function addToWishlist(){
+function addToWishlist(productID, productHandle){
     $.getJSON(appDomain + "addtowishlist?jsoncallback=?",
         {
             format: 'json',
-            category: $('form.select-form input:checked').val(),
-            title: $('input#category-name').val(),
+            category: '70019',
+            title: 'Main',
             customer: userId,
             fn: customerFN,
             ln: customerLN,
-            product: $('input#productId').val(),
-            handle: $('input#productId').attr('class'),
+            product: productID,
+            handle: productHandle,
             shop: '{{shop.permanent_domain}}'
         },
         function(data){
