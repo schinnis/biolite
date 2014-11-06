@@ -214,9 +214,7 @@ Product is not available
           <input type="submit" name="add" class="btn" id="addToCart" value="Add to Cart">
           
         </form>
-        <!--Wishlist-->
-        <!-- <div class="clearfix"></div><p id="p-wishlist-product" class="p-float"></p><div class="clearfix"></div> -->
-        <input onclick="addToWishlist('{{product.id}}', '{{product.handle}}')" class="add-to-wishlist-btn" type="button" name="add-wishlist" value="Add to Wishlist" />
+        
         <div class="product-description rte" itemprop="description">
           {{ product.description }}
           {% include 'addthis' %}

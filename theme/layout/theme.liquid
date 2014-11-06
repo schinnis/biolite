@@ -120,8 +120,6 @@
           </p>
           {% endif %}
 
-          <!--View Wishlist-->
-          <p id="wishlist-link"></p>
           
           <!--Select Currency dropdown -->
           {% include 'currencies-switcher' %}
@@ -199,14 +197,13 @@
 <!--For showing multiple currencies, defined in settings-->  
 {% include 'currencies' %}
 
-<!-- SpurIT_Wishlist_Include -->
-{% include 'wishlist-popup' %}
-<!-- /SpurIT_Wishlist_Include -->
+
 
 <!--Customer Pricing App -->
 <script type="text/javascript" charset="utf-8">
 var shappify_customer_tags ={{ customer.tags|json }}
 </script>
 <!--End Customer Pricing -->
+{% include 'shopify-wishlist' %}
 </body>
 </html>
