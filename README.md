@@ -3,24 +3,20 @@ Biolite Shopify Theme
 Repo for the Biolite Shopify theme development.
 
 
-<br>
 ### Development Environment Config
 
 
-1. Clone the repo and open the main folder. Copy `config-sample.yml` and rename it to `config.yml`. 
+1. Install `shopify_theme` ruby gem with `gem install shopify_theme`. (May need sudo)
 
-2. Install `shopify_theme` ruby gem with `gem install shopify_theme`. (May need sudo)
+1. In the Shopify Admin, go to Themes. Find/create your theme (Ex: *Biolite-&lt;FirstName&gt;*). Click customize theme. In the URL bar, you can find your `theme_id`
 
-3. In the Shopify Admin, go to Apps -> Private Apps -> Shopify CLI to get the API Key & Password. As of 10/28/2014 they are:
+1. In the Shopify Admin, go to Apps -> Private Apps -> Shopify CLI to get the API Key & Password. As of 10/28/2014 they are:
     * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`
     * **Password**: `15dc54093806a300a6c76c4bda461136`
 
-4. In the Shopify Admin, go to Themes. Find your theme (Ex: *Biolite-&lt;FirstName&gt;*). Click customize theme. In the URL bar, you can find your `theme_id`
-
-5. In the theme directory, after installing the CLI tools, run `theme configure <api_key> <password> <site_url> <theme_id>`
+1. In the theme directory locally, after installing the shopify_theme gem, run `theme configure <api_key> <password> biolite-2.myshopify.com <theme_id>`
 
 
-<br>
 ### Workflow
 
 The Github master will function as the HEAD for the theme master, *Biolite-Master*. Each developer should always first merge their changes with this repository before publishing to the main Shopify theme.
@@ -32,7 +28,6 @@ To view your changes on your unpublished theme, go to Themes -> Customize -> Pre
 
 
 
-<br>
 ### References / Documentation
 
 * [shopify_theme ruby gem github](https://github.com/Shopify/shopify_theme)
