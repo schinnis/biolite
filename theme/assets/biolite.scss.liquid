@@ -1,0 +1,48 @@
+/*============================================================================
+  Biolite overwrite of Timber Theme CSS
+
+  Some things to know about this file:
+    - Sass is compiled on Shopify's server so you don't need to convert it to CSS yourself
+    - The output CSS is compressed and comments are removed
+    - You cannot use @imports in this file
+        * Use grunt or gulp tasks to enable @imports - https://github.com/Shopify/shopify-css-import
+    - Helpers variables, mixins, and starter classes are provided. Change as needed.
+    - The file is prepped with a CSS reset
+==============================================================================*/
+
+
+/*============================================================================
+  #General Variables
+==============================================================================*/
+
+$colorBody: {{ settings.color_body_bg }};
+
+/*============================================================================
+  #Basic Styles
+==============================================================================*/
+
+html {
+  background-color: #fff
+}
+
+body {
+  background-color: #fff;
+}
+
+
+
+/*============================================================================
+  #Change Locale
+==============================================================================*/
+
+#currencies-box {
+	display: none;
+}
+
+
+/*============================================================================
+  #Site Footer
+==============================================================================*/
+.site-footer {
+  background-color: #F2F2F2;
+}

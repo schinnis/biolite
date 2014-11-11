@@ -17,7 +17,12 @@
     {% comment %}
       Loop through products in the cart
     {% endcomment %}
+
+ 
+ 
+
     {% for item in cart.items %}
+
     <div class="cart-row" data-id="{{ item.id }}">
       <div class="grid">
 
@@ -52,6 +57,7 @@
                 {% unless item.variant.title contains 'Default' %}
                   <br>
                    <small>{{ item.variant.title }}</small>
+
                 {% endunless %}
               </span>
 
@@ -59,6 +65,8 @@
                 Optional, add the vendor
               {% endcomment %}
               Vendor: <em>{{ item.vendor }}</em>
+              <br>{{ item.product.tags }}
+
 
               {% comment %}
                 Optional, loop through custom product line items if available
@@ -106,14 +114,14 @@
               {% assign tag_price = 0 %}
               {% assign tag = 'default' %}
               {% if customer.tags.size > 0 %}
-              {% for cust_tag in customer.tags %}
-              {% if item.metafields.shappify_csp[cust_tag] %}
-              {% assign tag = cust_tag %}
-              {% endif %}
-              {% endfor %}
+                {% for cust_tag in customer.tags %}
+                  {% if item.metafields.shappify_csp[cust_tag] %}
+                    {% assign tag = cust_tag %}
+                  {% endif %}
+                {% endfor %}
               {% endif %}
               {% if item.metafields.shappify_csp[tag] %}
-              {% assign tag_price = 1 %}
+                {% assign tag_price = 1 %}
               {% endif %}
               {% if tag_price != 1 %}
 
@@ -151,6 +159,7 @@
     </div>
 
     {% endfor %}
+
 
     <div class="cart-row">
       <div class="grid">
