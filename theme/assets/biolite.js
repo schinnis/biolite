@@ -2,6 +2,15 @@ if ((typeof Biolite) === 'undefined') { Biolite = {}; }
 
 Biolite.iplookup_result  = {};
 Biolite.iplookup_promise = null;
+Biolite.country_codes = {
+	'CAD' : ['CA'], 
+	'USD' : ['US'],
+	'EUR' : ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'],
+	'AUD' : ['AU'],
+	'GBP' :	['UK']
+}
+Biolite.default_currency = 'CAD';
+
 
 
 Biolite.biolite_set_locale = function()
@@ -30,8 +39,9 @@ Biolite.show_locale_switcher = function()
 		console.log('get locale:', counter, locale);
 		if( locale ) {
 		    clearInterval(timer);
-		    $('#locale').html('your locale seems to be: ' + locale);
-		    $('#currencies-box').show();
+		    var currency = Biolite.get_currency(locale);
+		    console.log('your locale & currency seem to be:', locale, currency);
+		    Biolite.toggle_locale_chooser( currency );
 		}
 		counter++;
 		if(counter >= 20) {
@@ -40,3 +50,36 @@ Biolite.show_locale_switcher = function()
 	}, 
 	300);
 }
+
+Biolite.get_currency = function(locale)
+{
+	var currency = Biolite.default_currency;
+	for (var value in Biolite.country_codes)
+	{
+    	if( Biolite.country_codes[value].indexOf(locale) >= 0 )
+    	{
+    		currency = value;
+    	}
+	}
+	return currency;
+}
+
+Biolite.toggle_locale_chooser = function(currency){
+	console.log( 'toggle_locale_chooser',  currency)
+	if( currency ){
+		$('.currencies-box #currencies').val( currency );
+		$('.currencies-box #currencies').submit();
+		$('.currencies-box #currencies_chooser').hide();
+		$('.currencies-box #currencies_choice').show();
+		$('label[for="currencies"]').html('Your Currency: ' + currency);
+	}
+	else{
+		$('.currencies-box #currencies_choice').hide();
+		$('.currencies-box #currencies_chooser').show();
+	}
+	$('.currencies-box #currencies_chooser #currencies').on('change', function() {
+	  Biolite.toggle_locale_chooser(this.value);
+	});
+}
+
+
