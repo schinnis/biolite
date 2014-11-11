@@ -57,7 +57,7 @@
   {{ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
 
-  {{ 'biolite.js' | asset_url | script_tag }}
+  {{ 'biolite-locale.js' | asset_url | script_tag }}
 </head>
 
 {% comment %}
@@ -202,7 +202,7 @@
 
 <!--Custom IP Switching -->
 <script type="text/javascript">
-  Biolite.show_locale_switcher();
+  BioliteLocale.show_locale_switcher();
 </script>
 
 <!--Customer Pricing App -->
