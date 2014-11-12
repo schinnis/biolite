@@ -1,0 +1,63 @@
+require 'rake'
+require 'yaml'
+
+
+desc "Start Local Development"
+task :start_local_dev do
+
+	config = YAML.load_file('config.yml')
+	shopify_themes = YAML.load_file('shopify_themes.yml')
+
+	puts ''
+	puts "Asking Shopify which theme is currently live..."
+	main_theme_id = `../shopify-cli.rb main_theme_id`
+	puts 'Current Live Theme: ' + `../shopify-cli.rb theme_name #{main_theme_id}`
+	
+	if shopify_themes[:theme_id_one] == main_theme_id 
+		dev_theme_id = shopify_themes[:theme_id_two]
+	else
+		dev_theme_id = shopify_themes[:theme_id_one]
+	end 
+
+	puts ''
+  puts "Switching local environment to the Dev theme..."
+  puts `theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{dev_theme_id}`
+  
+	puts ''  
+  puts "Switch complete, happy coding..."
+	puts 'Current Dev Theme: ' + `../shopify-cli.rb theme_name #{dev_theme_id}`
+	#puts 'Current Dev Theme URL: ' + `theme open` 
+	puts ''  
+
+
+# find the theme that is not currently in use
+# switch locally to that dev theme (set config)
+# git pull ( pull down theme files from git)
+# theme update (push up theme files to shopify)
+# turn on theme watch
+
+end
+
+desc "Deploy"
+task :deploy do
+
+# turn off theme watch
+# switch the site to the local theme were editing 
+# git push (update)
+
+
+end	
+
+task :describe do
+  puts ""
+  puts "-- Welcome to the Biolite Shopify Development Theme Environment --"
+  puts "This is a collection of simple scripts to help start lcoal development & to deploy"
+  puts " Run `rake -T` for all the options"
+  puts ""
+
+	config = YAML.load_file('config.yml')
+	puts config.inspect
+
+end
+
+task :default => 'describe'

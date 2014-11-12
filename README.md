@@ -19,6 +19,16 @@ Repo for the Biolite Shopify theme development.
 
 ### Workflow
 
+1. `shopify add biolite-2`
+    * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`
+    * **Password**: `15dc54093806a300a6c76c4bda461136`
+    * **Editor**: `irb`
+
+1. `shopify console`
+1. `ShopifyAPI::Product.count`
+1. `ShopifyAPI::Theme.where(:role => 'main')`
+
+
 The Github master will function as the HEAD for the theme master, *Biolite-Master*. Each developer should always first merge their changes with this repository before publishing to the main Shopify theme.
 
 Each user works on a "branch" which is a duplicate of the main theme, *Biolite-Master*. This allows each developer to run the `theme watch` command and make use of the edit-save-upload-refresh flow.
