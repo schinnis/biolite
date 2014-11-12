@@ -6,7 +6,7 @@ desc "Start Local Development"
 task :start_local_dev do
 
 	config = YAML.load_file('config.yml')
-	shopify_themes = YAML.load_file('shopify_themes.yml')
+	shopify_themes = YAML.load_file('shopify-themes.yml')
 
 	puts ''
 	puts "Asking Shopify which theme is currently live..."
@@ -20,21 +20,25 @@ task :start_local_dev do
 	end 
 
 	puts ''
+  puts "Switching local environment to the Current Live theme..."
+  puts `theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}`
+
+	puts ''
+	puts "Let's download the Current Live theme files so we're up to date"
+	puts `theme download` 
+
+	puts ''
   puts "Switching local environment to the Dev theme..."
   puts `theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{dev_theme_id}`
   
 	puts ''  
-  puts "Switch complete, happy coding..."
-	puts 'Current Dev Theme: ' + `../shopify-cli.rb theme_name #{dev_theme_id}`
-	#puts 'Current Dev Theme URL: ' + `theme open` 
+  puts "Switch complete, let's upload the Current Live theme files to the Dev theme so we're in sync"
+	puts `theme upload` 
+
 	puts ''  
-
-
-# find the theme that is not currently in use
-# switch locally to that dev theme (set config)
-# git pull ( pull down theme files from git)
-# theme update (push up theme files to shopify)
-# turn on theme watch
+  puts "Updates complete, turn on 'theme watch' and start coding..."
+	puts 'Current Dev Theme: ' + `../shopify-cli.rb theme_name #{dev_theme_id}`
+	puts ''  
 
 end
 
@@ -54,10 +58,6 @@ task :describe do
   puts "This is a collection of simple scripts to help start lcoal development & to deploy"
   puts " Run `rake -T` for all the options"
   puts ""
-
-	config = YAML.load_file('config.yml')
-	puts config.inspect
-
 end
 
 task :default => 'describe'
