@@ -21,19 +21,19 @@ task :start_local_dev do
 
 	puts ''
   puts "Switching local environment to the Current Live theme..."
-  puts `theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}`
+  puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}")
 
 	puts ''
 	puts "Let's download the Current Live theme files so we're up to date"
-	puts `theme download` 
+	puts system("theme download")
 
 	puts ''
   puts "Switching local environment to the Dev theme..."
-  puts `theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{dev_theme_id}`
+  puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{dev_theme_id}")
   
 	puts ''  
   puts "Switch complete, let's upload the Current Live theme files to the Dev theme so we're in sync"
-	puts `theme upload` 
+	puts system("theme upload")
 
 	puts ''  
   puts "Updates complete, turn on 'theme watch' and start coding..."
