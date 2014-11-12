@@ -6,26 +6,22 @@ desc "Start Local Development"
 task :start_local_dev do
 
 	config = YAML.load_file('config.yml')
-	shopify_themes = YAML.load_file('shopify-themes.yml')
+	shopify_themes = YAML.load_file('shopify-theme.yml')
 
-	puts ''
-	puts "Asking Shopify which theme is currently live..."
-	main_theme_id = `../shopify-cli.rb main_theme_id`
-	puts 'Current Live Theme: ' + `../shopify-cli.rb theme_name #{main_theme_id}`
+	dev_theme_id = shopify_themes[:dev_theme]
+
+	# puts ''
+	# puts "Asking Shopify which theme is currently live..."
+	# main_theme_id = `../shopify-cli.rb main_theme_id`
+	# puts 'Current Live Theme: ' + `../shopify-cli.rb theme_name #{main_theme_id}`
 	
-	if shopify_themes[:theme_id_one] == main_theme_id 
-		dev_theme_id = shopify_themes[:theme_id_two]
-	else
-		dev_theme_id = shopify_themes[:theme_id_one]
-	end 
-
-	puts ''
-  puts "Switching local environment to the Current Live theme..."
-  puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}")
+ # puts ''
+ #  puts "Switching local environment to the Current Live theme..."
+ #  puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}")
 
 	puts ''
 	puts "Let's download the Current Live theme files so we're up to date"
-	puts system("theme download")
+	puts system("git pull origin master")
 
 	puts ''
   puts "Switching local environment to the Dev theme..."
@@ -38,18 +34,25 @@ task :start_local_dev do
 	puts ''  
   puts "Updates complete, turn on 'theme watch' and start coding..."
 	puts 'Current Dev Theme: ' + `../shopify-cli.rb theme_name #{dev_theme_id}`
+	puts system("theme watch")
 	puts ''  
 
 end
 
 desc "Deploy"
 task :deploy do
+	shopify_themes = YAML.load_file('shopify-theme.yml')
 
-# turn off theme watch
-# switch the site to the local theme were editing 
-# git push (update)
+	github_repo    = shopify_themes[:github_repo]
+	master_zip     = "#{github_repo}/archive/master.zip"
 
+	datetime       = DateTime.now.strftime("%F_%H%M%S")
+	theme_name     = "Deploy_#{datetime}"
 
+	puts ''  
+  puts "Deploying from master..."
+	puts system("../shopify-cli.rb create_deploy_theme #{master_zip} #{theme_name}")
+	puts ''  
 end	
 
 task :describe do

@@ -5,36 +5,52 @@ Repo for the Biolite Shopify theme development.
 
 ### Development Environment Config
 
+1. Assuming you have RVM installed...
 
-1. Install `shopify_theme` ruby gem with `gem install shopify_theme`. (May need sudo)
+1. cd into the root directory & `bundle install`
 
-1. In the Shopify Admin, go to Themes. Find/create your theme (Ex: *Biolite-&lt;FirstName&gt;*). Click customize theme. In the URL bar, you can find your `theme_id`
+1. In the Shopify Admin, go to Themes. Find/create your theme (Ex: *Dev-&lt;FirstName&gt;*). Click customize theme. In the URL bar, you can find your `theme_id` 
 
-1. In the Shopify Admin, go to Apps -> Private Apps -> Shopify CLI to get the API Key & Password. As of 10/28/2014 they are:
+1. In the Shopify Admin, go to Apps -> Private Apps -> Development & Deployment to get the API Key & Password. As of 10/28/2014 they were:
     * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`
     * **Password**: `15dc54093806a300a6c76c4bda461136`
+    * 
+    
+1. cd into the 'theme' directory, and run `theme configure <api_key> <password> biolite-2.myshopify.com <theme_id>`
 
-1. In the theme directory locally, after installing the shopify_theme gem, run `theme configure <api_key> <password> biolite-2.myshopify.com <theme_id>`
+1. cd into the 'theme' directory, and run 'cp shopify-theme-sample.yml shopify-theme.yml'
+
+1. open shopify-theme.yml and change the dev_theme to your 'theme_id'
+
+1. cd into the 'theme' directory, and run `rake start_local_dev`
+
+1. run `theme watch`
 
 
-### Workflow
+### Deployment Config
 
-1. `shopify add biolite-2`
+1. run `shopify add biolite-2` - if not set up yet
     * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`
     * **Password**: `15dc54093806a300a6c76c4bda461136`
     * **Editor**: `irb`
+    * 
 
-1. `shopify console`
-1. `ShopifyAPI::Product.count`
-1. `ShopifyAPI::Theme.where(:role => 'main')`
+1. update master in github (deploy will only pull from master)
+
+1. cd into the 'theme' directory, and run `rake deploy`
+
+1. verify the live site & roll back by publishing the previous deployed theme from the Shopify Admin
 
 
-The Github master will function as the HEAD for the theme master, *Biolite-Master*. Each developer should always first merge their changes with this repository before publishing to the main Shopify theme.
+### Notes
 
-Each user works on a "branch" which is a duplicate of the main theme, *Biolite-Master*. This allows each developer to run the `theme watch` command and make use of the edit-save-upload-refresh flow.
+1. Each developer works from their own branch of the master (deployed) branch. First merge your changes to master before deploying.
 
-To view your changes on your unpublished theme, go to Themes -> Customize -> Preview in new window. The URL should have this format: `http://biolite-2.myshopify.com/?design_theme_id=<theme_id>`
+1. Each deployed theme will be called *Deploy_2014-10-10_120105* - Rollback to a previous deploy by publishing an older deploy from the shopify Admin.
 
+1. To develop locally, you must have an Internet connection and run `theme watch` so your changes are uploaded to your development theme at Shopify
+
+1. To view your changes on your development theme, run `theme open`
 
 
 

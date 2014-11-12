@@ -113,7 +113,7 @@ module ShopifyAPI
       IRB.start
     end
 
-    desc "main_theme_id", "output the main theme id (in use) for this store CONNECTION"
+    desc "main_theme_id", "output the main theme id (in use) for this store"
     def main_theme_id
       file = config_file(nil)
       config = YAML.load(File.read(file))
@@ -122,7 +122,7 @@ module ShopifyAPI
       puts main_theme[0].id
     end
 
-    desc "theme_name [ID]", "output the theme name for this store CONNECTION and ID"
+    desc "theme_name [ID]", "output the theme name for this theme ID"
     def theme_name(id)
       file = config_file(nil)
       config = YAML.load(File.read(file))
@@ -133,6 +133,15 @@ module ShopifyAPI
         json_theme = JSON.parse(theme)
         puts json_theme["name"] if json_theme["id"].to_s == id.to_s
       end
+    end
+
+    desc "create_deploy_theme [THEME_ZIP] [THEME_NAME]", "Create a new deploy theme and set it to main"
+    def create_deploy_theme(theme_zip, theme_name)
+      file = config_file(nil)
+      config = YAML.load(File.read(file))
+      ShopifyAPI::Base.site = site_from_config(config)
+      result = ShopifyAPI::Theme.create(:name => theme_name, :src => theme_zip, :role => 'main')
+      puts result
     end
      
     private
