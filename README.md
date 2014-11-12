@@ -3,7 +3,9 @@ Biolite Shopify Theme
 Repo for the Biolite Shopify theme development.
 
 
-### Development Environment Config
+### Development Environment Setup
+
+1. Get the repo cloned locally with `git clone https://github.com/fiftyandfiftyorg/biolite`
 
 1. Assuming you have RVM installed...
 
@@ -24,10 +26,25 @@ Repo for the Biolite Shopify theme development.
 
 1. cd into the 'theme' directory, and run `rake start_local_dev`
 
-1. run `theme watch`
+1. This will create a branch with the same name as your Theme, update the Theme at Shopify and start theme watch locally
 
 
-### Deployment Config
+### Development Environment Process
+
+1. cd into the root directory and `git pull origin master` to update your local files
+
+1. `git checkout <theme_name>` to start working locally
+
+1. cd to the theme directory and run `theme watch`
+
+1. run `theme open` to view your changes at Shopify
+
+1. merge your changes to the master branch when ready
+
+
+
+
+### Deployment
 
 1. run `shopify add biolite-2` - if not set up yet
     * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`

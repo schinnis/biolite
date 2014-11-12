@@ -143,6 +143,24 @@ module ShopifyAPI
       result = ShopifyAPI::Theme.create(:name => theme_name, :src => theme_zip, :role => 'main')
       puts result
     end
+
+    desc "update_theme_name [THEME_ID] [THEME_NAME]", "Update the theme name"
+    def update_theme_name(theme_id, theme_name)
+      file   = config_file(nil)
+      config = YAML.load(File.read(file))
+      ShopifyAPI::Base.site = site_from_config(config)
+      all_themes = ShopifyAPI::Theme.all
+      all_themes.each do |t|
+        theme = t.to_json
+        json_theme = JSON.parse(theme)
+        this_theme = t if json_theme["id"].to_s == theme_id.to_s
+      end
+      if this_theme
+        puts this_theme.update_attributes(:name => theme_name)
+      else
+        puts 'Theme not found by id: ' + theme_id.to_s
+      end
+    end
      
     private
      

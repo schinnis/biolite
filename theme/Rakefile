@@ -5,34 +5,32 @@ require 'yaml'
 desc "Start Local Development"
 task :start_local_dev do
 
-	config = YAML.load_file('config.yml')
-	shopify_themes = YAML.load_file('shopify-theme.yml')
-
-	dev_theme_id = shopify_themes[:dev_theme]
-
-	# puts ''
-	# puts "Asking Shopify which theme is currently live..."
-	# main_theme_id = `../shopify-cli.rb main_theme_id`
-	# puts 'Current Live Theme: ' + `../shopify-cli.rb theme_name #{main_theme_id}`
-	
- # puts ''
- #  puts "Switching local environment to the Current Live theme..."
- #  puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{main_theme_id}")
+	config 						= YAML.load_file('config.yml')
+	shopify_themes 		= YAML.load_file('shopify-theme.yml')
 
 	puts ''
 	puts "Let's download the Current Live theme files so we're up to date"
-	puts system("git pull origin master")
+	system("git checkout master")
+	system("git pull origin master")
+
+	dev_theme_id   		= shopify_themes[:dev_theme]
+	dev_theme_name 		= `../shopify-cli.rb theme_name #{dev_theme_id}`
+	dev_theme_branch 	= dev_theme_name.downcase
+
+	puts ''
+	puts "Create & switch to out development branch"
+	system("git checkout -b #{dev_theme_branch}") || system("git checkout #{dev_theme_branch}")
 
 	puts ''
   puts "Switching local environment to the Dev theme..."
   puts system("theme configure #{config[:api_key]} #{config[:password]} biolite-2.myshopify.com #{dev_theme_id}")
   
 	puts ''  
-  puts "Switch complete, let's upload the Current Live theme files to the Dev theme so we're in sync"
+  puts "Switch complete, let's upload the Current theme files to the Dev theme so we're in sync"
 	puts system("theme upload")
 
 	puts ''  
-  puts "Updates complete, turn on 'theme watch' and start coding..."
+  puts "Updates complete, turning on 'theme watch', time to start coding..."
 	puts 'Current Dev Theme: ' + `../shopify-cli.rb theme_name #{dev_theme_id}`
 	puts system("theme watch")
 	puts ''  
