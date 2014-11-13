@@ -13,9 +13,9 @@ Repo for the Biolite Shopify theme development.
 
 1. In the Shopify Admin, go to Themes. Find/create your theme (Ex: *Dev-&lt;FirstName&gt;*). Click customize theme. In the URL bar, you can find your `theme_id` 
 
-1. In the Shopify Admin, go to Apps -> Private Apps -> Development & Deployment to get the API Key & Password. As of 10/28/2014 they were:
-    * **API Key**: `3f303ccf94aaf7c1ee519f40cfc46f43`
-    * **Password**: `15dc54093806a300a6c76c4bda461136`
+1. In the Shopify Admin, go to Apps -> Private Apps -> Development & Deployment to get the API Key & Password. As of 11/13/2014 they were:
+    * **API Key**: `a330d26ca1abac5190a65d3fc9896c67`
+    * **Password**: `20bc52fcf44242fc13bf161464058d67`
     * 
     
 1. cd into the 'theme' directory, and run `theme configure <api_key> <password> biolite-2.myshopify.com <theme_id>`
