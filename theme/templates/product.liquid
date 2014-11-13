@@ -29,6 +29,8 @@
 {% endif %}
 {% endfor %}
  
+<!-- biolite product meta -->
+{% assign product_modules = product.metafields.product_module %}
  
 {% if csp_visible == false %} 
 Product is not available
@@ -48,9 +50,34 @@ Product is not available
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}">
 
-  {% include 'breadcrumb' %}
+  <div class="grid-item large--one-whole">
+
+        <h1 itemprop="name">{{ product.title }}</h1>
+        
+
+        <h3 itemprop="description">{{ product.description }}</h3>
+
+        <a href="{{ product.images.first.src | product_img_url: 'grande' }}">
+          <img src="{{ product.images.first.src | product_img_url: 'grande' }}" alt="{{ product.images.first.alt | escape }}"> 
+        </a>
+
+  </div>
+
+
+  
 
   <div class="grid">
+
+    {% if product_modules.video_hero %} 
+    <div class="grid-item large--one-whole">
+
+        <div class="video_hero">
+          {{ product_modules.video_hero }}
+        </div>
+
+    </div>
+    {% endif %} 
+
     <div class="grid-item large--one-half">
 
       {% comment %}
@@ -83,7 +110,7 @@ Product is not available
             {% for image in product.images %}
               <li class="grid-item one-quarter">
                 <a href="{{ image.src | product_img_url: 'grande' }}" class="product-photo-thumb">
-                  <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+                  <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}"> 
                 </a>
               </li>
             {% endfor %}
@@ -100,8 +127,6 @@ Product is not available
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-
-        <h2 itemprop="name">{{ product.title }}</h2>
 
         {% if product.available %}
           <link itemprop="availability" href="http://schema.org/InStock">
