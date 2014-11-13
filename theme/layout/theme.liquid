@@ -140,11 +140,6 @@
         <div class="grid-item large--two-thirds">
           {% include 'site-nav' %}
         </div>
-        <div class="grid-item large--one-third">
-          <div class="nav-search">
-            {% include 'search-bar' %}
-          </div>
-        </div>
       </div>
     </div>
   </nav>
@@ -200,7 +195,7 @@
 <!--For showing multiple currencies, defined in settings-->  
 {% include 'currencies' %}
 
-<!--Custom IP Switching -->
+<!--Custom IP Switching Jacascript-->
 <script type="text/javascript">
   BioliteLocale.show_locale_switcher();
 </script>
@@ -209,6 +204,7 @@
 <script type="text/javascript" charset="utf-8">
 var shappify_customer_tags ={{ customer.tags|json }}
 </script>
+
 <!--End Customer Pricing -->
 {% include 'shopify-wishlist' %}
 </body>

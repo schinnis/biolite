@@ -4,53 +4,82 @@
 
     <div class="grid">
 
-      {% if settings.footer_display_quicklinks %}
-        <div class="grid-item medium--one-half large--three-twelfths">
-          <h3>Quick Links</h3>
-          <ul>
-            {% for link in linklists[settings.footer_quicklinks_linklist].links %}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-            {% endfor %}
-          </ul>
+      <div class="grid-item medium--one-whole">
+        
+        <div class="grid">
+          
+          <div class="grid-item medium--one-half">
+            {% include 'breadcrumb' %}
+          </div>
+          
+          <div class="grid-item medium--one-half right">
+            {% comment %}
+              Loop through the social network links
+            {% endcomment %}
+            <ul class="inline-list social-icons">
+              {% if settings.social_twitter_link != blank %}
+                <li>
+                  <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
+                    <span class="icon icon-twitter" aria-hidden="true"></span>
+                    <span class="fallback-text">Twitter</span>
+                  </a>
+                </li>
+              {% endif %}
+              {% if settings.social_facebook_link != blank %}
+                <li>
+                  <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
+                    <span class="icon icon-facebook" aria-hidden="true"></span>
+                    <span class="fallback-text">Facebook</span>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>     
+
         </div>
-      {% endif %}
 
-      {% if settings.footer_display_social %}
-      <div class="grid-item medium--one-half large--five-twelfths">
-        <h3>Get Connected</h3>
-          {% comment %}
-            Loop through the social network links
-          {% endcomment %}
-          <ul class="inline-list social-icons">
-            {% if settings.social_twitter_link != blank %}
-              <li>
-                <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
-                  <span class="icon icon-twitter" aria-hidden="true"></span>
-                  <span class="fallback-text">Twitter</span>
-                </a>
-              </li>
-            {% endif %}
-            {% if settings.social_facebook_link != blank %}
-              <li>
-                <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
-                  <span class="icon icon-facebook" aria-hidden="true"></span>
-                  <span class="fallback-text">Facebook</span>
-                </a>
-              </li>
-            {% endif %}
-          </ul>
       </div>
-      {% endif %}
 
-      {% if settings.footer_display_newsletter %}
-      <div class="grid-item large--one-third">
-        <h3>Newsletter</h3>
-        {% include 'newsletter-form' %}
-      </div>
-      {% endif %}
     </div>
 
     <hr>
+
+    <div class="grid">
+
+      <div class="grid-item medium--one-whole">
+
+          <ul class="site-nav" id="accessibleNav">
+            {% for link in linklists.footer.links %}
+              {% comment %}
+                Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+                More info on dropdowns:
+                  - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+              {% endcomment %}
+              {% assign child_list_handle = link.title | handleize %}
+              {% if linklists[child_list_handle].links != blank %}
+                <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                  <ul class="site-nav--dropdown">
+                    {% for childlink in linklists[child_list_handle].links %}
+                      <li {% if childlink.active %}class="site-nav--active"{% endif %}><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li {% if link.active %}class="site-nav--active"{% endif %}>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            <li>
+              {% include 'search-bar' %}
+            </li>
+          </ul>
+
+      </div>
+
+    </div>
 
     {% comment %}
       Loop through available payment methods and show their icons.
@@ -68,11 +97,6 @@
       {% endfor %}
     </ul>
     {% endunless %}
-
-    <p class="text-center">
-      <a href="http://shopify.com/timber">Timber Theme Framework</a> by <a href="http://www.shopify.com?ref=Timber" title="Shopify.com">Shopify</a><br>
-      <small>{{ powered_by_link }}</small>
-    </p>
 
   </div>
 
