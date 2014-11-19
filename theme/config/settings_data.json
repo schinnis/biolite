@@ -46,7 +46,16 @@
     "checkout_accent_color": "#2a9dcc",
     "checkout_button_color": "#2a9dcc",
     "checkout_call_to_action_color": "#8fc243",
-    "customer_layout": "theme"
+    "customer_layout": "theme",
+    "swpIsRegistryEnabled": true,
+    "swpIsWishlistEnabled": true,
+    "swpRegistryTitle": "Registry",
+    "swpWishlistTitle": "Wishlist",
+    "swpAddToRegistryTitle": "Add to Registry",
+    "swpAddToWishlistTitle": "Add to Wishlist",
+    "swpRegistryImageLink": "//assets.shopifywishlistpremium.com/gift_white.png",
+    "swpWishlistImageLink": "//assets.shopifywishlistpremium.com/heart_white.png",
+    "swpShowTextLinks": true
   },
   "presets": {
     "Default": {
@@ -66,7 +75,16 @@
       "footer_display_social": true,
       "footer_quicklinks_linklist": "footer",
       "logo_max_width": "450px",
-      "logo_use_image": false
+      "logo_use_image": false,
+      "swpIsRegistryEnabled": true,
+      "swpIsWishlistEnabled": true,
+      "swpRegistryTitle": "Registry",
+      "swpWishlistTitle": "Wishlist",
+      "swpAddToRegistryTitle": "Add to Registry",
+      "swpAddToWishlistTitle": "Add to Wishlist",
+      "swpRegistryImageLink": "//assets.shopifywishlistpremium.com/gift_white.png",
+      "swpWishlistImageLink": "//assets.shopifywishlistpremium.com/heart_white.png",
+      "swpShowTextLinks": true
     }
   }
 }
