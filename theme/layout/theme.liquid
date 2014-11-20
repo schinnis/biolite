@@ -58,6 +58,7 @@
   {{ 'modernizr.min.js' | asset_url | script_tag }}
 
   {{ 'biolite-locale.js' | asset_url | script_tag }}
+  {{ 'biolite-global.js' | asset_url | script_tag }}
 </head>
 
 {% comment %}
@@ -199,13 +200,16 @@
 <script type="text/javascript">
   BioliteLocale.show_locale_switcher();
 </script>
+<!--End Custom IP Switching Jacascript-->
 
 <!--Customer Pricing App -->
 <script type="text/javascript" charset="utf-8">
 var shappify_customer_tags ={{ customer.tags|json }}
 </script>
-
 <!--End Customer Pricing -->
+
 {% include 'shopify-wishlist' %}
+
+{% include 'fiftyandfifty-debug' %}
 </body>
 </html>
