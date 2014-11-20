@@ -47,7 +47,7 @@
     "checkout_button_color": "#2a9dcc",
     "checkout_call_to_action_color": "#8fc243",
     "customer_layout": "theme",
-    "swpIsRegistryEnabled": true,
+    "swpIsRegistryEnabled": false,
     "swpIsWishlistEnabled": true,
     "swpRegistryTitle": "Registry",
     "swpWishlistTitle": "Wishlist",

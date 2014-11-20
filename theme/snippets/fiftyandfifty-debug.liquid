@@ -1,0 +1,13 @@
+<script type="text/javascript">  
+  console.log('Shopify', Shopify.shop, Shopify)
+  console.log('ajaxifyShopify',ajaxifyShopify)
+</script>  
+
+<button id="debug-div-toggle">Template Debug</button>
+<div id="debug-div">
+	<ul>
+	{% for setting in settings %}
+		<li>{{ setting }}</li>
+	{% endfor %}
+	</ul>
+</div>
