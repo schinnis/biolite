@@ -50,228 +50,211 @@ Product is not available
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}">
 
-  <div class="grid-item large--one-whole">
-
-        <h1 itemprop="name">{{ product.title }}</h1>
-        
-
-        <h3 itemprop="description">{{ product.description }}</h3>
-
-        <a href="{{ product.images.first.src | product_img_url: 'grande' }}">
-          <img src="{{ product.images.first.src | product_img_url: 'grande' }}" alt="{{ product.images.first.alt | escape }}"> 
-        </a>
-
-  </div>
 
 
-  
 
+<section class="section">
   <div class="grid">
-
-    {% if product_modules.video_hero %} 
-    <div class="grid-item large--one-whole">
-
-        <div class="video_hero">
-          {{ product_modules.video_hero }}
-        </div>
-
-    </div>
-    {% endif %} 
-
-    <div class="grid-item large--one-half">
-
-      {% comment %}
-        If we only have one product image, show a large version of it.
-        If we have more than 1, show it then loop through the rest as thumbnails.
-      {% endcomment %}
-      {% if product.images.size == 0 %}
-
-        <div class="product-photo-container" id="productPhoto">
-          <img src="{{ '' | product_img_url: 'grande' }}" alt="" id="productPhotoImg">
-        </div>
-
-      {% else %}
-
-        <div class="product-photo-container" id="productPhoto">
-          <a href="{{ product.featured_image.src | product_img_url: 'original' }}">
-            <img src="{{ product.featured_image.src | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" id="productPhotoImg">
-          </a>
-        </div>
+    <div class="wrapper"> 
+      <div class="grid__item large--one-half">
 
         {% comment %}
-          If we have more than one product image, loop through them and create thumbnails.
-
-          By default, images will link to their grande size (600x600).
-          Thumbnail swapping is enabled in shop.js.liquid.
+          If we only have one product image, show a large version of it.
+          If we have more than 1, show it then loop through the rest as thumbnails.
         {% endcomment %}
-        {% if product.images.size > 1 %}
-          <ul class="product-photo-thumbs grid-uniform" id="productThumbs">
+        {% if product.images.size == 0 %}
 
-            {% for image in product.images %}
-              <li class="grid-item one-quarter">
-                <a href="{{ image.src | product_img_url: 'grande' }}" class="product-photo-thumb">
-                  <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}"> 
-                </a>
-              </li>
-            {% endfor %}
+          <div class="product-photo-container" id="productPhoto">
+            <img src="{{ '' | product_img_url: 'grande' }}" alt="" id="productPhotoImg">
+          </div>
 
-          </ul>
-        {% endif %}
-
-      {% endif %}
-
-    </div>
-
-    <div class="grid-item large--one-half">
-
-      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-
-        {% if product.available %}
-          <link itemprop="availability" href="http://schema.org/InStock">
         {% else %}
-          <link itemprop="availability" href="http://schema.org/OutOfStock">
-        {% endif %}
 
-        {% comment %}
-          ID addToCartForm is a selector for the ajaxify cart plugin
-        {% endcomment %}
-        <form action="/cart/add" method="post" enctype="multipart/form-data" id="addToCartForm">
+          <div class="product-photo-container" id="productPhoto">
+            <a href="{{ product.featured_image.src | product_img_url: 'original' }}">
+              <img src="{{ product.featured_image.src | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" id="productPhotoImg">
+            </a>
+          </div>
 
           {% comment %}
-            Add product variants as a dropdown.
-              - By default, each variant (or combination of variants) will display as its own <option>
-              - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
-
-            You can leverage jQuery to add a callback on page load and each time the select element changes:
-              - Include option_selection.js (as seen at the bottom of this file)
-              - This allows you to use JavaScript anytime the variant dropdown changes
-              - This also separates out your variant options (ie. size, color, etc.) to separate select elements
-
-            For more information on products with multiple options, visit:
-              - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
-
+            If we have more than one product image, loop through them and create thumbnails.
+            By default, images will link to their grande size (600x600).
+            Thumbnail swapping is enabled in shop.js.liquid.
           {% endcomment %}
-          <select name="id" id="productSelect" class="product-variants">
-            {% for variant in product.variants %}
-              {% if variant.available %}
-
-                {% comment %}
-                  Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                {% endcomment %}
-                {% include 'shappify-variant-is-csp' %}
-                {% if csp_variant == 1 %}
-                  <option value="{{variant.id}}">
-                    {{ variant.title }} - {{ variant.price | money_with_currency }}
-                  </option>
-                {% endif %}
-
-              {% else %}
-                <option disabled="disabled">
-                  {{ variant.title }} - Sold out
-                </option>
-              {% endif %}
-            {% endfor %}
-          </select>
-
-
-          {% assign tag_price = 0 %}
-          {% assign tag = 'default' %}
-
-          {% if customer.tags.size > 0 %}
-            {% for cust_tag in customer.tags %}
-              {% if product.metafields.shappify_csp[cust_tag] %}
-              { % assign tag = cust_tag %}
-              {% endif %}
-            {% endfor %}
+          {% if product.images.size > 1 %}
+            <ul class="product-photo-thumbs grid-uniform" id="productThumbs">
+              {% for image in product.images %}
+                <li class="grid__item one-quarter">
+                  <a href="{{ image.src | product_img_url: 'grande' }}" class="product-photo-thumb">
+                    <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}"> 
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
           {% endif %}
-
-          {% if product.metafields.shappify_csp[tag] %}
-            {% assign tag_price = 1 %}
-          {% endif %}
-          
-          {% if tag_price != 1 %}
-            <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
-            {{ product.price | money }}
-            </span>
-
-            {% if product.compare_at_price > product.price %}
-              <span id="comparePrice" class="h5">
-                Compare at:
-                {{ product.compare_at_price_max | money }}
-              </span>
-            {% endif %}
-
-          
-          {% else %}
-
-            {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
-            {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
-            {% capture attribute_price %}{{tag}}{% endcapture %}
-           
-            <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
-              {{ product.metafields.shappify_csp[attribute_price] }}
-            </span>
-
-            {% if product.compare_at_price > product.price %}
-              <span id="comparePrice" class="h5">
-                Compare at: {{ product.compare_at_price_max | money }}
-              </span>
-            {% endif %}
-           
-          {% endif %}
-
-
-
-          <label for="quantity">Quantity</label>
-          <input type="number" id="quantity" name="quantity" value="1" min="1">
-
-          <input type="submit" name="add" class="btn" id="addToCart" value="Add to Cart">
-          
-        </form>
-        
-        <div class="product-description rte" itemprop="description">
-          {{ product.description }}
-          {% include 'addthis' %}
-        </div>
+        {% endif %}
 
       </div>
 
-      {% comment %}
-        If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
-        in the URL, we can show next/previous links to other products in the collection.
-      {% endcomment %}
-      {% if collection %}
-        {% if collection.previous_product or collection.next_product %}
-          <p>
-
-          {% if collection.previous_product %}
-            {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
-            <span class="left">
-              {{ '&larr; Previous Product' | link_to: prev_url }}
-            </span>
+      <div class="grid__item large--one-half">
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          {% if product.available %}
+            <link itemprop="availability" href="http://schema.org/InStock">
+          {% else %}
+            <link itemprop="availability" href="http://schema.org/OutOfStock">
           {% endif %}
 
-          {% if collection.next_product %}
-            {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
-            <span class="right">
-              {{ 'Next Product &rarr;' | link_to: next_url }}
-            </span>
-          {% endif %}
+          {% comment %}
+            ID addToCartForm is a selector for the ajaxify cart plugin
+          {% endcomment %}
+          <form action="/cart/add" method="post" enctype="multipart/form-data" id="addToCartForm">
+            {% comment %}
+              Add product variants as a dropdown.
+                - By default, each variant (or combination of variants) will display as its own <option>
+                - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
 
-          </p>
+              You can leverage jQuery to add a callback on page load and each time the select element changes:
+                - Include option_selection.js (as seen at the bottom of this file)
+                - This allows you to use JavaScript anytime the variant dropdown changes
+                - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+
+              For more information on products with multiple options, visit:
+                - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+            {% endcomment %}
+            <select name="id" id="productSelect" class="product-variants">
+              {% for variant in product.variants %}
+                {% if variant.available %}
+
+                  {% comment %}
+                    Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                  {% endcomment %}
+                  {% include 'shappify-variant-is-csp' %}
+                  {% if csp_variant == 1 %}
+                    <option value="{{variant.id}}">
+                      {{ variant.title }} - {{ variant.price | money_with_currency }}
+                    </option>
+                  {% endif %}
+                {% else %}
+                  <option disabled="disabled">
+                    {{ variant.title }} - Sold out
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+
+            {% assign tag_price = 0 %}
+            {% assign tag = 'default' %}
+
+            {% if customer.tags.size > 0 %}
+              {% for cust_tag in customer.tags %}
+                {% if product.metafields.shappify_csp[cust_tag] %}
+                { % assign tag = cust_tag %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+            {% if product.metafields.shappify_csp[tag] %}
+              {% assign tag_price = 1 %}
+            {% endif %}
+            
+            {% if tag_price != 1 %}
+              <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
+              {{ product.price | money }}
+              </span>
+              {% if product.compare_at_price > product.price %}
+                <span id="comparePrice" class="h5">
+                  Compare at:
+                  {{ product.compare_at_price_max | money }}
+                </span>
+              {% endif %}
+            {% else %}
+
+              {% capture attribute_price_min %}{{tag}}_raw_lownum{% endcapture %}
+              {% capture attribute_price_max %}{{tag}}_price_high{% endcapture %}
+              {% capture attribute_price %}{{tag}}{% endcapture %}
+             
+              <span id="productPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
+                {{ product.metafields.shappify_csp[attribute_price] }}
+              </span>
+
+              {% if product.compare_at_price > product.price %}
+                <span id="comparePrice" class="h5">
+                  Compare at: {{ product.compare_at_price_max | money }}
+                </span>
+              {% endif %}
+             
+            {% endif %}
+
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1">
+            <input type="submit" name="add" class="btn" id="addToCart" value="Add to Cart">
+          </form>
+          
+          <div class="product-description rte" itemprop="description">
+            {{ product.description }}
+            {% include 'addthis' %}
+          </div>
+
+        </div>
+
+        {% comment %}
+          If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
+          in the URL, we can show next/previous links to other products in the collection.
+        {% endcomment %}
+        {% if collection %}
+          {% if collection.previous_product or collection.next_product %}
+            <p>
+
+            {% if collection.previous_product %}
+              {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
+              <span class="left">
+                {{ '&larr; Previous Product' | link_to: prev_url }}
+              </span>
+            {% endif %}
+
+            {% if collection.next_product %}
+              {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
+              <span class="right">
+                {{ 'Next Product &rarr;' | link_to: next_url }}
+              </span>
+            {% endif %}
+
+            </p>
+          {% endif %}
         {% endif %}
-      {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="grid">
+    <div class="wrapper">
+
+      {% if product_modules.video_hero %} 
+        <div class="grid__item large--one-whole">
+
+          <div class="video_hero">
+          {{ product_modules.video_hero }}
+          </div>
+
+        </div>
+      {% endif %} 
 
     </div>
   </div>
-
-
-</div>
-
-  <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
-
+</section>
+<section class="section">
+  <div class="grid">
+    <div class="wrapper">
+      <div class="grid__item large--one-whole">
+        <h3>User Reviews</h3>
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 {% comment %}
