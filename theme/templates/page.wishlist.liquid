@@ -3,7 +3,7 @@
     <h2>{{ page.title }}</h2>	
   </div>
 </div>
-<script>
+<script type="text/javascript">
 var user = '{{customer.id}}';
 if ({{ shop.metafields.wishlist_settings.wishlist_customer_checkout }} && user == '') {
     window.location = '/account/login';

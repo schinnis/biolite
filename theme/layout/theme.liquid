@@ -169,7 +169,7 @@
   {{ 'handlebars.min.js' | asset_url | script_tag }}
   {% include 'ajax-cart-template' %}
   {{ 'ajaxify.js' | asset_url | script_tag }}
-  <script>
+  <script type="text/javascript">
   jQuery(function($) {
     ajaxifyShopify.init({
       method: '{{ settings.ajax_cart_method }}', // Method options are drawer, modal, and flip. Default is drawer.

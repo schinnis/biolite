@@ -3,7 +3,7 @@
 {{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
 {{ "jquery.currencies.min.js" | asset_url | script_tag }}
 
-<script>
+<script type="text/javascript">
 
 {% if settings.currency_format %}
 Currency.format = '{{ settings.currency_format }}';

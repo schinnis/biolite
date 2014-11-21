@@ -188,13 +188,13 @@
           <input type="submit" class="btn" value="Post Comment">
 
           {% if form.errors %}
-            <script>
+            <script type="text/javascript">
               window.location.hash = '#add-comment-title';
             </script>
           {% endif %}
 
           {% if form.posted_successfully? %}
-            <script>
+            <script type="text/javascript">
               window.location.hash = '#comments';
             </script>
           {% endif %}
