@@ -69,6 +69,7 @@ Repo for the Biolite Shopify theme development.
 
 1. To view your changes on your development theme, run `theme open`
 
+1. Shopify Cheatsheet: http://cheat.markdunkley.com
 
 
 ### References / Documentation

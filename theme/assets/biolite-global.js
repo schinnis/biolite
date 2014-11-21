@@ -1,15 +1,11 @@
-(function($) {
+if ((typeof BioliteGlobal) === 'undefined') { BioliteGlobal = {}; }
 
-	console.log( "debug loaded" )
 
-	$( "#debug-div-toggle" ).click(function(e)
-	{
-		console.log( "click debug-div", e )
-		e.preventdefault();
-		
-		$( "#debug-div" ).toggle( "slow", function() {
-			console.log( "show debug-div" )
-		});
-	});
 
-}(jQuery));
+BioliteGlobal.biolite_set_product_price= function(countryCode)
+{
+	$.cookie("locale", countryCode, { path: '/', expires: 30 });
+	console.log('set_locale_cookie:', countryCode);
+}
+
+BioliteGlobal.loaded = true;
