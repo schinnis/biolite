@@ -28,8 +28,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- CSS ================================================== -->
-  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
-  {{ 'biolite.scss.css' | asset_url | stylesheet_tag }}
+
+  {{ 'custom-style.scss' | asset_url | stylesheet_tag }}
 
   {% if settings.ajax_cart %}
   <!-- Ajaxify Cart Plugin ================================================== -->
@@ -66,7 +66,7 @@
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
 
-  <header class="site-header" role="banner">
+<!--   <header class="site-header" role="banner">
     <div class="wrapper">
 
       <div class="grid--full">
@@ -126,16 +126,16 @@
 
           
           <!--Select Currency dropdown -->
-          {% include 'currencies-switcher' %}          
+          <!--{% include 'currencies-switcher' %}          
 
         
         </div>
       </div>
 
     </div>
-  </header>
+  </header> -->
 
-  <nav class="nav-bar" role="navigation">
+ <!--  <nav class="nav-bar" role="navigation">
     <div class="wrapper">
       <div class="grid">
         <div class="grid-item large--two-thirds">
@@ -143,14 +143,82 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> -->
 
-  <main class="wrapper main-content" role="main">
 
-    {{ content_for_layout }}
+<!--********
+    HEADER : snippet consistent across all pages
+  **********-->
+  <header id="header" class="header--absolute" role="banner">
+    <div class="header-inner">
+      <div class="grid--full">
+        <div class="grid__item large--one-quarter header-left">
+          <a href="/">
+            <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+          </a>
+        </div>
 
-  </main>
+        <div class="grid__item large--one-quarter">            
+          <!--Select Currency dropdown -->
+            {% include 'currencies-switcher' %} 
+          </div>
+      <!--************
+          GLOBAL NAV
+        ***************-->
+        <div class="grid__item large--one-half text-center text-right header-right">
+          <nav id="nav-main" class="header-nav">
+            {% include 'site-nav' %}
 
+    
+
+              {% comment %}
+            You cart/checkout link should at least show the number of items in it.
+            Below shows the item count followed by item(s) and the total cart price.
+
+            Ajaxify Cart Notes:
+              - #cartToggle toggles cart visibility (drawer or modal)
+              - #cartCount updates the total number of items in the cart
+              - #cartCost updates the total cost of the cart
+              - Documentation:  http://shopify.com/timber#ajax-cart
+          {% endcomment %}
+          <a href="/cart" id="cartToggle">
+            Cart (<span id="cartCount">{{ cart.item_count }}</span> {{ cart.item_count | pluralize: 'item', 'items' }} <span id="cartCost">{{ cart.total_price | money }}</span>)
+          </a>
+
+          {% comment %}
+            If customer accounts are enabled, provide login and create account links
+          {% endcomment %}
+          {% if shop.customer_accounts_enabled %}
+          <p class="site-header--text-links">
+            {% if customer %}
+              Logged in as <a href="/account">{{ customer.first_name }}</a> &middot; {{ 'Log out' | customer_logout_link }}
+            {% else %}
+              {{ 'Log in' | customer_login_link }}
+              {% if shop.customer_accounts_optional %}
+              or {{ 'Create an account' | customer_register_link }}
+              {% endif %}
+            {% endif %}
+          </p>
+          {% endif %}
+
+
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+ <!--HERO IMAGE SNIPPET--> 
+  {% include 'hero' %}
+
+<!--PAGE CONTENT -->
+   {{ content_for_layout }}
+
+<!--EMAIL NEWSLETTER-->
+  {% include 'newsletter-form' %}
+
+<!--GLOBAL FOOTER-->
   {% include 'footer' %}
 
   {% comment %}

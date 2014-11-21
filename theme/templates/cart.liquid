@@ -31,10 +31,10 @@
           and our quantity, price and remove buttons together
         {% endcomment %}
 
-        <div class="grid-item large--one-half">
+        <div class="grid__item large--one-half">
           <div class="grid">
 
-            <div class="grid-item one-third">
+            <div class="grid__item one-third">
               <a href="{{ item.product.url | within: collections.all }}">
 
                 {% comment %}
@@ -49,7 +49,7 @@
               If you want the product title and any variants in one line, use {{ item.title }}.
               Below they've been separated for styling purposes.
             {% endcomment %}
-            <div class="grid-item two-thirds">
+            <div class="grid__item two-thirds">
               <span class="h4">
                 <a href="{{ item.product.url }}">
                   {{ item.product.title }}
@@ -99,10 +99,10 @@
           </div>
         </div>
 
-        <div class="grid-item large--one-half">
+        <div class="grid__item large--one-half">
           <div class="grid">
 
-            <div class="grid-item one-third medium-down--one-third text-right">
+            <div class="grid__item one-third medium-down--one-third text-right">
               {% comment %}
                 Added data-id for the ajax cart implementation only.
               {% endcomment %}
