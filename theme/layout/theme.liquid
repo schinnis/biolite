@@ -152,20 +152,24 @@
   <header id="header" class="header--absolute" role="banner">
     <div class="header-inner">
       <div class="grid--full">
-        <div class="grid__item large--one-half header-left">
+        <div class="grid__item large--one-quarter header-left">
           <a href="/">
             <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
           </a>
         </div>
+
+        <div class="grid__item large--one-quarter">            
+          <!--Select Currency dropdown -->
+            {% include 'currencies-switcher' %} 
+          </div>
       <!--************
           GLOBAL NAV
         ***************-->
-        <div class="grid__item large--one-half text-center large--text-right header-right">
+        <div class="grid__item large--one-half text-center text-right header-right">
           <nav id="nav-main" class="header-nav">
             {% include 'site-nav' %}
 
-            <!--Select Currency dropdown -->
-    <!--       {% include 'currencies-switcher' %}     -->
+    
 
               {% comment %}
             You cart/checkout link should at least show the number of items in it.
