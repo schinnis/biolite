@@ -1,21 +1,29 @@
 if ((typeof BioliteLocale) === 'undefined') { BioliteLocale = {}; }
 
-BioliteLocale.iplookup_result  = {};
-BioliteLocale.iplookup_promise = null;
-BioliteLocale.country_codes = {
-	'CAD' : ['CA'], 
-	'USD' : ['US'],
-	'EUR' : ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'],
-	'AUD' : ['AU'],
-	'GBP' :	['UK']
+BioliteLocale.init = function()
+{
+	BioliteLocale.iplookup_result  = {};
+	BioliteLocale.iplookup_promise = null;
+	BioliteLocale.country_codes = {
+		'CAD' : ['CA'], 
+		'USD' : ['US'],
+		'EUR' : ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'],
+		'AUD' : ['AU'],
+		'GBP' :	['UK']
+	}
+	BioliteLocale.default_currency = 'CAD';
+	BioliteLocale.default_locale   = 'CA';
+	
+	BioliteLocale.current          = $.cookie("locale") || BioliteLocale.default_locale;
+
+	BioliteLocale.loaded = true;
 }
-BioliteLocale.default_currency = 'CAD';
-BioliteLocale.default_locale   = 'CA';
 
 
 BioliteLocale.biolite_set_locale_cookie = function(countryCode)
 {
 	$.cookie("locale", countryCode, { path: '/', expires: 30 });
+	BioliteLocale.current = countryCode;
 	console.log('set_locale_cookie:', countryCode);
 }
 
@@ -135,3 +143,5 @@ BioliteLocale.toggle_locale_chooser = function(currency, locale)
 	// show the chooser section
 	$('.currencies-box #currencies_chooser').show();
 }
+
+BioliteLocale.init();
