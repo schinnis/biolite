@@ -28,8 +28,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- CSS ================================================== -->
-
   {{ 'custom-style.scss' | asset_url | stylesheet_tag }}
+  {{ 'biolite.scss' | asset_url | stylesheet_tag }}  
 
   {% if settings.ajax_cart %}
   <!-- Ajaxify Cart Plugin ================================================== -->
@@ -56,6 +56,9 @@
   {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' | script_tag }}
   {{ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
+
+  <!--For showing multiple currencies, defined in settings-->  
+  {% include 'currencies' %}
 
   {{ 'biolite-locale.js' | asset_url | script_tag }}
   {{ 'biolite-global.js' | asset_url | script_tag }}
@@ -160,7 +163,7 @@
 
         <div class="grid__item large--one-quarter">            
           <!--Select Currency dropdown -->
-            {% include 'currencies-switcher' %} 
+            {% include 'locations-switcher' %} 
           </div>
       <!--************
           GLOBAL NAV
@@ -261,9 +264,6 @@
 
 <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
  
-<!--For showing multiple currencies, defined in settings-->  
-{% include 'currencies' %}
-
 <!--Custom IP Switching Jacascript-->
 <script type="text/javascript">
   BioliteLocale.show_locale_switcher();

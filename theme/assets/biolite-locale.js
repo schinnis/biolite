@@ -7,16 +7,49 @@ BioliteLocale.init = function()
 	BioliteLocale.country_codes = {
 		'CAD' : ['CA'], 
 		'USD' : ['US'],
-		'EUR' : ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'],
+		'EUR' : ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE', 'EU'],
 		'AUD' : ['AU'],
-		'GBP' :	['UK']
+		'GBP' :	['UK'],
+		'SEK' :	['SE'],
 	}
-	BioliteLocale.default_currency = 'CAD';
-	BioliteLocale.default_locale   = 'CA';
+	BioliteLocale.location_currencies = {
+		'CA' : ['CAD'], 
+		'US' : ['USD'],
+		'EU' : ['EUR'],
+		'AU' : ['AUD'],
+		'UK' : ['GBP'],
+		'SE' : ['SEK']
+	}
+	BioliteLocale.locations = {
+		'US' : ['United States'],
+		'AU' : ['Australia'],
+		'CA' : ['Canada'], 		
+		'EU' : ['Euro Zone'],
+		'SE' : ['Sweden'],
+		'UK' : ['United Kingdom'],
+	}	
+	BioliteLocale.default_currency 	= 'CAD';
+	BioliteLocale.default_locale   	= 'CA';
 	
-	BioliteLocale.current          = $.cookie("locale") || BioliteLocale.default_locale;
+	BioliteLocale.current          	= $.cookie("locale") || BioliteLocale.default_locale;
+
+	BioliteLocale.location_box 		= $('#locations-box');
+	BioliteLocale.location_switcher = $('select#locations');
+
+	BioliteLocale.add_location_choices();
 
 	BioliteLocale.loaded = true;
+}
+
+
+BioliteLocale.add_location_choices = function()
+{
+	$.each(BioliteLocale.locations, function(key, value) {   
+		BioliteLocale.location_switcher.append($("<option></option>")
+			.attr("value", key)
+				.text( value + ' (' + BioliteLocale.location_currencies[key] + ')' ));
+	});
+	BioliteLocale.location_box.show();
 }
 
 
@@ -144,4 +177,9 @@ BioliteLocale.toggle_locale_chooser = function(currency, locale)
 	$('.currencies-box #currencies_chooser').show();
 }
 
-BioliteLocale.init();
+
+$(function() {
+	BioliteLocale.init();
+});
+
+

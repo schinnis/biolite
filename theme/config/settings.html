@@ -356,6 +356,28 @@
       <td colspan="2"><small>Although you will be able to display prices on your store front in different currencies, Shopify will still process orders in your shop's currency.</small></td>
     </tr>
     <tr>
+      <td><label for="supported_currencies">Currencies you wish to support</label></td>
+      <td><input type="text" class="text long" name="supported_currencies" id="supported_currencies" value="CAD USD" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>Separate your currency codes with a space. Use the ISO 4217 3-letter currency code. Click <a target="_blank" href="http://www.xe.com/iso4217.php">here</a> for a complete list of currency codes. Example: <i>CAD USD EUR AUD GBP JPY</i>.</small></td>
+    </tr>
+    <tr>
+      <td><label for="supported_currencies">Currencies to Locations</label></td>
+      <td><input type="text" class="text long" name="currencies_to_locations" id="currencies_to_locations" value="CA US" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><small>These need to be in the same order as your supported currencies above. Separate your location codes codes with a space. Use the 2-letter location code. Example: <i>CA US EU AU UK JP</i>.</small></td>
+    </tr>
+    <tr>
+      <td><label for="default_currency">Default currency</label></td>
+      <td><input type="text" class="text" name="default_currency" id="default_currency" value="CAD" /></td>
+    </tr>    
+    <tr>
+      <td><label for="default_location">Default location</label></td>
+      <td><input type="text" class="text" name="default_location" id="default_location" value="CA" /></td>
+    </tr>
+    <tr>
       <td><label for="currency_format">Money format</label></td>
       <td>
         <select name="currency_format" id="currency_format">
@@ -369,20 +391,7 @@
       </td>
     </tr>
     <tr>
-      <td><label for="supported_currencies">Currencies you wish to support</label></td>
-      <td><input type="text" class="text long" name="supported_currencies" id="supported_currencies" value="CAD USD" /></td>
-    </tr>
-    <tr>
-      <td><label for="default_currency">Default currency</label></td>
-      <td><input type="text" class="text" name="default_currency" id="default_currency" value="CAD" /></td>
-    </tr>
-    <tr>
-      <td colspan="2"><small>Separate your currency codes with a space. Use the ISO 4217 3-letter currency code. Click <a target="_blank" href="http://www.xe.com/iso4217.php">here</a> for a complete list of currency codes. Example: <i>CAD USD</i>.</small></td>
-    </tr>
-    <tr>
       <td colspan="2"><small>* For this functionality to work in your shop, you are required to edit your money formats as per <a href="http://wiki.shopify.com/Do_Tell_Where_The_Money_Is" target="_blank">these instructions</a> (â€œDo tell where the money isâ€).</small></td>
     </tr>
   </table>
 </fieldset>
-
-

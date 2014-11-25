@@ -1,10 +1,13 @@
 <script type="text/javascript">  
 
-  console.log('Shopify', Shopify.shop, Shopify.formatMoney)
+  console.log('Shopify', Shopify)
 
-  //if( product )console.log('product object', product)
+  console.log('Currency', Currency);
 
-  if( BioliteLocale.get_locale )
-  	console.log('BioliteLocale.get_locale', BioliteLocale.get_locale)
+  {% if product %}
+  	console.log('product object', {{ product | json }})
+  {% endif %}
+
+  console.log('BioliteLocale', BioliteLocale)
 
 </script>

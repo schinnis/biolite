@@ -55,7 +55,9 @@
     "swpAddToWishlistTitle": "Add to Wishlist",
     "swpRegistryImageLink": "//assets.shopifywishlistpremium.com/gift_white.png",
     "swpWishlistImageLink": "//assets.shopifywishlistpremium.com/heart_white.png",
-    "swpShowTextLinks": true
+    "swpShowTextLinks": true,
+    "currencies_to_locations": "CA US EU AU UK JP",
+    "default_location": "US"
   },
   "presets": {
     "Default": {
