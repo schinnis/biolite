@@ -161,18 +161,16 @@
           </a>
         </div>
 
+        <!--Select Location dropdown -->
         <div class="grid__item large--one-quarter">            
-          <!--Select Currency dropdown -->
-            {% include 'locations-switcher' %} 
-          </div>
-      <!--************
+          {% include 'locations-switcher' %} 
+        </div>
+        <!--************
           GLOBAL NAV
         ***************-->
         <div class="grid__item large--one-half text-center text-right header-right">
           <nav id="nav-main" class="header-nav">
             {% include 'site-nav' %}
-
-    
 
               {% comment %}
             You cart/checkout link should at least show the number of items in it.
@@ -263,13 +261,6 @@
 
 
 <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
- 
-<!--Custom IP Switching Jacascript-->
-<script type="text/javascript">
-  BioliteLocale.show_locale_switcher();
-</script>
-<!--End Custom IP Switching Jacascript-->
-
 
 {% include 'shopify-wishlist' %}
 

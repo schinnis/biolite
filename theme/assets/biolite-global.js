@@ -1,10 +1,16 @@
 if ((typeof BioliteGlobal) === 'undefined') { BioliteGlobal = {}; }
 
+BioliteGlobal.init = function()
+{
+	BioliteGlobal.loaded = true;
+}
+
+
 
 
 BioliteGlobal.biolite_set_product_price = function(product)
 {
-	var locale = BioliteLocale.current,
+	var locale = BioliteLocale.current_locale,
 			addToCart = $('#addToCart'),
       productPrice = $('#productPrice');
 
@@ -15,12 +21,12 @@ BioliteGlobal.biolite_set_product_price = function(product)
 
 	for( id in product.variants )
 	{
-		console.info('variant', product.variants[id], product.variants[id].title)
+		console.info('variant', product.variants[id], product.variants[id].option1)
 
-		var title = product.variants[id].title;
+		var option1 = product.variants[id].option1;
 		var price = product.variants[id].price;
 		var avail = product.variants[id].available;
-		var split = title.split('-');
+		var split = option1.split('-');
 
 		if( split[1] == locale && avail )
 		{
@@ -66,4 +72,9 @@ BioliteGlobal.formatMoney = function(cents, format) {
   return formatString.replace(patt, value);
 };
 
-BioliteGlobal.loaded = true;
+
+
+
+$(function() {
+	BioliteGlobal.init();
+});
