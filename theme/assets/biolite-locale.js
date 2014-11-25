@@ -45,6 +45,11 @@ BioliteLocale.init = function()
 
 	BioliteLocale.add_location_choices();
 
+	if( BioliteLocale.current_locale != BioliteLocale.default_locale )
+	{
+		BioliteLocale.setLocationVariantPrices(BioliteLocale.current_currency);
+	}
+
 	BioliteLocale.loaded = true;
 }
 
@@ -70,15 +75,22 @@ BioliteLocale.cookie = {
 
 BioliteLocale.add_location_choices = function()
 {
-	console.log('add_location_choices', BioliteLocale.location_switcher)
+	// loop through all the locations and add each one to the location dropdown
 	jQuery.each(BioliteLocale.locations, function(key, value) {   
 		BioliteLocale.location_switcher.append($("<option></option>")
 			.attr("value", key)
 				.text( value + ' (' + BioliteLocale.location_currencies[key] + ')' ));
 	});
+
+	// listen for change action
 	BioliteLocale.location_switcher.change(function() {
 		BioliteLocale.set_new_location( $(this).val() );
 	});
+
+	// preselect the current locale
+	BioliteLocale.location_switcher.find('option[value='+BioliteLocale.current_locale+']').attr('selected', 'selected');
+	
+	// show the entire location box
 	BioliteLocale.location_box.show();
 }
 
@@ -88,40 +100,54 @@ BioliteLocale.set_new_location = function(location)
 	if( location == '' || location === undefined )
 		location = BioliteLocale.default_locale;
 	var currency = BioliteLocale.location_currencies[location];
-	console.log('set_new_location', location, currency);
+	console.log('set new location & currency', location, currency);
 
+	// save this to a locale cookie
 	BioliteLocale.cookie.write(location);
-	console.log('BioliteLocale.cookie', BioliteLocale.cookie);
 
-	// this happens in the Currency.convertAll function
+	// this happens in the Currency.convertAll function, so we don't actually need it here...
 	// Currency.cookie.write(currency);
 
-	jQuery('#productSelect option[value='+location+']').attr('selected', 'selected');
-	console.log('productSelect', $('#productSelect').val() );
+	BioliteLocale.setLocationVariantPrices(currency);
+}
 
-	var location_price = BioliteGlobal.current_product.price;
-	jQuery.each(BioliteGlobal.current_variants, function(key, value)
-	{  
-		if( value.option1 == 'price-' + location.toUpperCase() )
-		{
-			location_price = value.price
-		}
-	});
+BioliteLocale.setLocationVariantPrices = function(currency)
+{
+	console.log('setLocationVariantPrices');
 
-	//
-	// BioliteLocale.product_div.find('span').html( location_price );
+	// if we are on the single product page
+	if( BioliteGlobal.current_product )
+	{
+		// set the invisible product variant selector for this product
+		jQuery('#productSelect option[value='+location+']').attr('selected', 'selected');
+		console.log('productSelect', $('#productSelect').val() );
 
-	// change all the prices on the page
-	BioliteLocale.changeAll(location_price);
+		// set the new price to the default product price first
+		var location_price = BioliteGlobal.current_product.price;
+		
+		// try to find a new price for this location by looking through the variants
+		jQuery.each(BioliteGlobal.current_variants, function(key, value)
+		{  
+			if( value.option1 == 'price-' + location.toUpperCase() )
+			{
+				location_price = value.price
+			}
+		});
 
-	// add the USD equiv of the price (in parens)
-	BioliteLocale.addAllEquivPrices(location_price, currency);
+		// change all the prices on the page
+		BioliteLocale.changeAll(location_price);
+
+		// add the USD equiv of the price (in parens)
+		BioliteLocale.addAllEquivPrices(location_price, currency);
+
+	}
 
 	// convert all the currencies on the page
 	Currency.convertAll(shopCurrency, currency);
-
-
 }
+
+
+
 
 BioliteLocale.changeAll = function(newPrice, selector)
 {
@@ -134,7 +160,7 @@ BioliteLocale.addAllEquivPrices = function(equivPrice, newCurrency, selector)
 {
 	jQuery(BioliteLocale.product_div).find('.price_equiv').remove();
 
-	if( shopCurrency == newCurrency)
+	if( shopCurrency == newCurrency )
 		return;
 
 	var format 					= Currency.moneyFormats[shopCurrency][Currency.format]
