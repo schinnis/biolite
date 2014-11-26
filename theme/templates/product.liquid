@@ -1,11 +1,12 @@
 
 {% if product %}
   <script type="text/javascript">
-    BioliteGlobal.current_product = {{ product | json }}
-    BioliteGlobal.current_variants = {{ product.variants | json }}
+    jQuery(function() {
+      BioliteLocale.current_product = {{ product | json }}
+      BioliteLocale.current_variants = {{ product.variants | json }}
+    });
   </script>
 {% endif %}
-
 
 
 {% comment %}
@@ -54,11 +55,6 @@
 
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
-        {% comment %}
-          Get first variant, or deep linked one
-        {% endcomment %}
-        {% assign variant = product.selected_or_first_available_variant %}
-
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
 
         <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
@@ -68,30 +64,14 @@
         {% endcomment %}
         <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
 
-          {% comment %}
-            Add product variants as a dropdown.
-              - By default, each variant (or combination of variants) will display as its own <option>
-              - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
-
-            You can leverage jQuery to add a callback on page load and each time the select element changes:
-              - Include option_selection.js (as seen at the bottom of this file)
-              - This allows you to use JavaScript anytime the variant dropdown changes
-              - This also separates out your variant options (ie. size, color, etc.) to separate select elements
-
-            For more information on products with multiple options, visit:
-              - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
-          {% endcomment %}
           <select name="id" id="productSelect" class="product-single__variants">
             {% for variant in product.variants %}
               {% if variant.available %}
-                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.price | money_with_currency }}</option>
+                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-locale="{{ variant.option1 }}">{{ variant.price | money_with_currency }}</option>
               {% endif %}
             {% endfor %}
           </select>
 
-          {% comment %}
-            Optionally show the 'compare at' or original price of the product.
-          {% endcomment %}
           <span id="ProductPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
             {{ product.price | money }}
           </span>

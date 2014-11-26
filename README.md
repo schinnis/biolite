@@ -72,6 +72,23 @@ Repo for the Biolite Shopify theme development.
 1. Shopify Cheatsheet: http://cheat.markdunkley.com
 
 
+### Testing the API
+
+1. run `shopify console`
+
+1. once in the console, run `include ShopifyAPI`
+
+1. now you have ActiveRecord access through the API so things like this work:
+	
+	`Customer.all.count`
+	
+	`Product.first.title`
+	
+	`ScriptTag.new(:src => '//cdnjs.cloudflare.com/ajax/libs/cookiejar/0.5.1/cookiejar.js', :event => 'onload').save!`
+	
+	
+	
+
 ### References / Documentation
 
 * [shopify_theme ruby gem github](https://github.com/Shopify/shopify_theme)
