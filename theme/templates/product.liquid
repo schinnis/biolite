@@ -23,6 +23,7 @@
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+  <meta itemprop='productID' content='{{ product.id }}'/>
 
   <div class="grid product-single">
     <div class="grid__item large--one-half text-center">
@@ -56,7 +57,6 @@
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-
         <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 
         {% comment %}
@@ -75,12 +75,6 @@
           <span id="ProductPrice" itemprop="price" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}">
             {{ product.price | money }}
           </span>
-
-          {% if product.compare_at_price > product.price %}
-            <p id="ComparePrice">
-              {{ 'products.product.compare_at' | t }} {{ product.compare_at_price_max | money }}
-            </p>
-          {% endif %}
 
           <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
           <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">

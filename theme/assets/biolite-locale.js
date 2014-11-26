@@ -41,10 +41,19 @@ BioliteLocale.init = function()
 
 	BioliteLocale.location_box 		  						= $('#locations-box');
 	BioliteLocale.location_switcher 						= $('select#locations');
+
+	BioliteLocale.variant_prefix 							= 'price-'; // for example, as in: 'price-UK'
+	
+	BioliteLocale.currency_container 						= $("meta[itemprop='priceCurrency']");
+	BioliteLocale.variant_price 						    = $("meta[itemprop='variantPrice']");
+	BioliteLocale.variant_price_default						= $("meta[itemprop='variantPrice'][location='Default']");
+
+	BioliteLocale.single_product_container					= $("div[itemtype='http://schema.org/Product']");
 	BioliteLocale.single_prod_price_container				= $("div[itemprop='price'], span[itemprop='price']");
+	BioliteLocale.single_prod_price_class 					= $("span.money");
 	BioliteLocale.single_prod_variant_selector				= $("#productSelect");
 
-	BioliteLocale.multiple_producsts_container				= $("#someProducts");
+	BioliteLocale.multiple_products_container				= $("div[itemtype='http://schema.org/SomeProducts']");
 
 	BioliteLocale.add_location_choices();
 
@@ -118,13 +127,16 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 {
 	console.log('setLocationVariantPrices', currency, BioliteLocale.current_product);
 
+	// set all the product currency meta to the correct currency
+	BioliteLocale.currency_container.attr('content', currency);	
+
 	// if we are on the single product page
 	if( BioliteLocale.current_product )
 	{
 		// set the invisible product variant selector for this product
 		BioliteLocale.single_prod_variant_selector.val([]);
-		BioliteLocale.single_prod_variant_selector.find("option[data-locale='price-"+location.toUpperCase()+"']").attr('selected', 'selected');
-		console.log('productSelect', BioliteLocale.single_prod_variant_selector.find("option[data-locale='price-"+location.toUpperCase()+"']") );
+		BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + location.toUpperCase() + "']").attr('selected', 'selected');
+		console.log('productSelect', BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + location.toUpperCase() + "']") );
 
 		// set the new price to the default product price first
 		var location_price = BioliteLocale.current_product.price;
@@ -132,7 +144,7 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 		// try to find a new price for this location by looking through the variants
 		jQuery.each(BioliteLocale.current_variants, function(key, value)
 		{  
-			if( value.option1 == 'price-' + location.toUpperCase() )
+			if( value.option1 == BioliteLocale.variant_prefix + location.toUpperCase() )
 			{
 				location_price = value.price
 			}
@@ -146,11 +158,28 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 
 	}
 
-	if( BioliteLocale.multiple_producsts_container )
+	if( BioliteLocale.multiple_products_container )
 	{
+		var products = BioliteLocale.multiple_products_container.find(BioliteLocale.single_product_container);
+		jQuery.each( products, function(key, value)
+		{  
+			// set the new price to the default product price first
+			var location_price = jQuery(value).find(BioliteLocale.variant_price_default).attr('content');
 
-		// loop through each product and get the right variant
-		//jQuery.get('/cart/clear.js');
+			console.log( jQuery(value).find('a[itemprop="name"]').html(), location_price );
+
+
+			jQuery.each( jQuery(value).find(BioliteLocale.variant_price), function(key, value)
+			{  
+				if( jQuery(value).attr('location') == BioliteLocale.variant_prefix + location.toUpperCase() )
+				{
+					location_price = jQuery(value).attr('content')
+				}
+			});
+
+			jQuery(value).find(BioliteLocale.single_prod_price_container).find(BioliteLocale.single_prod_price_class).html(location_price);
+		});
+
 
 	}
 
@@ -165,7 +194,7 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 
 BioliteLocale.changeAll = function(newPrice, selector)
 {
-	BioliteLocale.single_prod_price_container.find(selector || 'span.money').each(function() {
+	BioliteLocale.single_prod_price_container.find(selector || BioliteLocale.single_prod_price_class).each(function() {
 		jQuery(this).html(newPrice);
 	});
 }
@@ -180,7 +209,7 @@ BioliteLocale.addAllEquivPrices = function(equivPrice, newCurrency, selector)
 	var format 					= Currency.moneyFormats[shopCurrency][Currency.format]
 	var FormattedAmount = Currency.formatMoney(equivPrice, format);
 	
-	BioliteLocale.single_prod_price_container.find(selector || 'span.money').each(function() {
+	BioliteLocale.single_prod_price_container.find(selector || BioliteLocale.single_prod_price_class).each(function() {
 		jQuery(this).after( $("<sup></sup>").attr("class", 'price_equiv').attr("style", 'font-weight:100;padding-left:10px').text('('+FormattedAmount+')') );
 	});
 }

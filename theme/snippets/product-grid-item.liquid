@@ -50,6 +50,10 @@
 
   <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
   <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+  <meta itemprop='productID' content='{{ product.id }}'/>
+  {% for variant in product.variants %}
+    <meta itemprop='variantPrice' location='{{ variant.option1 }}' content='{{ variant.price }}'/>
+  {% endfor %}
 
   {% comment %}
     Link to your product with the 'within: collection' filter for the link to be aware of the collection.
