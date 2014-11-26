@@ -72,7 +72,7 @@
             {% endfor %}
           </select>
 
-          <span id="ProductPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
+          <span id="ProductPrice" itemprop="price" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}">
             {{ product.price | money }}
           </span>
 

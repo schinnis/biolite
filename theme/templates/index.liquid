@@ -13,7 +13,7 @@
 {% endcomment %}
 <section class="section">
   <div class="wrapper">
-    <div class="grid">
+    <div class="grid" itemscope itemtype="http://schema.org/SomeProducts" id="someProducts">
       <h3>Frontpage Collection</h3>
         {% comment %}
           Loop through products in your Frontpage collection.
@@ -30,39 +30,6 @@
           {% endcomment %}
           {% assign grid_item_width = 'large--one-quarter medium--one-half' %}
           {% include 'product-grid-item' %}
-
-        {% else %}
-
-          <div class="grid__item">
-            <p>You have no products in your Frontpage collection. This placeholder will appear until you <a href="/admin/custom_collections">add a product to this collection</a>.</p>
-          </div>
-
-
-          <div class="grid__item large--one-quarter medium--one-half text-center">
-            <a href="/admin/products" class="demo-image">
-              Add a Product
-            </a>
-            <p><a href="/admin/products">Example Product Title</a> $19.99</p>
-          </div>
-          <div class="grid__item large--one-quarter medium--one-half text-center">
-            <a href="/admin/products" class="demo-image">
-              Add a Product
-            </a>
-            <p><a href="/admin/products">Example Product Title</a> $19.99</p>
-          </div>
-          <div class="grid__item large--one-quarter medium--one-half text-center">
-            <a href="/admin/products" class="demo-image">
-              Add a Product
-            </a>
-            <p><a href="/admin/products">Example Product Title</a> $19.99</p>
-          </div>
-          <div class="grid__item large--one-quarter medium--one-half text-center">
-            <a href="/admin/products" class="demo-image">
-              Add a Product
-            </a>
-            <p><a href="/admin/products">Example Product Title</a> $19.99</p>
-          </div>
-
 
         {% endfor %}
     </div>

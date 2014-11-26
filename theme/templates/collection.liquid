@@ -33,43 +33,15 @@
       Use class grid-uniform to have evenly sized columns clear
       each other properly at each breakpoint.
     {% endcomment %}
-    <div class="grid-uniform">
+    <div class="grid-uniform" itemscope itemtype="http://schema.org/SomeProducts" id="someProducts">
 
       {% comment %}
         Loop through our products in the current collection.
         See the snippet 'product-grid-item' for the layout.
       {% endcomment %}
       {% for product in collection.products %}
-        <!--For Customer Pricing App -->
-        <!-- csp tag-HIDE --> 
-        {% assign csp_visible = true %}
-        {% for product_tag in product.tags %}{% if csp_visible == true %}
-        {% capture last_tag_piece %}{{ product_tag | split: '-' | last }}{% endcapture %}
-        {% if last_tag_piece == 'HIDE' %}
-        {% capture first_tag_piece %}{{ product_tag | split: '-' | first }}{% endcapture %}
-        {% if first_tag_piece == 'default' %}
-        {% assign csp_visible = false %}
-        {% assign csp_tag_group = shop.metafields.shop_csp_tag_group.shop_csp_tag | split: ',' %}
-        {% for csp_tag in csp_tag_group %}
-        {% if customer.tags contains csp_tag %}
-        {% assign csp_visible = true %}
-        {% endif %}
-        {% endfor %}
-        {% else %}
-        {% if customer.tags contains first_tag_piece %}
-        {% assign csp_visible = false %}{% endif %}
-        {% endif %}
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-        {% if csp_visible == false %}{% else %}
-        <!--end-->
 
         {% include 'product-grid-item' %}
-
-        <!--for customer pricing-->
-        {% endif %}
-        <!--end-->
 
       {% else %}
 

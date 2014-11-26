@@ -44,6 +44,8 @@ BioliteLocale.init = function()
 	BioliteLocale.single_prod_price_container				= $("div[itemprop='price'], span[itemprop='price']");
 	BioliteLocale.single_prod_variant_selector				= $("#productSelect");
 
+	BioliteLocale.multiple_producsts_container				= $("#someProducts");
+
 	BioliteLocale.add_location_choices();
 
 	BioliteLocale.loaded = true;
@@ -143,6 +145,16 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 		BioliteLocale.addAllEquivPrices(location_price, currency);
 
 	}
+
+	if( BioliteLocale.multiple_producsts_container )
+	{
+
+		// loop through each product and get the right variant
+		//jQuery.get('/cart/clear.js');
+
+	}
+
+	
 
 	// convert all the currencies on the page
 	Currency.convertAll(shopCurrency, currency);
