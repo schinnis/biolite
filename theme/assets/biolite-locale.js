@@ -42,7 +42,7 @@ BioliteLocale.init = function()
 	BioliteLocale.location_box 		  						= $('#locations-box');
 	BioliteLocale.location_switcher 						= $('select#locations');
 
-	BioliteLocale.variant_prefix 							= 'price-'; // for example, as in: 'price-UK'
+	BioliteLocale.variant_prefix 							= 'pricing-'; // for example, as in: 'price-UK'
 	
 	BioliteLocale.currency_container 						= $("meta[itemprop='priceCurrency']");
 	BioliteLocale.variant_price 						    = $("meta[itemprop='variantPrice']");
