@@ -5,6 +5,7 @@ require 'thor'
 require 'abbrev'
 require 'yaml'
 require 'pry'
+require 'httparty'
 
 module ShopifyAPI
   class Cli < Thor
@@ -171,22 +172,26 @@ module ShopifyAPI
       config = YAML.load(File.read(file))
       ShopifyAPI::Base.site = site_from_config(config)
 
+
+      # the namespace & DOM elements to use
       namespace     = 'pricing'
+
+      # all the currencies that we want to support
       currencies    = ['GBP', 'JPY', 'AUD', 'EUR', 'CAD', 'SEK']
-      conversions   = {
-        'GBP' => 1.57195,
-        'JPY' => 0.00848814,
-        'AUD' => 0.855746,
-        'EUR' => 1.24794,
-        'CAD' => 0.888896,
-        'SEK' => 0.134751
-      }
+
+      # extract all the latest currency conversion rates
+      response = HTTParty.get('https://cdn.shopify.com/s/javascripts/currencies.js')
+      conversions   = {}
+      currencies.each do |c|
+        conversions[c] = response.parsed_response[/#{c}\":([0-9]+.[0-9]+)/, 1].to_f
+      end
+      puts 'conversions: ' + conversions.inspect
 
       all_products = ShopifyAPI::Product.all
       all_products.each do |p|
 
+        puts ''
         puts 'Product: ' + p.title + ' (id:' + p.id.to_s + ')'
-        #puts p.to_json
 
         # clear out the meta prices array for this product
         meta_prices     = {}
@@ -207,7 +212,6 @@ module ShopifyAPI
         end
 
         puts 'meta_prices: ' + meta_prices.to_json
-
 
         # reset the default variant
         default = {}
@@ -232,13 +236,13 @@ module ShopifyAPI
 
             puts '-- use meta price: ' + meta_prices[c].to_s
             converted_price_in_cents  = (meta_prices[c].to_f * 100)
-            us_price_in_cents         = (converted_price_in_cents * conversions[c]).to_i
+            us_price_in_cents         = (converted_price_in_cents * conversions[c])
           
           else
             
             puts '-- use default price: ' + default_price.to_s
             converted_price_in_cents  = ((default_price_in_cents / conversions[c]))
-            us_price_in_cents         = (converted_price_in_cents * conversions[c]).to_i
+            us_price_in_cents         = (converted_price_in_cents * conversions[c])
 
             #add the meta field for this currency if it doesn't exist
             meta = p.add_metafield(ShopifyAPI::Metafield.new({
@@ -254,7 +258,15 @@ module ShopifyAPI
 
           us_price = (us_price_in_cents / 100).round(2)
 
-          puts c + ' conversion rate: ' + conversions[c].to_s + ' | converted_price_in_cents: ' + converted_price_in_cents.to_s + ' | us_price: ' + us_price.to_s
+          reconverted = (((us_price.to_f * 100) / conversions[c]) / 100).round(2)
+
+          puts c + ' conversion rate: ' + conversions[c].to_s + ' | converted_price_in_cents: ' + converted_price_in_cents.to_s + ' | us_price: ' + us_price.to_s + ' | reconverted: ' + reconverted.to_s
+
+          #variant = ShopifyAPI::Variant.where(:product_id => p.id, :option1 => namespace + '-' + c)
+
+          variant = p.variants.find { |v| v.option1 == namespace + '-' + c }
+          destroy = variant.destroy if variant
+          puts 'variant.destroy: ' + destroy.inspect     
 
           variant = ShopifyAPI::Variant.new({
               :product_id => p.id,
@@ -265,8 +277,7 @@ module ShopifyAPI
               :taxable => true,
               :title => namespace + '-' + c,
             }).save
-          puts 'variant: ' + variant.inspect          
-
+          puts 'variant.new: ' + variant.inspect          
 
         end
 
