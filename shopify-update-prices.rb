@@ -201,7 +201,7 @@ module ShopifyAPI
 
           # clean out the shappify ones
           #puts m.destroy if m.namespace == 'pricing'
-          puts m.destroy if m.namespace.include?('shappify')
+          #puts m.destroy if m.namespace.include?('shappify')
           #puts m.inspect
 
           # loop through meta and get each currencies hard price if it has been defined
@@ -216,9 +216,6 @@ module ShopifyAPI
         # reset the default variant
         default = {}
 
-        # clear out the variant list
-        #variants     = {}
-
         p.variants.each do |v|
           #puts v.inspect
           default = v if v.option1 == 'Default'
@@ -227,7 +224,7 @@ module ShopifyAPI
         default_price           = (default.price || p.price).to_f.round(2)
         default_price_in_cents  = (default_price.to_f * 100).to_i
         
-        #puts 'default_price_in_cents: ' + default_price_in_cents.to_s
+        puts 'default_price: ' + default_price.to_s
 
         currencies.each do |c|
 

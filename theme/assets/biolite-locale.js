@@ -139,7 +139,8 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 		console.log('productSelectOption', 'data-locale="' + BioliteLocale.variant_prefix + currency.toUpperCase() + '"', BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + currency.toUpperCase() + "']") );
 
 		// set the new price to the default product price first
-		var location_price = BioliteLocale.current_product.price;
+		var location_price = null;
+		var default_price = BioliteLocale.current_product.price;
 		
 		// try to find a new price for this location by looking through the variants
 		jQuery.each(BioliteLocale.current_variants, function(key, value)
@@ -148,9 +149,15 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 			{
 				location_price = value.price
 			}
+			else if( value.option1.downcase == 'default' )
+			{
+				default_price = value.price
+			}
 		});
 
-		console.log('location_price', location_price);
+		location_price ||= default_price;
+
+		console.log('location_price', location_price, 'default_price', default_price);
 
 		// change all the prices on the page
 		//BioliteLocale.changeAll(location_price);
