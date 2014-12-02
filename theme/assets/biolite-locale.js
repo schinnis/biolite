@@ -149,19 +149,17 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 			{
 				location_price = value.price
 			}
-			else if( value.option1.downcase == 'default' )
+			else if( value.option1.toLowerCase() == 'default' )
 			{
 				default_price = value.price
 			}
 		});
 
-		location_price ||= default_price;
+		console.log(BioliteLocale.variant_prefix + currency.toUpperCase(), 'location_price', location_price, 'default_price', default_price);
 
-		console.log('location_price', location_price, 'default_price', default_price);
+		location_price = location_price || default_price;
 
-		// change all the prices on the page
-		//BioliteLocale.changeAll(location_price);
-
+		// change the price
 		BioliteLocale.single_prod_price_container.find(BioliteLocale.single_prod_price_class).html(location_price);
 
 		// add the USD equiv of the price (in parens)
@@ -188,8 +186,10 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 				}
 			});
 
+			// change the price
 			jQuery(value).find(BioliteLocale.single_prod_price_container).find(BioliteLocale.single_prod_price_class).html(location_price);
 
+			// add the USD equiv of the price (in parens)
 			BioliteLocale.addEquivPrices(jQuery(value).find(BioliteLocale.single_prod_price_container), location_price, currency);
 		});
 
@@ -200,15 +200,6 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 	Currency.convertAll(shopCurrency, currency);
 }
 
-
-
-
-BioliteLocale.changeAll = function(newPrice, selector)
-{
-	BioliteLocale.single_prod_price_container.find(selector || BioliteLocale.single_prod_price_class).each(function() {
-		jQuery(this).html(newPrice);
-	});
-}
 
 BioliteLocale.addEquivPrices = function(container, equivPrice, newCurrency, selector)
 {

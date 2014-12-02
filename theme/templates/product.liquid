@@ -72,8 +72,9 @@
             {% endfor %}
           </select>
 
-          <span id="ProductPrice" itemprop="price" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}">
-            {{ product.price | money }}
+          {% assign default_variant = product.variants.first %}
+          <span id="ProductPrice" itemprop="price" class="h2">
+            {{ default_variant.price | money }}
           </span>
 
           <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
