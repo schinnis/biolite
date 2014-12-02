@@ -135,8 +135,8 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 	{
 		// set the invisible product variant selector for this product
 		BioliteLocale.single_prod_variant_selector.val([]);
-		BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + location.toUpperCase() + "']").attr('selected', 'selected');
-		console.log('productSelect', BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + location.toUpperCase() + "']") );
+		BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + currency.toUpperCase() + "']").attr('selected', 'selected');
+		console.log('productSelectOption', 'data-locale="' + BioliteLocale.variant_prefix + currency.toUpperCase() + '"', BioliteLocale.single_prod_variant_selector.find("option[data-locale='" + BioliteLocale.variant_prefix + currency.toUpperCase() + "']") );
 
 		// set the new price to the default product price first
 		var location_price = BioliteLocale.current_product.price;
@@ -144,20 +144,25 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 		// try to find a new price for this location by looking through the variants
 		jQuery.each(BioliteLocale.current_variants, function(key, value)
 		{  
-			if( value.option1 == BioliteLocale.variant_prefix + location.toUpperCase() )
+			if( value.option1 == BioliteLocale.variant_prefix + currency.toUpperCase() )
 			{
 				location_price = value.price
 			}
 		});
 
+		console.log('location_price', location_price);
+
 		// change all the prices on the page
-		BioliteLocale.changeAll(location_price);
+		//BioliteLocale.changeAll(location_price);
+
+		BioliteLocale.single_prod_price_container.find(BioliteLocale.single_prod_price_class).html(location_price);
 
 		// add the USD equiv of the price (in parens)
-		BioliteLocale.addAllEquivPrices(location_price, currency);
+		BioliteLocale.addEquivPrices(BioliteLocale.single_prod_price_container, location_price, currency);
 
 	}
 
+	// if we are on a multiple product page
 	if( BioliteLocale.multiple_products_container )
 	{
 		var products = BioliteLocale.multiple_products_container.find(BioliteLocale.single_product_container);
@@ -168,23 +173,22 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 
 			console.log( jQuery(value).find('a[itemprop="name"]').html(), location_price );
 
-
 			jQuery.each( jQuery(value).find(BioliteLocale.variant_price), function(key, value)
 			{  
-				if( jQuery(value).attr('location') == BioliteLocale.variant_prefix + location.toUpperCase() )
+				if( jQuery(value).attr('location') == BioliteLocale.variant_prefix + currency.toUpperCase() )
 				{
 					location_price = jQuery(value).attr('content')
 				}
 			});
 
 			jQuery(value).find(BioliteLocale.single_prod_price_container).find(BioliteLocale.single_prod_price_class).html(location_price);
-		});
 
+			BioliteLocale.addEquivPrices(jQuery(value).find(BioliteLocale.single_prod_price_container), location_price, currency);
+		});
 
 	}
 
 	
-
 	// convert all the currencies on the page
 	Currency.convertAll(shopCurrency, currency);
 }
@@ -199,17 +203,17 @@ BioliteLocale.changeAll = function(newPrice, selector)
 	});
 }
 
-BioliteLocale.addAllEquivPrices = function(equivPrice, newCurrency, selector)
+BioliteLocale.addEquivPrices = function(container, equivPrice, newCurrency, selector)
 {
-	BioliteLocale.single_prod_price_container.find('.price_equiv').remove();
+	container.find('.price_equiv').remove();
 
 	if( shopCurrency == newCurrency )
 		return;
 
-	var format 					= Currency.moneyFormats[shopCurrency][Currency.format]
+	var format 			= Currency.moneyFormats[shopCurrency][Currency.format]
 	var FormattedAmount = Currency.formatMoney(equivPrice, format);
 	
-	BioliteLocale.single_prod_price_container.find(selector || BioliteLocale.single_prod_price_class).each(function() {
+	container.find(selector || BioliteLocale.single_prod_price_class).each(function() {
 		jQuery(this).after( $("<sup></sup>").attr("class", 'price_equiv').attr("style", 'font-weight:100;padding-left:10px').text('('+FormattedAmount+')') );
 	});
 }

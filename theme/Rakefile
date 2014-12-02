@@ -18,7 +18,7 @@ task :start_local_dev do
 	dev_theme_branch 	= dev_theme_name.downcase
 
 	puts ''
-	puts "Create & switch to out development branch"
+	puts "Create & switch to our development branch"
 	system("git checkout -b #{dev_theme_branch}") || system("git checkout #{dev_theme_branch}")
 
 	puts ''
