@@ -2,188 +2,112 @@
       FOOTER : snippet consistent across all pages
   ***************-->
 
-  <footer class="global-footer section">
+  <section class="footer-social section">
     <div class="wrapper">
       <div class="grid">
         <div class="grid__item large--two-thirds">
-          {% include 'breadcrumb' %}
+          <h4 class="alt m0">Stay in the Loop</h4>
+          <h6 class="gray-lighter mt0">Follow BioLite for photos, updates, promotions, and special previews.</h6>
+
+          <form class="input-inline m0">
+            <div class="input-icon input-inline__input">
+              <label for="email" class="fa fa-envelope-o"></label>
+              <input type="email" id="email" name="email" class="" placeholder="Enter Email">
+            </div>
+            <button type="submit" class="input-inline__submit btn btn-primary">Join</button>
+          </form>
+
         </div>
-        <div class="grid__item large--one-third text-right">
-          <a href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook"><span class="icon icon-facebook"></span></a>
-          <a href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter"><span class="icon icon-twitter"></span></a>
-          <a href="{{ settings.social_instagram_link }}" title="{{ shop.name }} on Instagram"><span class="icon icon-instagram"></span></a>
-          <a href="{{ settings.social_pinterest_link }}" title="{{ shop.name }} on Pinterest"><span class="icon icon-pinterest"></span></a>
-        </div>
-        <div class="grid__item one-whole">
-          <hr/>
-        </div>
-        <div class="grid__item large--one-fifth">
-          <ul>
-            {% for link in linklists.footer.links %}
-
-              {% assign child_list_handle = link.title | handleize %}
-
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-
-            {% endfor %}
-          </ul>
-        </div>
-         <div class="grid__item large--one-fifth">
-          <ul>
-            {% for link in linklists.footer.links %}
-
-              {% assign child_list_handle = link.title | handleize %}
-
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-
-            {% endfor %}
-          </ul>
-        </div>
-         <div class="grid__item large--one-fifth">
-          <ul>
-            {% for link in linklists.footer.links %}
-
-              {% assign child_list_handle = link.title | handleize %}
-             
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-
-            {% endfor %}
-          </ul>
-        </div>
-         <div class="grid__item large--one-fifth">
-          <ul>
-            {% for link in linklists.footer.links %}
-              {% assign child_list_handle = link.title | handleize %}
-
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-   
-            {% endfor %}
-          </ul>
-        </div>
-         <div class="grid__item large--one-fifth">
-          <ul>
-            {% for link in linklists.footer.links %}
-              {% assign child_list_handle = link.title | handleize %}
-
-                <li>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-   
-            {% endfor %}
+        <div class="grid__item large--one-third pl30">
+          <h4 class="alt mt0">Join us on</h4>
+          <ul class="menu-social">
+            <li>
+              <a href="javascript:sharePop('');" class="fa fa-facebook fa-circular" title="{{ shop.name }} on Facebook"></a>
+            </li>
+            <li>
+              <a href="javascript:sharePop('');" class="fa fa-twitter fa-circular" title="{{ shop.name }} on Twitter"></a>
+            </li>
+            <li>
+              <a href="javascript:sharePop('');" class="fa fa-youtube fa-circular" title="{{ shop.name }} on YouTube"></a>
+            </li>
+            <li>
+              <a href="javascript:sharePop('');" class="fa fa-instagram fa-circular" title="{{ shop.name }} on Instagram"></a>
+            </li>
+            <li>
+              <a href="javascript:sharePop('');" class="fa fa-pinterest fa-circular" title="{{ shop.name }} on Pinterest"></a>
+            </li>
           </ul>
         </div>
       </div>
     </div>
+  </section>
 
-  </footer>
+  <section class="footer-default section-small">
+    <div class="wrapper">
+      <header class="grid footer-default__header">
+        <div class="grid__item large--one-half">
+          <ul class="menu-footer-top">
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Mission</a></li>
+            <li><a href="#">Lab</a></li>
+          </ul>
+        </div>
+        <div class="grid__item large--one-half text-right">
+          <ul class="menu-footer-auth list-inline">
+            <li>
+              <a href="#">
+                <i class="fa fa-circle-border fa-user"></i>
+                <span>Login</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-circle-border fa-map-marker"></i>
+                <span>United States</span>
+                <i class="fa fa-r fa-angle-down"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </header>
 
-
-<!--  <footer class="global-footer section" role="contentinfo">
-
-  <div class="wrapper">
-
-    <div class="grid">
-
-      <div class="grid-item medium--one-whole">
+      <div class="grid footer-default__content">
         
-        <div class="grid">
-          
-          <div class="grid-item medium--one-half">
-            {% include 'breadcrumb' %}
-          </div>
-          
-          <div class="grid-item medium--one-half right">
-            {% comment %}
-              Loop through the social network links
-            {% endcomment %}
-            <ul class="inline-list social-icons">
-              {% if settings.social_twitter_link != blank %}
-                <li>
-                  <a class="icon-fallback-text" href="{{ settings.social_twitter_link }}" title="{{ shop.name }} on Twitter">
-                    <span class="icon icon-twitter" aria-hidden="true"></span>
-                    <span class="fallback-text">Twitter</span>
-                  </a>
-                </li>
-              {% endif %}
-              {% if settings.social_facebook_link != blank %}
-                <li>
-                  <a class="icon-fallback-text" href="{{ settings.social_facebook_link }}" title="{{ shop.name }} on Facebook">
-                    <span class="icon icon-facebook" aria-hidden="true"></span>
-                    <span class="fallback-text">Facebook</span>
-                  </a>
-                </li>
-              {% endif %}
-            </ul>
-          </div>     
+        <ul class="grid__item large--one-fifth">
+          {% for link in linklists.footer.links %}
 
+            {% assign child_list_handle = link.title | handleize %}
+
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+
+      <footer class="grid footer-default__footer">
+        <ul class="breadcrumbs breadcrumbs--has_emblem">
+          <li><a href="#">Biolite</a></li>
+          <li><a href="#">Shop</a></li>
+          <li class="active">CampStove</li>
+        </ul>
+      </footer>
+    </div>
+  </section>
+
+  <section class="footer-legal section-small">
+    <div class="wrapper">
+      <div class="grid">
+        <div class="grid__item large--one-half">
+          <span>Copyright 2014 BioLite Inc. All rights reserved.</span>
         </div>
-
-      </div>
-
-    </div>
-
-    <hr>
-
-    <div class="grid">
-
-      <div class="grid-item medium--one-whole">
-
-          <ul class="site-nav" id="accessibleNav">
-            {% for link in linklists.footer.links %}
-              {% comment %}
-                Create a dropdown menu by naming a linklist the same as a link in the parent nav
-
-                More info on dropdowns:
-                  - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
-              {% endcomment %}
-              {% assign child_list_handle = link.title | handleize %}
-              {% if linklists[child_list_handle].links != blank %}
-                <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                  <ul class="site-nav--dropdown">
-                    {% for childlink in linklists[child_list_handle].links %}
-                      <li {% if childlink.active %}class="site-nav--active"{% endif %}><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% else %}
-                <li {% if link.active %}class="site-nav--active"{% endif %}>
-                  <a href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-
+        <div class="grid__item large--one-half text-right">
+          <ul class="list-inline list-inline--has_divider">
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Updated Privacy Policy</a></li>
           </ul>
-
+        </div>
       </div>
-
     </div>
-
-    {% comment %}
-      Loop through available payment methods and show their icons.
-    {% endcomment %}
-    {% unless shop.enabled_payment_types == empty %}
-    <h4 class="text-center">Accepted Payments</h4>
-    <ul class="inline-list payment-icons text-center">
-      {% for type in shop.enabled_payment_types %}
-        <li>
-          <span class="icon-fallback-text">
-            <span class="icon icon-{{type}}" aria-hidden="true"></span>
-            <span class="fallback-text">{{type | replace: '_',' '}}</span>
-          </span>
-        </li>
-      {% endfor %}
-    </ul>
-    {% endunless %}
-
-  </div>
-
-</footer> -->
+  </section>

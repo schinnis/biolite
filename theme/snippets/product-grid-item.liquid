@@ -75,16 +75,13 @@
     <a itemprop="name" href="{{ product.url | within: collection }}">{{ product.title }}</a>
   </p>
   <p>
-    {% assign default_variant = product.variants.first %}
-    <span id="ProductPrice" itemprop="price">
-      {{ default_variant.price | money }}
-    </span>
-  </p>
-  {% if sold_out %}
-    <br><strong>Sold Out</strong>
-  {% endif %}
+    <span id="ProductPrice" itemprop="price">{{ product.price | money }}</span></p></span>
+    {% if sold_out %}
+      <br><strong>Sold Out</strong>
+    {% endif %}
 
     <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
   </p>
+  
 
 </div>

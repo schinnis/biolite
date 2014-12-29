@@ -1,14 +1,71 @@
-<section id="hero">
-  <div class="hero-overlay"></div>
+<section id="hero" class="hero {% if template contains 'index' %}hero--carousel{% else %} {% endif %}">
 {% if template contains 'index' %}
     
-     <!-- HOMEPAGE -->
-       <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-         <div class="inner">
-           <h1 itemprop="name">BioLite</h1>
-           <h2 itemprop="description">Our mission is to bring energy everywhere</h2>
-         </div>
-       </div>
+      <!-- HOMEPAGE -->
+      <div class="hero__viewport hero-carousel">
+        <ul class="slides">
+
+          <li data-thumb="{{ 'thumb--hero-home-1.jpg' | asset_url }}">
+            <div class="hero__inner">
+              <div class="wrapper table text-center">
+                <div class="table-cell">
+                  <h3 class="white light baseline"><em>Introducing the NanoGrid</em></h3>
+                  <h1 class="white light mt0">See power in a whole new light.</h1>
+
+                  <footer class="mt30">
+                    <a href="#" class="btn btn-transparent-primary btn-icon btn-icon--left">
+                      <i class="fa fa-r fa-play-circle"></i>
+                      <span>Watch the Overview</span>
+                    </a>
+                      <a href="#" class="btn btn-transparent-primary">
+                      <span>See NanoGrid</span>
+                    </a>
+                  </footer>
+                </div>
+                </div>
+              </div>
+            <div class="hero__image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')"></div>
+          </li>
+
+          <li data-thumb="{{ 'thumb--hero-home-2.jpg' | asset_url }}">
+            <div class="hero__inner">
+              <div class="wrapper wrapper--medium table text-center">
+                <div class="table-cell">
+                  <h2 class="white">Heading 2</h2>
+                  <h6 class="white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, dolores eligendi quisquam amet explicabo dignissimos iste, ullam ad temporibus tempora reiciendis minima est expedita ipsam voluptas beatae dolore, quis id!</h6>
+                </div>
+              </div>
+            </div>
+            <div class="hero__image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')"></div>
+          </li>
+
+          <li data-thumb="{{ 'thumb--hero-home-3.jpg' | asset_url }}">
+            <div class="hero__inner">
+              <div class="wrapper wrapper--medium table text-center">
+                <div class="table-cell">
+                  <h2 class="white">Heading 3</h2>
+                  <h6 class="white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, dolores eligendi quisquam amet explicabo dignissimos iste, ullam ad temporibus tempora reiciendis minima est expedita ipsam voluptas beatae dolore, quis id!</h6>
+                </div>
+              </div>
+            </div>
+            <div class="hero__image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')"></div>
+          </li>
+
+          <li data-thumb="{{ 'thumb--hero-home-4.jpg' | asset_url }}">
+            <div class="hero__inner">
+              <div class="wrapper wrapper--medium table text-center">
+                <div class="table-cell">
+                  <h2 class="white">Heading 4</h2>
+                  <h6 class="white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, dolores eligendi quisquam amet explicabo dignissimos iste, ullam ad temporibus tempora reiciendis minima est expedita ipsam voluptas beatae dolore, quis id!</h6>
+                </div>
+              </div>
+            </div>
+            <div class="hero__image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')"></div>
+          </li>
+        </ul>
+      </div>
+
+
 
 {% elsif template contains 'product' %}
 

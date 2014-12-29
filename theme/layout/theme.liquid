@@ -28,8 +28,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- CSS ================================================== -->
-  {{ 'custom-style.scss' | asset_url | stylesheet_tag }}
-  {{ 'biolite.scss' | asset_url | stylesheet_tag }}  
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'biolite.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+  {{ 'animate.min.css' | asset_url | stylesheet_tag }}
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  {{ 'style.css' | asset_url | stylesheet_tag }}
 
   {% if settings.ajax_cart %}
   <!-- Ajaxify Cart Plugin ================================================== -->
@@ -57,189 +61,117 @@
   {{ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
 
-  <!--For showing multiple currencies, defined in settings-->  
-  {% include 'currencies' %}
-
   {{ 'biolite-locale.js' | asset_url | script_tag }}
-  {{ 'biolite-global.js' | asset_url | script_tag }}
 </head>
 
 {% comment %}
   Add the page template as a class for easy page or template specific styling.
 {% endcomment %}
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+  
+  {% comment %}
+    Loader Full
+  {% endcomment %}
+  <section id="loader-full" style="display:none;">
+    <div>
+      <svg id="svg-biolite" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="141.4px" height="177.4px" viewBox="0 0 141.4 177.4" style="enable-background:new 0 0 141.4 177.4;" xml:space="preserve">
+        <g>
+          <path class="st1" d="M2,105.8C2,90,7.4,75.4,16.4,63.8c2.9-3.8,8.3-4.5,12.1-1.5c3.8,2.9,4.5,8.3,1.5,12.1 c-6.8,8.8-10.8,19.6-10.8,31.5c0.1,28.5,23.1,51.5,51.6,51.6c28.5-0.1,51.5-23.1,51.6-51.6c0-11.9-4-22.7-10.8-31.5 c-2.9-3.8-2.2-9.2,1.5-12.1c3.8-2.9,9.2-2.2,12.1,1.5c9,11.6,14.4,26.2,14.4,42.1c0,38-30.8,68.8-68.8,68.8 C32.8,174.7,2,143.9,2,105.8"/>
+          <path class="st0" d="M68.7,5.2c28.9,37.5,43.8,74.7,20,115.8c-3.2,5.5-10.4,1.6-8.2-3.9c1.1-2.7,9.1-19.8,0.1-47.5 c-3.3-10-6.7-9.6-11.8-2.9c-4.2,6.7-25.8,34.2-1.7,69c3.6,6.1-3.6,10.5-8.3,6.4C21,115.2,42.7,72.8,51.6,48 c8.3-23,7.3-31.3,7.8-39.9C59.7,2.5,64.4-0.8,68.7,5.2"/>
+        </g>
+      </svg>
+      <svg id="svg-biolite--clone" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="141.4px" height="177.4px" viewBox="0 0 141.4 177.4" style="enable-background:new 0 0 141.4 177.4;" xml:space="preserve">
+        <g>
+          <path class="st1" d="M2,105.8C2,90,7.4,75.4,16.4,63.8c2.9-3.8,8.3-4.5,12.1-1.5c3.8,2.9,4.5,8.3,1.5,12.1 c-6.8,8.8-10.8,19.6-10.8,31.5c0.1,28.5,23.1,51.5,51.6,51.6c28.5-0.1,51.5-23.1,51.6-51.6c0-11.9-4-22.7-10.8-31.5 c-2.9-3.8-2.2-9.2,1.5-12.1c3.8-2.9,9.2-2.2,12.1,1.5c9,11.6,14.4,26.2,14.4,42.1c0,38-30.8,68.8-68.8,68.8 C32.8,174.7,2,143.9,2,105.8"/>
+          <path class="st0" d="M68.7,5.2c28.9,37.5,43.8,74.7,20,115.8c-3.2,5.5-10.4,1.6-8.2-3.9c1.1-2.7,9.1-19.8,0.1-47.5 c-3.3-10-6.7-9.6-11.8-2.9c-4.2,6.7-25.8,34.2-1.7,69c3.6,6.1-3.6,10.5-8.3,6.4C21,115.2,42.7,72.8,51.6,48 c8.3-23,7.3-31.3,7.8-39.9C59.7,2.5,64.4-0.8,68.7,5.2"/>
+        </g>
+      </svg>
+    </div>
+  </section>
 
-<!--   <header class="site-header" role="banner">
-    <div class="wrapper">
+  {% comment %}
+    Sidebar
+  {% endcomment %}
+  <div id="wrap">
 
-      <div class="grid--full">
-        <div class="grid-item large--one-half">
-          {% comment %}
-            Use the uploaded logo from theme settings if enabled.
-            Site name gets precedence with H1 tag on homepage, div on other pages.
-          {% endcomment %}
-          {% if template == 'index' %}
-            <h1 class="header-logo large--left" itemscope itemtype="http://schema.org/Organization">
-          {% else %}
-            <div class="h1 header-logo large--left" itemscope itemtype="http://schema.org/Organization">
-          {% endif %}
-            {% if settings.logo_use_image %}
-              <a href="/" itemprop="url">
-                <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-              </a>
-            {% else %}
-              <a href="/" itemprop="url">{{ shop.name }}</a>
-            {% endif %}
-          {% if template == 'index' %}
-            </h1>
-          {% else %}
-            </div>
-          {% endif %}
-        </div>
-        <div class="grid-item large--one-half text-center large--text-right">
-          {% comment %}
-            You cart/checkout link should at least show the number of items in it.
-            Below shows the item count followed by item(s) and the total cart price.
-
-            Ajaxify Cart Notes:
-              - #cartToggle toggles cart visibility (drawer or modal)
-              - #cartCount updates the total number of items in the cart
-              - #cartCost updates the total cost of the cart
-              - Documentation:  http://shopify.com/timber#ajax-cart
-          {% endcomment %}
-          <a href="/cart" id="cartToggle">
-            Cart (<span id="cartCount">{{ cart.item_count }}</span> {{ cart.item_count | pluralize: 'item', 'items' }} <span id="cartCost">{{ cart.total_price | money }}</span>)
-          </a>
-
-          {% comment %}
-            If customer accounts are enabled, provide login and create account links
-          {% endcomment %}
-          {% if shop.customer_accounts_enabled %}
-          <p class="site-header--text-links">
-            {% if customer %}
-              Logged in as <a href="/account">{{ customer.first_name }}</a> &middot; {{ 'Log out' | customer_logout_link }}
-            {% else %}
-              {{ 'Log in' | customer_login_link }}
-              {% if shop.customer_accounts_optional %}
-              or {{ 'Create an account' | customer_register_link }}
-              {% endif %}
-            {% endif %}
-          </p>
-          {% endif %}
-
-          
-          <!--Select Currency dropdown -->
-          <!--{% include 'currencies-switcher' %}          
-
-        
+    <header id="header" class="header--absolute" role="banner">
+      <div class="header-inner">
+        <div class="grid--full">
+          <div class="grid__item large--one-half header-left">
+            <a href="/">
+              <img src="{{ 'logo-header.png' | asset_url }}" alt="Biolite">
+            </a>
+          </div>
+          <div class="grid__item large--one-half text-right large--text-right header-right">
+            
+            <nav id="nav-main" class="header-nav">
+              <ul id="menu-main" class="menu-main">
+                <li><a href="">Shop</a></li>
+                <li class="">
+                  <a href="mission">Mission</a>
+                  <ul class="menu-dropdown">
+                    <li><a href="#">Energy Everywhere</a></li>
+                    <li><a href="#">Parallel Innovation</a></li>
+                  </ul>
+                </li>
+                <li><a href="">Lab</a></li>
+              </ul>
+              <ul id="menu-cart" class="menu-cart">
+                <li>
+                  <a href="javascript:;" class="toggle__sidebar">
+                    <!-- <div class="svg-icon--circle_border">
+                      <span class="badge">
+                        <span id="cart-item-count">8</span>
+                      </span>
+                      <svg id="svg-gylph-cart" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="5.0 -10.0 100.0 135.0" enable-background="new 0 0 100 100" xml:space="preserve">
+                        <g>
+                          <path d="M88.444,25.457c-2.126-0.605-4.337,0.634-4.938,2.76L76.5,52.974H34.077l-7.046-29.748   c-0.399-1.688-1.842-2.927-3.572-3.065l-10.494-0.842c-2.2-0.184-4.131,1.465-4.308,3.668c-0.177,2.201,1.466,4.13,3.667,4.307   l7.594,0.609l7.104,29.993c0.428,1.804,2.039,3.078,3.893,3.078h48.611c1.79,0,3.361-1.188,3.849-2.911l7.83-27.668   C91.806,28.27,90.57,26.059,88.444,25.457z"/>
+                          <path d="M33.418,65.251c-4.258,0-7.723,3.465-7.723,7.723s3.465,7.722,7.723,7.722c4.259,0,7.723-3.464,7.723-7.722   S37.677,65.251,33.418,65.251z M33.141,72.974c0-0.153,0.125-0.278,0.277-0.278s0.277,0.125,0.277,0.278   C33.695,73.28,33.141,73.28,33.141,72.974z"/>
+                          <path d="M76.297,65.251c-4.257,0-7.721,3.465-7.721,7.723s3.464,7.722,7.721,7.722c4.259,0,7.724-3.464,7.724-7.722   S80.556,65.251,76.297,65.251z M76.297,73.251c-0.152,0-0.276-0.124-0.276-0.277s0.124-0.278,0.276-0.278   c0.154,0,0.279,0.125,0.279,0.278S76.451,73.251,76.297,73.251z"/>
+                        </g>
+                      </svg>
+                    </div> -->
+                    <span class="badge-wrap">
+                      <span id="cart-item-badge" class="badge">
+                        <span id="cart-item-count">8</span>
+                      </span>
+                      <i class="fa fa-shopping-cart fa-circle-border fa-circle-border--medium"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
-
-    </div>
-  </header> -->
-
- <!--  <nav class="nav-bar" role="navigation">
-    <div class="wrapper">
-      <div class="grid">
-        <div class="grid-item large--two-thirds">
-          {% include 'site-nav' %}
-        </div>
-      </div>
-    </div>
-  </nav> -->
+    </header>
 
 
-<!--********
-    HEADER : snippet consistent across all pages
-  **********-->
-  <header id="header" class="header--absolute" role="banner">
-    <div class="header-inner">
-      <div class="grid--full">
-        <div class="grid__item large--one-quarter header-left">
-          <a href="/">
-            <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-          </a>
-        </div>
+    {{ content_for_layout }}
 
-        <!--Select Location dropdown -->
-        <div class="grid__item large--one-quarter">            
-          {% include 'locations-switcher' %} 
-        </div>
-        <!--************
-          GLOBAL NAV
-        ***************-->
-        <div class="grid__item large--one-half text-center text-right header-right">
-          <nav id="nav-main" class="header-nav">
-            {% include 'site-nav' %}
-
-              {% comment %}
-            You cart/checkout link should at least show the number of items in it.
-            Below shows the item count followed by item(s) and the total cart price.
-
-            Ajaxify Cart Notes:
-              - #cartToggle toggles cart visibility (drawer or modal)
-              - #cartCount updates the total number of items in the cart
-              - #cartCost updates the total cost of the cart
-              - Documentation:  http://shopify.com/timber#ajax-cart
-          {% endcomment %}
-          <a href="/cart" id="cartToggle">
-            Cart (<span id="cartCount">{{ cart.item_count }}</span> {{ cart.item_count | pluralize: 'item', 'items' }} <span id="cartCost">{{ cart.total_price | money }}</span>)
-          </a>
-
-          {% comment %}
-            If customer accounts are enabled, provide login and create account links
-          {% endcomment %}
-          {% if shop.customer_accounts_enabled %}
-          <p class="site-header--text-links">
-            {% if customer %}
-              Logged in as <a href="/account">{{ customer.first_name }}</a> &middot; {{ 'Log out' | customer_logout_link }}
-            {% else %}
-              {{ 'Log in' | customer_login_link }}
-              {% if shop.customer_accounts_optional %}
-              or {{ 'Create an account' | customer_register_link }}
-              {% endif %}
-            {% endif %}
-          </p>
-          {% endif %}
-
-
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
- <!--HERO IMAGE SNIPPET--> 
-  {% include 'hero' %}
-
-<!--PAGE CONTENT -->
-   {{ content_for_layout }}
-
-<!--EMAIL NEWSLETTER-->
-  {% include 'newsletter-form' %}
-
-<!--GLOBAL FOOTER-->
-  {% include 'footer' %}
+    {% include 'footer' %}
+    
+  </div><!-- #wrap -->
 
   {% comment %}
     An (almost) empty JS file for you to place your code
   {% endcomment %}
   {{ 'shop.js' | asset_url | script_tag }}
 
-  {% if settings.ajax_cart %}
   {% comment %}
     Ajaxify your cart with this plugin. Adding a product will reveal a drawer, modal, or confirmation button.
     Enabled by default in theme settings.
 
     Ajaxify Cart Documentation:
       - http://shopify.com/timber#ajax-cart
-
+  {% endcomment %}
+  {% if settings.ajax_cart %}
   {{ 'handlebars.min.js' | asset_url | script_tag }}
   {% include 'ajax-cart-template' %}
+  {% comment %}
   {{ 'ajaxify.js' | asset_url | script_tag }}
   {% endcomment %}
-  <script type="text/javascript">
+  <script>
   // jQuery(function($) {
   //   ajaxifyShopify.init({
   //     method: '{{ settings.ajax_cart_method }}', // Method options are drawer, modal, and flip. Default is drawer.
@@ -260,21 +192,29 @@
   </script>
   {% endif %}
 
-<script type="text/javascript">
-  jQuery(function()
-  {
-    if( BioliteLocale.current_locale != BioliteLocale.default_locale )
-    {
-      // change the prices to the location variant prices
-      BioliteLocale.setLocationVariantPrices(BioliteLocale.current_currency, BioliteLocale.current_locale);
-    }
-  });
-</script>
 
 <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
+ 
+<!--For showing multiple currencies, defined in settings-->  
+{% include 'currencies' %}
 
+<!--Custom IP Switching Jacascript-->
+{{ 'biolite-locale.js' | asset_url | script_tag }}
+<script type="text/javascript">
+  //BioliteLocale.show_locale_switcher();
+</script>
+
+<!--Customer Pricing App -->
+<script type="text/javascript" charset="utf-8">
+var shappify_customer_tags ={{ customer.tags|json }}
+</script>
+
+{{ 'all.js' | asset_url | script_tag }}
+
+{{ 'plugins.js' | asset_url | script_tag }}
+{{ 'app.js' | asset_url | script_tag }}
+
+<!--End Customer Pricing -->
 {% include 'shopify-wishlist' %}
-
-{% include 'fiftyandfifty-debug' %}
 </body>
 </html>
