@@ -61,6 +61,8 @@
   {{ "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" | script_tag }}
   {{ 'modernizr.min.js' | asset_url | script_tag }}
 
+<!--For showing multiple currencies, defined in settings-->  
+  {% include 'currencies' %}
   {{ 'biolite-locale.js' | asset_url | script_tag }}
 </head>
 
@@ -204,26 +206,23 @@
 
 <input type="hidden" name="_pc_params" value="{{ shop.permanent_domain }}:{{ customer.id }}" />
  
-<!--For showing multiple currencies, defined in settings-->  
-{% include 'currencies' %}
-
 <!--Custom IP Switching Jacascript-->
-{{ 'biolite-locale.js' | asset_url | script_tag }}
 <script type="text/javascript">
-  BioliteLocale.show_locale_switcher();
+  jQuery(function()
+  {
+    if( BioliteLocale.current_locale != BioliteLocale.default_locale )
+    {
+      // change the prices to the location variant prices
+      BioliteLocale.setLocationVariantPrices(BioliteLocale.current_currency, BioliteLocale.current_locale);
+    }
+  });
 </script>
-
-<!--Customer Pricing App -->
-<script type="text/javascript" charset="utf-8">
-var shappify_customer_tags ={{ customer.tags|json }}
-</script>
+{% include 'fiftyandfifty-debug' %}
+<!--End IP Switching Jacascript-->
 
 {{ 'all.js' | asset_url | script_tag }}
-
 {{ 'plugins.js' | asset_url | script_tag }}
 {{ 'app.js' | asset_url | script_tag }}
 
-<!--End Customer Pricing -->
-{% include 'shopify-wishlist' %}
 </body>
 </html>
