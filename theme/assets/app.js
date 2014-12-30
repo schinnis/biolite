@@ -17,8 +17,8 @@ var APP = (function () {
     config : {
       environment : (window.location.href.match(/(localhost)/g) ? 'development' : 'production' ),
       debug : true,
-      debug_console: true,
-      debug_plugins: false
+      debug_console: false,
+      debug_plugins : false
     },
 
     // Data
@@ -60,6 +60,7 @@ var APP = (function () {
         curtain : $('*[data-control-curtain]'),
         expander : $('*[data-control-expander]'),
         display : $('*[data-control-display]'),
+        sibling : $('*[data-control-sibling]'),
         modal : $('*[data-control-modal]')
       },
 
@@ -215,7 +216,7 @@ var APP = (function () {
     }
 
     // jquery.flexslider.js
-    if ( $.fn.flexslider ) {
+    if ( $.fn.flexslider.length > 0 ) {
 
       app.sliders()
 
@@ -600,6 +601,7 @@ var APP = (function () {
       this.controlCurtain()
       this.controlExpander()
       this.controlDisplay()
+      this.controlSibling()
 
     },
 
@@ -773,6 +775,22 @@ var APP = (function () {
         $targetDisplay.toggle()
 
         if ( app.config.debug ) console.log('%cDATA-CONTROL', 'color:#d2a946', '- display toggle on '+targetDisplayId)
+
+      })
+
+    },
+
+    /**
+     * Control Sibling
+     */
+    controlSibling: function() {
+
+      $(document).delegate(app.$el.controls.sibling.selector, 'click', function (event) {
+
+        var $this            = $(this),
+            $targetSibling   = $this.siblings(0);
+
+        $targetSibling.toggle()
 
       })
 

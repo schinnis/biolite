@@ -6,121 +6,81 @@
 
 {% endcomment %}
 
-<section class="section">
-  <div class="wrapper">
-    <div class="grid">
-      <div class="grid__item">
+{% include 'hero' %}
 
-        {% for article in blogs['FAQs'].articles %}
-        
-          {% if article.tags contains 'Popular' %}
-          <h3>Most Popular FAQs</h3>
-          {{ blog.articles_count }}
-
-          <div class="faq">
-            <h5 class="light alt">{{ article.title }}</h5>
-            <small>{{ article.content }}</small>
-          </div>
-          {% endif %}
-            
-          {% if article.tags contains 'BaseCamp' %}
-            <h3>BaseCamp</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'KettleCharge' %}
-            <h3>KettleCharge</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'KettlePot' %}
-            <h3>KettlePot</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-          
-          {% if article.tags contains 'Portable Grill' %}
-            <h3>Portable Grill</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-          
-          {% if article.tags contains 'CampStove_Running' %}
-            <h3>CampStove Running &amp; Use</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'CampStove_Startup' %}
-            <h3>CampStove Startup &amp; First Time Use</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'Maintenance+Care' %}
-            <h3>Maintenance &amp; Care</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'Tips+Troubleshooting' %}
-            <h3>Tips &amp; Troubleshooting</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'Orders+Shipping' %}
-            <h3>Orders &amp; Shipping</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'HomeStove' %}
-            <h3>HomeStove</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'Wishlist' %}
-            <h3>Wishlist</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-
-          {% if article.tags contains 'Misc' %}
-            <h3>Miscellaneous Questions</h3>
-            <div class="faq">
-              <h5 class="light alt">{{ article.title }}</h5>
-              <small>{{ article.content }}</small>
-            </div>
-          {% endif %}
-         
-        {% endfor %}
-      </div>
+<section class="faq flex-columns ">
+  <nav class="nav-sidebar flex-sidebar faq-nav">
+    <div class="nav-sidebar__header">
+      <h4 class="alt light baseline">Categories</h4>
     </div>
+    <div class="nav-sidebar__content">
+      <ul class="faq-categories" data-control-nav data-control-targets="#faq-content">
+        <li>KettleCharge</li>
+        <li>Most Popular FAQs</li>
+        <li>BaseCamp</li>
+        <li>KettlePot</li>
+        <li>Portable Grill</li>
+        <li>CampStove Running &amp; Use</li>
+        <li>CampStove Start Up &amp; First Time Use</li>
+        <li>Maintenance &amp; Care</li>
+        <li>Tips &amp; Troubleshooting</li>
+        <li>Orders &amp; Shipping</li>
+        <li>HomeStove</li>
+        <li>BioLite eGifts and Wishlist</li>
+        <li>Miscellaneous Questions</li>
+      </ul>
+    </div>
+  </nav>
+  
+  <ul id="faq-content" class="faq-content flex-content" data-control-target>
+    {% for article in blogs['FAQs'].articles %}
+
+      {% if article.tags contains 'Popular' %}
+      <li>
+        <h3 class="faq-title light primary baseline mb20">{{ article.tags }}</h3>
+
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+
+        </div>
+      </li>
+      {% endif %}
+
+      {% if article.tags contains 'BaseCamp' %}
+      <li>
+        <h3 class="faq-title light primary baseline mb20">BaseCamp</h3>
+
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+
+        </div>
+      </li>
+      {% endif %}
+
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="jumbotron">
+  <div class="wrapper text-center">
+    <h3 class="light baseline mb10"><em>Still Have Questions?</em></h3>
+    <h6 class="light baseline">If you didn't find answers in our FAQ section, send us a message!</h6>
+    <a href="/pages/contact/#contactFormWrapper" class="btn btn-outline-white btn-icon btn-icon--left mt30"> <i class="fa fa-envelope-o"></i> <span>Contact Us</span> </a>
   </div>
 </section>
