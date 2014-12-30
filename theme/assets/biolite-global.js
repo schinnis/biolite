@@ -1,10 +1,10 @@
-if ((typeof BioliteGlobal) === 'undefined') { BioliteGlobal = {}; }
+// if ((typeof BioliteGlobal) === 'undefined') { BioliteGlobal = {}; }
 
-BioliteGlobal.init = function()
-{
-	BioliteGlobal.loaded = true;
-}
+// BioliteGlobal.init = function()
+// {
+// 	BioliteGlobal.loaded = true;
+// }
 
-$(function() {
-	BioliteGlobal.init();
-});
+// $(function() {
+// 	BioliteGlobal.init();
+// });

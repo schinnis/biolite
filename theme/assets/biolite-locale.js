@@ -60,6 +60,8 @@ BioliteLocale.init = function()
 
 	BioliteLocale.add_location_choices();
 
+	BioliteLocale.debug = false;
+
 	BioliteLocale.loaded = true;
 }
 
@@ -207,6 +209,9 @@ BioliteLocale.setLocationVariantPrices = function(currency, location)
 BioliteLocale.addEquivPrices = function(container, equivPrice, newCurrency, selector)
 {
 	container.find('.price_equiv').remove();
+
+	if( BioliteLocale.debug != true )
+		return;
 
 	if( shopCurrency == newCurrency )
 		return;
