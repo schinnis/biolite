@@ -1,3 +1,6 @@
+/**
+ * ADDITIONAL STYLES ADDED HERE
+ */
 #locations-box {
   width: 200px;
   margin: 10px 0 0;
@@ -17,3 +20,49 @@ select#locations, #locations_choice {
 
 .blog-sidebar h4 { margin-top: 0; }
 
+/**
+ * HERO
+ */
+.hero--xsmall { height: 400px; }
+
+/**
+ * CONTACT - using faq layout/sidebar
+ */
+.contact { margin-bottom: 90px; }
+
+// @extends .flex-slidebar, .nav-sidebar
+.contact-nav { width: 28%; }
+
+// @extends .flex-content
+.contact-content {
+	width: 72%; 
+	padding: 52px 60px 30px 80px; 
+}
+.faq-categories li:hover { text-decoration: underline; }
+.contact-categories a { color: #ecb351; }
+.contact-categories a:hover { text-decoration: underline; color: #eaad43; }
+
+@media only screen and (max-width: 768px) {
+
+	.hero--xsmall { height: 300px; }
+
+	.footer-social .grid__item {
+	  padding-left: 0 !important;
+	  text-align: center;
+	}
+
+	/**
+	 * FAQ, CONTACT
+	 */
+	.nav-sidebar__header, .nav-sidebar__content { padding: 20px 40px; }
+	.faq.flex-columns,
+	.contact.flex-columns {
+	  display: block;
+	}
+
+	.flex-columns .flex-sidebar { width: 100%; }
+	.faq-content, .contact-content { width: 100% !important; padding: 40px 20px 20px !important; }
+	.list-toggles { margin-left: 0; }
+	.list-toggles .list-toggle__title { font-size: 16px; line-height: 1.5; }
+	.list-toggles .list-toggle__title .fa { top: 5px; }
+}
