@@ -10,19 +10,19 @@
 
 {% include 'hero' %}
 
-<section class="contact flex-columns">
-  <nav class="nav-sidebar flex-sidebar contact-nav">
+<section class="expandable flex-columns">
+  <nav class="nav-sidebar flex-sidebar expandable-nav">
     <div class="nav-sidebar__header">
       <h4 class="alt light baseline">Helpful Links</h4>
     </div>
     <div class="nav-sidebar__content">
-      <ul class="contact-categories">
+      <ul class="expandable-categories links-secondary">
         {{ page.metafields.helpful_links.content }}
       </ul>
     </div>
   </nav>
 
-  <div class="contact-content flex-content">
+  <div class="expandable-content flex-content">
     {% comment %}
       Page content goes here
     {% endcomment %}

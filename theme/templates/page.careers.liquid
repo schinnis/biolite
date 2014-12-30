@@ -1,47 +1,91 @@
 {% include 'hero' %}
 
-<section class="section">
+<section class="section-xlarge">
+	<div class="wrapper text-center">
+		{{ page.content }}
+	</div>
+</section>
+
+<section class="stat-columns mb60">
+  <div class="wrapper wrapper-medium">
+    <div class="stat-column grid__item large--one-third mb20">
+      <div class="stat-column__number mb20">{{ page.metafields.careers_block01.title }}</div>
+      <p class="stat-column__title pl20 pr20">{{ page.metafields.careers_block01.desc }}</p>
+    </div>
+  
+    <div class="stat-column grid__item large--one-third mb20">
+      <div class="stat-column__number mb20">{{ page.metafields.careers_block02.title }}</div>
+      <p class="stat-column__title pl20 pr20">{{ page.metafields.careers_block02.desc }}</p>
+    </div>
+
+    <div class="stat-column grid__item large--one-third mb20">
+      <div class="stat-column__number mb20">{{ page.metafields.careers_block03.title }}</div>
+      <p class="stat-column__title pl20 pr20">{{ page.metafields.careers_block03.desc }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="expandable expandable--full flex-columns pt40">
 	<div class="wrapper">
-		
+		<ul class="expandable-content flex-content">
+			<h2 class="light mb30 text-center">Job Openings</h2>
+			<li class="mb100">
+				<div class="list-toggles">
+					{% for article in blogs['careers'].articles %}
+						{% unless article.tags contains 'careers_internships' %}
+				  	  <div class="list-toggle list-toggle__active">
+				  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+				  	      <i class="fa fa-minus-circle"></i>
+				  	      <span>{{ article.title }}</span>
+				  	    </div>
+				  	    <div class="list-toggle__content">
+				  	      {{ article.content }}
+				  	      <footer class="mt30">
+				  	      	{% if article.metafields.job_desc.pdf %}
+				  	      	<a href="{{ article.metafields.job_desc.pdf }}" target="_blank" class="btn btn-primary btn-icon btn-icon--left"><i class="fa fa-file-pdf-o"></i><span>Job Description</span></a>
+				  	      	{% endif %}
+
+				  	      	<a href="mailto:jobs@biolitestove.com?subject=Careers - {{ article.title }}" class="btn btn-outline-green btn-icon btn-icon--left"><i class="fa fa-envelope"></i><span>Apply</span></a>
+				  	      </footer>
+				  	    </div>
+				  	  </div>
+					  {% endunless %}
+					{% endfor %}
+				</div>
+			</li>
+
+			<h2 class="light mb30 text-center">Internships</h2>
+			<li class="mb100">
+				<div class="list-toggles">
+					{% for article in blogs['careers'].articles %}
+						{% if article.tags contains 'careers_internships' %}
+				  	  <div class="list-toggle list-toggle__active">
+				  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+				  	      <i class="fa fa-minus-circle"></i>
+				  	      <span>{{ article.title }}</span>
+				  	    </div>
+				  	    <div class="list-toggle__content">
+				  	      {{ article.content }}
+				  	      <footer class="mt30">
+				  	      	{% if article.metafields.job_desc.pdf %}
+				  	      	<a href="{{ article.metafields.job_desc.pdf }}" target="_blank" class="btn btn-primary btn-icon btn-icon--left"><i class="fa fa-file-pdf-o"></i><span>Job Description</span></a>
+				  	      	{% endif %}
+
+				  	      	<a href="mailto:jobs@biolitestove.com?subject=Careers - {{ article.title }}" class="btn btn-outline-green btn-icon btn-icon--left"><i class="fa fa-envelope"></i><span>Apply</span></a>
+				  	      </footer>
+				  	    </div>
+				  	  </div>
+					  {% endif %}
+					{% endfor %}
+				</div>
+			</li>
+		</ul>
 	</div>
 </section>
 
-<section class="stat-columns">
-	<div class="wrapper wrapper-medium">
-		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-lightbulb-o"></i>
-			<p class="stat-column__title">Problem Solving</p>
-		</div>
-		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-thumbs-up"></i>
-			<p class="stat-column__title">Positive</p>
-		</div>
-		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-heart"></i>
-			<p class="stat-column__title">Passionate</p>
-		</div>
-	</div>
-</section>
-
-<section class="section">
-	<div class="wrapper">
-		<h6 class="light">View our job openings below. If you are interested in working with us, please send your resume, cover letter and portfolio to <a href="mailto:jobs@biolitestove.com?subject=Careers" target="_blank">jobs@biolitestove.com</a></h6>
-	</div>
-</section>
-
-<section class="faq flex-columns">
-	<ul class="faq-content flex-content">
-		{% for article in blogs['careers'].articles %}
-		  <li>
-		  	<div class="list-toggles">
-		  	  <div class="list-toggle list-toggle__active">
-		  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
-		  	      <i class="fa fa-minus-circle"></i>
-		  	      <span>{{ article.title }}</span>
-		  	    </div>
-		  	    <div class="list-toggle__content">
-		  	      <p>{{ article.content }}</p>
-		  	    </div>
-		  	  </div>
-		  	</div>
-		  </li>
-		{% endfor %}
-	</ul>
+<section class="jumbotron">
+  <div class="wrapper text-center">
+    <h3 class="light baseline mb10"><em>Press/Media Inquiries</em></h3>
+    <a href="/pages/contact/#contactFormWrapper" class="btn btn-outline-white btn-icon btn-icon--left mt30"> <i class="fa fa-envelope-o"></i> <span>Contact Us</span> </a>
+  </div>
 </section>

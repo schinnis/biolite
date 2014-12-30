@@ -26,22 +26,37 @@ select#locations, #locations_choice {
 .hero--xsmall { height: 400px; }
 
 /**
- * CONTACT - using faq layout/sidebar
+ * EXPANDABLE CONTENT AREAS - using faq layout/sidebar
  */
-.contact { margin-bottom: 90px; }
+.faq-categories li:hover { text-decoration: underline; }
 
+
+.expandable { margin-bottom: 90px; }
 // @extends .flex-slidebar, .nav-sidebar
-.contact-nav { width: 28%; }
-
+.expandable-nav { width: 28%; }
 // @extends .flex-content
-.contact-content {
+.expandable-content {
 	width: 72%; 
 	padding: 52px 60px 30px 80px; 
 }
-.faq-categories li:hover { text-decoration: underline; }
-.contact-categories a { color: #ecb351; }
-.contact-categories a:hover { text-decoration: underline; color: #eaad43; }
+.links-secondary a { color: #ecb351; }
+.expandable-categories a:hover { text-decoration: underline; color: #eaad43; }
 
+.expandable.expandable--full {
+	.wrapper { width: 100% !important; }
+
+	.expandable-content.flex-content { width: 100%; }
+
+	.list-toggle__title span { color: #35a8a6; }
+
+	.list-toggles .list-toggle { margin-bottom: 30px; }
+}
+
+
+
+/**
+ * MOBILE
+ */
 @media only screen and (max-width: 768px) {
 
 	.hero--xsmall { height: 300px; }

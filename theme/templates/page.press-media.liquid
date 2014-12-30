@@ -1,0 +1,48 @@
+<section class="hero hero--small">
+  <div class="hero__viewport">
+    <div class="hero__inner hero__inner--light">
+      <div class="hero__body wrapper table">
+        <div class="table-cell text-center">
+          <h1 class="light baseline">{{ page.title }}</h1>
+
+          {% if page.metafields.press_mediakit.pdf %}
+          <a href="{{ page.metafields.press_mediakit.pdf }}" target="_blank" class="btn btn-primary">Download Media Kit</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="hero__image" style="background-image: url('{{ page.metafields.hero_image.url }}');"></div>
+  </div>
+</section>
+
+<section class="xlarge">
+	<div class="wrapper">
+		{{ page.content }}
+	</div>
+</section>
+
+<section class="expandable expandable--full flex-columns pt40">
+	<div class="wrapper">
+		<ul class="expandable-content flex-content">
+			<h2 class="light mb30 text-center">Job Openings</h2>
+			<li class="mb100">
+				<div class="list-toggles">
+					{% for article in blogs['Press Releases'].articles %}
+			  	  <div class="list-toggle list-toggle__active">
+			  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+			  	      <i class="fa fa-minus-circle"></i>
+			  	      <span>{{ article.title }}</span>
+			  	    </div>
+			  	    <div class="list-toggle__content">
+			  	      {{ article.content }}
+			  	      <footer class="mt30">
+			  	      	<a href="mailto:jobs@biolitestove.com?subject=Careers - {{ article.title }}" class="btn btn-outline-green btn-icon btn-icon--left"><i class="fa fa-envelope"></i><span>Apply</span></a>
+			  	      </footer>
+			  	    </div>
+			  	  </div>
+					{% endfor %}
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>

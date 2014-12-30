@@ -8,7 +8,6 @@
 		</div>
 
   	{% for article in blogs['team'].articles %}
-
 			{% unless article.tags contains 'interns' %}
 
 	  	<div class="staff-grid-item grid__item large--one-quarter">
@@ -28,7 +27,6 @@
 	  	</div>
 
 			{% endunless %}
-
 		{% endfor %}
 
   </div>
@@ -39,7 +37,6 @@
   		</div>
 
   		{% for article in blogs['team'].articles %}
-
   			{% if article.tags contains 'interns' %}
 
   	  	<div class="staff-grid-item grid__item large--one-quarter">
@@ -59,7 +56,6 @@
   	  	</div>
 
   			{% endif %}
-
   		{% endfor %}
 
     </div>
