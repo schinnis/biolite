@@ -1,0 +1,47 @@
+{% include 'hero' %}
+
+<section class="section">
+	<div class="wrapper">
+		
+	</div>
+</section>
+
+<section class="stat-columns">
+	<div class="wrapper wrapper-medium">
+		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-lightbulb-o"></i>
+			<p class="stat-column__title">Problem Solving</p>
+		</div>
+		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-thumbs-up"></i>
+			<p class="stat-column__title">Positive</p>
+		</div>
+		<div class="stat-column grid__item large--one-third"><i class="stat-column__icon fa fa-circle-border fa-heart"></i>
+			<p class="stat-column__title">Passionate</p>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+	<div class="wrapper">
+		<h6 class="light">View our job openings below. If you are interested in working with us, please send your resume, cover letter and portfolio to <a href="mailto:jobs@biolitestove.com?subject=Careers" target="_blank">jobs@biolitestove.com</a></h6>
+	</div>
+</section>
+
+<section class="faq flex-columns">
+	<ul class="faq-content flex-content">
+		{% for article in blogs['careers'].articles %}
+		  <li>
+		  	<div class="list-toggles">
+		  	  <div class="list-toggle list-toggle__active">
+		  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+		  	      <i class="fa fa-minus-circle"></i>
+		  	      <span>{{ article.title }}</span>
+		  	    </div>
+		  	    <div class="list-toggle__content">
+		  	      <p>{{ article.content }}</p>
+		  	    </div>
+		  	  </div>
+		  	</div>
+		  </li>
+		{% endfor %}
+	</ul>
+</section>
