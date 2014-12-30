@@ -1,6 +1,6 @@
-<section id="hero" class="hero {% if template contains 'index' %}hero--carousel{% else %} {% endif %}">
 {% if template contains 'index' %}
-    
+    <section id="hero" class="hero hero--carousel">
+
       <!-- HOMEPAGE -->
       <div class="hero__viewport hero-carousel">
         <ul class="slides">
@@ -65,36 +65,81 @@
         </ul>
       </div>
 
-
+</section>
 
 {% elsif template contains 'product' %}
 
-     <!-- PRODUCT -->
-       <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-         <div class="inner">
-           <h1 itemprop="name">{{ product.title }}</h1>
-           <h2 itemprop="description">{{ product.description }}</h2>
-         </div>
-       </div>
+  <!-- PRODUCT -->
+  <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
+    <div class="inner">
+      <h1 itemprop="name">{{ product.title }}</h1>
+      <h2 itemprop="description">{{ product.description }}</h2>
+    </div>
+  </div>
+
 {% elsif template contains 'collection' %}
      
-     <!-- COLLECTIONS -->
-       <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-         <div class="inner">
-           <h1 itemprop="name">{{ collection.title }}</h1>
-           <h2>{{ collection.description }}</h2>
-         </div>
-       </div>
+  <!-- COLLECTIONS -->
+  <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
+    <div class="inner">
+      <h1 itemprop="name">{{ collection.title }}</h1>
+      <h2>{{ collection.description }}</h2>
+    </div>
+  </div>
+
+{% elsif template contains 'article' %}
+
+  <section class="hero hero--small">
+    <div class="hero__viewport">
+      <div class="hero__inner hero__inner--light">
+        <div class="hero__body wrapper table">
+          <div class="table-cell text-center">
+            <h1 class="light mb0">{{ article.title }}</h1>
+
+            <footer class="mt30">
+              <p>
+                Posted by <strong>{{ article.author }}</strong> at
+                <strong><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                  {{ article.published_at | date: '%b %d, %Y' }}
+                </time></strong>
+              </p>
+            </footer>
+          </div>
+        </div>
+      </div>
+      {{ article.metafields.hero_image[url] }}
+      <div class="hero__image" style="background-image: url('{{ article.metafields.hero_image.url }}');"></div>
+    </div>
+  </section>
+
+{% elsif template contains 'faq' or template contains 'contact' %}
+
+  <section class="hero hero--xsmall">
+    <div class="hero__viewport">
+      <div class="hero__inner hero__inner--light">
+        <div class="hero__body wrapper table">
+          <div class="table-cell text-center">
+            <h1 class="light mb0">{{ page.title }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero__image" style="background-image: url('{{ page.metafields.hero_image.url }}');"></div>
+    </div>
+  </section>
 
 {% else %}
 
-     <!-- ALL OTHER PAGES -->
-       <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-         <div class="inner">
-           <h1 itemprop="name">{{ page.title }}</h1>
-         </div>
-       </div>
+  <section class="hero hero--small">
+    <div class="hero__viewport">
+      <div class="hero__inner hero__inner--light">
+        <div class="hero__body wrapper table">
+          <div class="table-cell text-center">
+            <h1 class="light mb0">{{ page.title }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero__image" style="background-image: url('{{ page.metafields.hero_image.url }}');"></div>
+    </div>
+  </section>
 
 {% endif %}
-
-</section>

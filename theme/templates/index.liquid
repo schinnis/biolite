@@ -96,8 +96,9 @@
     <section class="story-grid story-grid--thirds story-grid--green">
 
       {% for article in blogs['stories'].articles limit:5 %}
+        {% if article.tags contains 'stories_featured' %}
         <div class="story-grid-item">
-          <div class="story-grid-item__inner" style="background-image:url('{{ 'thumb-story-grid-item--thirds-1.jpg' | asset_url }}')">
+          <div class="story-grid-item__inner" style="background-image: url('{{ article.metafields.hero_image.url }}');">
             <div class="story-grid-item__content story-grid-item__content--gradient table">
               <div class="table-cell">
                 <div>
@@ -116,6 +117,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
       {% endfor %}
 
       <div class="story-grid-item story-grid-item--fallback">
