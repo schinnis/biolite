@@ -13,6 +13,7 @@ BioliteLocale.init = function()
 		'JP' : 'Japan',
 		'SE' : 'Sweden',
 		'UK' : 'United Kingdom',
+		'KR' : 'South Korea',
 	}	
 	BioliteLocale.location_currencies = {
 		'US' : 'USD',
@@ -22,6 +23,7 @@ BioliteLocale.init = function()
 		'JP' : 'JPY',
 		'SE' : 'SEK',
 		'UK' : 'GBP',
+		'KR' : 'KRW',
 	}
 	BioliteLocale.currency_from_location_code = {
 		'CAD' : ['CA'], 
@@ -31,6 +33,7 @@ BioliteLocale.init = function()
 		'GBP' :	['UK'],
 		'SEK' :	['SE'],
 		'JPY' :	['JP'],
+		'KRW' :	['KR'],
 	}
 
 	BioliteLocale.default_currency 							= 'USD';
