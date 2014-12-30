@@ -21,58 +21,62 @@
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
 {% endcomment %}
-<div class="grid">
+<section class="section">
+  <div class="wrapper">
+    <div class="grid">
 
-  <div class="grid-item large--one-quarter">
-    {% include 'collection-sidebar' %}
-  </div>
-
-  <div class="grid-item large--three-quarters">
-
-    <header class="section-header">
-      <h1 class="section-header--left">{{ collection.title }}</h1>
-      <div class="section-header--right">
-
-        {% include 'collection-sorting' %}
-        {% include 'collection-views' %}
-
+      <div class="grid-item large--one-quarter">
+        {% include 'collection-sidebar' %}
       </div>
-    </header>
 
-    {% comment %}
-      Use class grid-uniform to have evenly sized columns clear
-      each other properly at each breakpoint.
-    {% endcomment %}
-    <div class="grid-uniform">
+      <div class="grid-item large--three-quarters">
 
-      {% comment %}
-        Loop through our products in the current collection.
-        See the snippet 'product-grid-item' for the layout.
-      {% endcomment %}
-      {% for product in collection.products %}
+        <header class="section-header">
+          <h1 class="section-header--left">{{ collection.title }}</h1>
+          <div class="section-header--right">
 
-        {% include 'product-list-item' %}
+            {% include 'collection-sorting' %}
+            {% include 'collection-views' %}
 
-      {% else %}
+          </div>
+        </header>
 
-        <div class="grid-item">
-          <p>Sorry, there are no products matching your search.</p>
+        {% comment %}
+          Use class grid-uniform to have evenly sized columns clear
+          each other properly at each breakpoint.
+        {% endcomment %}
+        <div class="grid-uniform">
+
+          {% comment %}
+            Loop through our products in the current collection.
+            See the snippet 'product-grid-item' for the layout.
+          {% endcomment %}
+          {% for product in collection.products %}
+
+            {% include 'product-list-item' %}
+
+          {% else %}
+
+            <div class="grid-item">
+              <p>Sorry, there are no products matching your search.</p>
+            </div>
+
+          {% endfor %}
+
         </div>
 
-      {% endfor %}
+        {% if paginate.pages > 1 %}
+          <hr>
+
+          <div class="text-center">
+            {% include 'pagination-custom' %}
+          </div>
+        {% endif %}
+
+      </div>
 
     </div>
-
-    {% if paginate.pages > 1 %}
-      <hr>
-
-      <div class="text-center">
-        {% include 'pagination-custom' %}
-      </div>
-    {% endif %}
-
   </div>
-
-</div>
+</section>
 
 {% endpaginate %}

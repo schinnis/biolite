@@ -102,6 +102,15 @@
               <img src="{{ 'logo-header.png' | asset_url }}" alt="Biolite">
             </a>
           </div>
+          {% comment %}
+          <div class="grid__item large--one-quarter">            
+            <div id="locations-box" style="display: block;">
+              <div id="locations_chooser">
+                <select id="locations" name="locations"><option value="US">United States (USD)</option><option value="AU">Australia (AUD)</option><option value="CA">Canada (CAD)</option><option value="EU">Euro Zone (EUR)</option><option value="JP">Japan (JPY)</option><option value="SE">Sweden (SEK)</option><option value="UK">United Kingdom (GBP)</option></select>
+              </div>
+            </div>  
+          </div>
+          {% endcomment %}
           <div class="grid__item large--one-half text-right large--text-right header-right">
             
             <nav id="nav-main" class="header-nav">
@@ -201,7 +210,7 @@
 <!--Custom IP Switching Jacascript-->
 {{ 'biolite-locale.js' | asset_url | script_tag }}
 <script type="text/javascript">
-  //BioliteLocale.show_locale_switcher();
+  BioliteLocale.show_locale_switcher();
 </script>
 
 <!--Customer Pricing App -->

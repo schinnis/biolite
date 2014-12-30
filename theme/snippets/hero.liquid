@@ -80,12 +80,25 @@
 {% elsif template contains 'collection' %}
      
   <!-- COLLECTIONS -->
-  <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-    <div class="inner">
-      <h1 itemprop="name">{{ collection.title }}</h1>
-      <h2>{{ collection.description }}</h2>
+  <section class="hero hero--medium">
+    <div class="hero__viewport">
+      <div class="hero__inner hero__inner--xlight">
+        <div class="hero__body wrapper table">
+          <div class="table-cell text-center">
+            <h1 class="light mb0">It's Camping Season</h1>
+            <h4 class="alt sans mt0">Checkout 5 new BioLite products you won’t want to leave behind</h4>
+            
+            <a href="" class="btn btn-transparent-primary btn-icon btn-icon--left mt20">
+              <i class="fa fa-r fa-play-circle"></i>
+              <span>See Camping Products</span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="hero__image" style="background-image:url('{{ 'hero-shop-1.jpg' | asset_url }}')"></div>
     </div>
-  </div>
+  </section>
 
 {% elsif template contains 'article' %}
 

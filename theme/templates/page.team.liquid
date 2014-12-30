@@ -1,0 +1,78 @@
+{% include 'hero' %}
+
+<section id="staff-grid" class="grid-wrap">
+	
+  <div class="staff-grid">
+		<div class="wrapper">
+			<h2 class="light mb30 text-center">Our Team</h2>
+		</div>
+
+  	{% for article in blogs['team'].articles %}
+
+			{% unless article.tags contains 'interns' %}
+
+	  	<div class="staff-grid-item grid__item large--one-quarter">
+	  	  <div class="staff-grid-item__photo" style="background-image:url('{{ article.metafields.team.photo }}');">
+	  	    <div class="staff-grid-item__overlay table">
+	  	      <div class="staff-grid-item__content table-cell">
+	  	        <ul>
+	  	          {{ article.content }}
+	  	        </ul>
+	  	      </div>
+	  	    </div>
+	  	  </div>
+	  	  <footer class="staff-grid-item__footer">
+	  	    <h5 class="light baseline mb10">{{ article.title }}</h5>
+	  	    <p class="light baseline">{{ article.metafields.team.role }}</p>
+	  	  </footer>
+	  	</div>
+
+			{% endunless %}
+
+		{% endfor %}
+
+  </div>
+
+    <div class="staff-grid">
+  		<div class="wrapper">
+  			<h2 class="light mb30 text-center">Our Interns</h2>
+  		</div>
+
+  		{% for article in blogs['team'].articles %}
+
+  			{% if article.tags contains 'interns' %}
+
+  	  	<div class="staff-grid-item grid__item large--one-quarter">
+  	  	  <div class="staff-grid-item__photo" style="background-image:url('{{ article.metafields.team.photo }}');">
+  	  	    <div class="staff-grid-item__overlay table">
+  	  	      <div class="staff-grid-item__content table-cell">
+  	  	        <ul>
+  	  	          {{ article.content }}
+  	  	        </ul>
+  	  	      </div>
+  	  	    </div>
+  	  	  </div>
+  	  	  <footer class="staff-grid-item__footer">
+  	  	    <h5 class="light baseline mb10">{{ article.title }}</h5>
+  	  	    <p class="light baseline">{{ article.metafields.team.role }}</p>
+  	  	  </footer>
+  	  	</div>
+
+  			{% endif %}
+
+  		{% endfor %}
+
+    </div>
+</section>
+
+<section class="interstitial section-xlarge mb50" style="background-image:url('')">
+  <div class="wrapper table">
+    <div class="interstitial__content table-cell text-center">
+      <h2 class="mt0">Looking to Join the Team?</h2>
+      <footer class="mt40">
+        <a href="#" class="btn btn-outline-white">See Openings</a>
+      </footer>
+    </div>
+  </div>
+  <div class="interstitial__overlay interstitial__overlay--green"></div>
+</section>

@@ -8,19 +8,59 @@
 
 {% endcomment %}
 
-{% include 'breadcrumb' %}
+{% include 'hero' %}
 
-{% comment %}
-  Loop through each collection, except 'frontpage'
-{% endcomment %}
-{% for collection in collections %}
+<nav id="product-grid-filter" class="nav-horizontal nav-horizontal--icons">
+  <div class="wrapper wrapper--full wrapper--max_height">
 
-  {% unless collection.handle == 'frontpage' %}
+    <div class="nav-horizontal__menu">
+      <ul>
+        <li class="active">
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-grid-item">
+            <i class="fa fa-circle-border fa-shopping-cart"></i>
+            <span>All Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--cooking">
+            <i class="fa fa-circle-border fa-cutlery"></i>
+            <span>Cooking</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--charging">
+            <i class="fa fa-circle-border fa-power-off"></i>
+            <span>Charging</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--lighting">
+            <i class="fa fa-circle-border fa-lightbulb-o"></i>
+            <span>Lighting</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-    {% include 'collection-list-item' %}
+  </div>
+</nav>
 
-    {% unless forloop.last %}<hr>{% endunless %}
+<section id="product-grid" class="product-grid section-large">
+	<div class="wrapper wrapper--xxlarge">
 
-  {% endunless %}
+		{% comment %}
+		  Loop through each collection, except 'frontpage'
+		{% endcomment %}
+		{% for collection in collections %}
+			
+		  {% unless collection.handle == 'frontpage' %}
 
-{% endfor %}
+		    {% include 'collection-list-item' %}
+
+		    {% unless forloop.last %}<hr>{% endunless %}
+
+		  {% endunless %}
+
+		{% endfor %}
+	</div>
+</section>

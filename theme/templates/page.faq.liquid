@@ -33,12 +33,9 @@
   </nav>
   
   <ul id="faq-content" class="faq-content flex-content" data-control-target>
-    {% for article in blogs['FAQs'].articles %}
-
-      {% if article.tags contains 'Popular' %}
-      <li>
-        <h3 class="faq-title light primary baseline mb20">{{ article.tags }}</h3>
-
+    <li>
+      <h3 class="faq-title light primary baseline mb20">KettleCharge</h3>
+      {% for article in blogs['faq_kettlecharge'].articles %}
         <div class="list-toggles">
           <div class="list-toggle list-toggle__active">
             <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
@@ -49,15 +46,13 @@
               <p>{{ article.content }}</p>
             </div>
           </div>
-
         </div>
-      </li>
-      {% endif %}
+      {% endfor %}
+    </li>
 
-      {% if article.tags contains 'BaseCamp' %}
-      <li>
-        <h3 class="faq-title light primary baseline mb20">BaseCamp</h3>
-
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Most Popular FAQs</h3>
+      {% for article in blogs['faq_popular'].articles %}
         <div class="list-toggles">
           <div class="list-toggle list-toggle__active">
             <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
@@ -68,12 +63,196 @@
               <p>{{ article.content }}</p>
             </div>
           </div>
-
         </div>
-      </li>
-      {% endif %}
+      {% endfor %}
+    </li>
 
-    {% endfor %}
+    <li>
+      <h3 class="faq-title light primary baseline mb20">BaseCamp</h3>
+      {% for article in blogs['faq_basecamp'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+
+    <li>
+      <h3 class="faq-title light primary baseline mb20">KettlePot</h3>
+      {% for article in blogs['faq_kettlepot'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+    
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Portable Grill</h3>
+      {% for article in blogs['faq_portablegrill'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+    
+    <li>
+      <h3 class="faq-title light primary baseline mb20">CampStove Running &amp; Use</h3>
+      {% for article in blogs['faq_campstove-running'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+
+    <li>
+      <h3 class="faq-title light primary baseline mb20">CampStove Start Up &amp; First Time Use</h3>
+      {% for article in blogs['faq_campstove-startup'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+    
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Maintenance &amp; Care</h3>
+      {% for article in blogs['faq_maintenance-care'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+    
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Tips &amp; Troubleshooting</h3>
+      {% for article in blogs['faq_tips-troubleshooting'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Orders &amp; Shipping</h3>
+      {% for article in blogs['faq_orders-shipping'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+
+    <li>
+      <h3 class="faq-title light primary baseline mb20">HomeStove</h3>
+      {% for article in blogs['faq_homestove'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+    
+    <li>
+      <h3 class="faq-title light primary baseline mb20">BioLite eGifts &amp; Wishlist</h3>
+      {% for article in blogs['faq_egift-wishlist'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
+
+    <li>
+      <h3 class="faq-title light primary baseline mb20">Miscellaneous Questions</h3>
+      {% for article in blogs['faq_misc'].articles %}
+        <div class="list-toggles">
+          <div class="list-toggle list-toggle__active">
+            <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
+              <i class="fa fa-minus-circle"></i>
+              <span>{{ article.title }}</span>
+            </div>
+            <div class="list-toggle__content">
+              <p>{{ article.content }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </li>
   </ul>
 </section>
 
