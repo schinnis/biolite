@@ -98,7 +98,7 @@
       {% for article in blogs['stories'].articles limit:5 %}
         {% if article.tags contains 'stories_featured' %}
         <div class="story-grid-item">
-          <div class="story-grid-item__inner" style="background-image: url('{{ article.metafields.hero_image.url }}');">
+          <div class="story-grid-item__inner" style="background-image: url('{{ article.metafields.hero.image }}');">
             <div class="story-grid-item__content story-grid-item__content--gradient table">
               <div class="table-cell">
                 <div>

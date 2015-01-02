@@ -10,10 +10,14 @@
 {% endcomment %}
 
 {% if article.tags.size > 0 %}
-  <li>
-    <span>Tags:</span>
-    {% for tag in article.tags %}
-      <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-    {% endfor %}
-  </li>
+  {% unless article.tags contains 'stories_featured' %}
+    <li>
+      <span>Tags:</span>
+      {% for tag in article.tags %}
+        
+        <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+        
+      {% endfor %}
+    </li>
+  {% endunless %}
 {% endif %}

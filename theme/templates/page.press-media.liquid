@@ -15,29 +15,40 @@
   </div>
 </section>
 
-<section class="xlarge">
+<section class="section-xlarge">
 	<div class="wrapper">
-		{{ page.content }}
+		<h2 class="light mb30 text-center">Recent Press</h2>
+		{% for article in blogs['Press'].articles %}
+			<div class="recent-press">
+				<a class="logo" href="{{ article.metafields.press.url }}" target="_blank"><img src="{{ article.metafields.press.logo }}" alt=""></a>
+				<div class="excerpt">
+					<time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+					  {{ article.published_at | date: '%b %d, %Y' }}
+					</time>
+					{{ article.content }}
+				</div>
+			</div>
+		{% endfor %}
 	</div>
 </section>
 
-<section class="expandable expandable--full flex-columns pt40">
+<section class="expandable expandable--full flex-columns">
 	<div class="wrapper">
-		<ul class="expandable-content flex-content">
-			<h2 class="light mb30 text-center">Job Openings</h2>
-			<li class="mb100">
+		<ul class="expandable-content flex-content pt0">
+			<h2 class="light mb30 text-center">Press Releases</h2>
+			<li>
 				<div class="list-toggles">
-					{% for article in blogs['Press Releases'].articles %}
-			  	  <div class="list-toggle list-toggle__active">
+					{% for article in blogs['press_releases'].articles %}
+			  	  <div class="list-toggle">
 			  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
 			  	      <i class="fa fa-minus-circle"></i>
 			  	      <span>{{ article.title }}</span>
+			  	      <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+			  	        {{ article.published_at | date: '%b %d, %Y' }}
+			  	      </time>
 			  	    </div>
 			  	    <div class="list-toggle__content">
 			  	      {{ article.content }}
-			  	      <footer class="mt30">
-			  	      	<a href="mailto:jobs@biolitestove.com?subject=Careers - {{ article.title }}" class="btn btn-outline-green btn-icon btn-icon--left"><i class="fa fa-envelope"></i><span>Apply</span></a>
-			  	      </footer>
 			  	    </div>
 			  	  </div>
 					{% endfor %}
@@ -45,4 +56,12 @@
 			</li>
 		</ul>
 	</div>
+</section>
+
+<section class="jumbotron">
+  <div class="wrapper text-center">
+    <h3 class="light baseline mb10">Press/Media Inquiries</h3>
+    <h6 class="light baseline"></h6>
+    <a href="/pages/contact/#contactFormWrapper" class="btn btn-outline-white btn-icon btn-icon--left mt30"> <i class="fa fa-envelope-o"></i> <span>Contact Us</span> </a>
+  </div>
 </section>

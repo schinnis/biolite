@@ -33,7 +33,7 @@
 				<div class="list-toggles">
 					{% for article in blogs['careers'].articles %}
 						{% unless article.tags contains 'careers_internships' %}
-				  	  <div class="list-toggle list-toggle__active">
+				  	  <div class="list-toggle">
 				  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
 				  	      <i class="fa fa-minus-circle"></i>
 				  	      <span>{{ article.title }}</span>
@@ -59,7 +59,7 @@
 				<div class="list-toggles">
 					{% for article in blogs['careers'].articles %}
 						{% if article.tags contains 'careers_internships' %}
-				  	  <div class="list-toggle list-toggle__active">
+				  	  <div class="list-toggle">
 				  	    <div class="list-toggle__title" data-control-sibling data-control-toggle-icons="fa-plus-circle, fa-minus-circle">
 				  	      <i class="fa fa-minus-circle"></i>
 				  	      <span>{{ article.title }}</span>
@@ -81,11 +81,4 @@
 			</li>
 		</ul>
 	</div>
-</section>
-
-<section class="jumbotron">
-  <div class="wrapper text-center">
-    <h3 class="light baseline mb10"><em>Press/Media Inquiries</em></h3>
-    <a href="/pages/contact/#contactFormWrapper" class="btn btn-outline-white btn-icon btn-icon--left mt30"> <i class="fa fa-envelope-o"></i> <span>Contact Us</span> </a>
-  </div>
 </section>

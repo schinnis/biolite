@@ -15,6 +15,7 @@
 
     <div class="nav-horizontal__menu">
       <ul>
+
         <li class="active">
           <a href="javascript:;" class="isotope-filter" data-filter=".product-grid-item">
             <i class="fa fa-circle-border fa-shopping-cart"></i>
@@ -22,19 +23,19 @@
           </a>
         </li>
         <li>
-          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--cooking">
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--Cooking">
             <i class="fa fa-circle-border fa-cutlery"></i>
             <span>Cooking</span>
           </a>
         </li>
         <li>
-          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--charging">
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--Charging">
             <i class="fa fa-circle-border fa-power-off"></i>
             <span>Charging</span>
           </a>
         </li>
         <li>
-          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--lighting">
+          <a href="javascript:;" class="isotope-filter" data-filter=".product-category--Lighting">
             <i class="fa fa-circle-border fa-lightbulb-o"></i>
             <span>Lighting</span>
           </a>
@@ -45,7 +46,7 @@
   </div>
 </nav>
 
-<section id="product-grid" class="product-grid section-large">
+<section id="product-grid" class="product-grid section-large" itemtype="http://schema.org/SomeProducts">
 	<div class="wrapper wrapper--xxlarge">
 
 		{% comment %}
@@ -57,10 +58,18 @@
 
 		    {% include 'collection-list-item' %}
 
-		    {% unless forloop.last %}<hr>{% endunless %}
-
 		  {% endunless %}
 
 		{% endfor %}
 	</div>
+</section>
+
+<section class="interstitial section-xlarge" style="background-image:url('{{ 'bg-interstitial-2.jpg' | asset_url }}')">
+  <div class="wrapper table">
+    <div class="interstitial__content table-cell text-center">
+      <h3 class="mt0">Global impact in every purchase</h3>
+      <h6 class="light">With every purchase of a BioLite product, you are helping create lasting change in emerging markets of the developing world. The same technology that provides you with a clean, innovative camping experience is providing better living conditions, saving lives worldwide.  </h6>
+    </div>
+  </div>
+  <div class="interstitial__overlay interstitial__overlay--green"></div>
 </section>
