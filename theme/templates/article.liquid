@@ -30,7 +30,7 @@
 
     <div class="grid">
 
-      <article class="grid-item large--three-quarters" itemscope itemtype="http://schema.org/Article">
+      <article class="grid-item" itemscope itemtype="http://schema.org/Article">
 
         <div class="rte" itemprop="articleBody">
           {{ article.content }}
@@ -200,10 +200,12 @@
         {% endif %}
 
       </article>
-
+      
+      {% comment %}
       <aside class="grid-item large--one-quarter blog-sidebar" role="complementary">
         {% include 'blog-sidebar' %}
       </aside>
+      {% endcomment %}
     </div>
 
   </div>

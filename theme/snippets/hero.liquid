@@ -70,12 +70,26 @@
 {% elsif template contains 'product' %}
 
   <!-- PRODUCT -->
-  <div class="hero-image" style="background-image:url('{{ 'hero-image--home.jpg' | asset_url }}')">
-    <div class="inner">
-      <h1 itemprop="name">{{ product.title }}</h1>
-      <h2 itemprop="description">{{ product.description }}</h2>
+  <section class="hero">
+    <div class="hero__viewport">
+      <div class="hero__inner hero__inner--light">
+        <div class="hero__body wrapper table">
+          <div class="table-cell text-center">
+            <h4 class="alt sans baseline">{{ product.metafields.hero.subtitle }}</h4>
+            <h1 class="large light mt0">{{ product.title }}</h1>
+            {% if product.metafields.hero.video %}
+              <a href="#" class="btn btn-transparent-primary btn-icon mt20">
+                <span>Watch the overview</span>
+                <i class="fa fa-r fa-play-circle"></i>
+              </a>
+            {% endif %}
+            
+          </div>
+        </div>
+      </div>
+      <div class="hero__image" style="background-image:url('{{ product.metafields.hero.image }}')"></div>
     </div>
-  </div>
+  </section>
 
 {% elsif template contains 'collection' %}
      
@@ -121,7 +135,7 @@
         </div>
       </div>
       {{ article.metafields.hero_image[url] }}
-      <div class="hero__image" style="background-image: url('{{ article.metafields.hero_image.url }}');"></div>
+      <div class="hero__image" style="background-image: url('{{ article.metafields.hero.image }}');"></div>
     </div>
   </section>
 
@@ -136,7 +150,7 @@
           </div>
         </div>
       </div>
-      <div class="hero__image" style="background-image: url('{{ page.metafields.hero_image.url }}');"></div>
+      <div class="hero__image" style="background-image: url('{{ page.metafields.hero.image }}');"></div>
     </div>
   </section>
 
@@ -155,7 +169,7 @@
           </div>
         </div>
       </div>
-      <div class="hero__image" style="background-image: url('{{ page.metafields.hero_image.url }}');"></div>
+      <div class="hero__image" style="background-image: url('{{ page.metafields.hero.image }}');"></div>
     </div>
   </section>
 

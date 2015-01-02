@@ -6,16 +6,24 @@
 {% endcomment %}
 {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
 
-<div class="section-header">
-  <p class="h1 section-header--left">{{ collection_title }}</p>
-  <div class="section-header--right">
-    <a href="{{ collection.url }}" title="Browse our {{ collection_title }} collection">More {{ collection_title }} &rsaquo;</a>
-  </div>
-</div>
 
-<div class="grid" itemscope itemtype="http://schema.org/SomeProducts" id="someProducts">
-  {% for product in collection.products limit:5 %}
-    {% assign grid_item_width = 'large--one-fifth medium--one-half' %}
-    {% include 'product-grid-item' %}
-  {% endfor %}
+{% comment %}
+  See snippets/product-grid-item.liquid for more info
+{% endcomment %}
+
+{% for product in collection.products %}
+<div class="product-grid-item product-category--{{ collection_title }} grid__item large--one-quarter {% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}" itemscope itemtype="http://schema.org/Product">
+  <div class="product-grid-item__inner">
+    <div class="product-grid-item__actions">
+      <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></a>
+      <a href="{{ product.url | within: collection }}" class="btn btn-outline-primary"><i class="fa fa-eye"></i></a>
+    </div>
+    <div class="product-grid-item__thumb" style="background-image:url('{{ product.featured_image.src | product_img_url: 'medium' }}');"></div>
+  </div>
+  
+  <footer class="product-grid-item__footer">
+    <h5 class="product-grid-item__title" itemprop="name">{{ product.title }}</h5>
+    <h5 class="product-grid-item__price" itemprop="variantPrice">{{ product.price | money }}</h5>
+  </footer>
 </div>
+{% endfor %}
