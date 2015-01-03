@@ -15,16 +15,27 @@ var APP = (function () {
 
     // Config
     config : {
-      environment : (window.location.href.match(/(localhost)/g) ? 'development' : 'production' ),
-      debug : true,
-      debug_console: false,
-      debug_plugins : false
+      environment : window.location.href.match(/(localhost)/g) ? 'development' : 'production',
+      debug : window.location.href.match(/(localhost)/g) ? true : false,
+      debug_plugins : window.location.href.match(/(localhost)/g) ? true : false,
+      debug_console: false
     },
 
     // Data
     data : {
       temp : null,
       binds : {}
+    },
+
+    // URLs
+    urls : {
+      social : {
+        facebook : 'https://www.facebook.com/biolitestove',
+        twitter : 'https://twitter.com/biolitestove',
+        youtube : 'https://www.youtube.com/channel/UCH7vBwioK6P58AqC9Xi1Pjg',
+        instagram : 'http://instagram.com/biolitestove',
+        pinterest : 'https://www.pinterest.com/biolitestove/'
+      }
     },
 
     // Supports
@@ -43,7 +54,6 @@ var APP = (function () {
     $el : {
       body : $('body'),
 
-
       nav : {
         horizontal : $('.nav-horizontal'),
         sidebar : $('.sidebar__header'),
@@ -60,7 +70,10 @@ var APP = (function () {
         curtain : $('*[data-control-curtain]'),
         expander : $('*[data-control-expander]'),
         display : $('*[data-control-display]'),
+        text : $('*[data-control-text]'),
         sibling : $('*[data-control-sibling]'),
+        scrollto : $('*[data-control-scrollto]'),
+        active_items : $('*[data-control-activeitems]').find('li'),
         modal : $('*[data-control-modal]')
       },
 
@@ -83,6 +96,8 @@ var APP = (function () {
         
       },
 
+      sticky : $('*[data-sticky]'),
+
       sliders : {
         hero_carousel : $('.hero-carousel'),
         hero_carousel_nav : $('.hero-carousel-nav')
@@ -94,6 +109,16 @@ var APP = (function () {
 
       animation : {
         energy_arc : $('#animation--energy_arc')
+      },
+
+      forms : {
+
+        inputs : {
+          select : $('.input-select'),
+          checkbox : $('.input-checkbox'),
+          complex : $('.input-complex')
+        }
+
       },
 
       debug : $('#debug')
@@ -116,12 +141,15 @@ var APP = (function () {
     this.cookies()
     this.events()
     this.modals()
+    this.forms.init()
     this.touchEvents()
     this.animations.init()
     this.dataControls.init()
     this.animationFrames()
     
-    // Debug
+    // Debug APP Object
+    if ( app.config.debug ) { console.log(app) }
+    // Debug Console
     if ( app.config.debug_console ) {
       
       this.debug({
@@ -129,8 +157,7 @@ var APP = (function () {
         viewport: true,
         events : false,
         ajax : true
-      })
-
+      })  
     }
 
   }
@@ -144,7 +171,7 @@ var APP = (function () {
   app.pluginsInit = function () {
     
     // Read bower dependencies
-    if ( app.config.debug_plugins ) {
+    if ( !app.config.debug_plugins ) {
 
       var pluginsList = '';
 
@@ -170,11 +197,11 @@ var APP = (function () {
     }
 
 
-    // wow.js
-    // https://github.com/matthieua/WOW
-    if ( window.WOW ) {
+    // jquery.easing.js
+    // https://github.com/danro/jquey-easing
+    if ( $.easing ) {
 
-      new WOW().init()
+      jQuery.easing.def = 'string';
       
     }
 
@@ -197,21 +224,37 @@ var APP = (function () {
     // https://github.com/garand/sticky
     if ( $.fn.sticky() ) {
       
-      var stickyElements = [
-        app.$el.nav.horizontal
-      ]
+      var $window = $(window);
+
+      var stickyElements = [ app.$el.sticky ];
 
       stickyElements.forEach(function (element) {
+
+        var unstickPoint = element.data('unstick') || false;
+
+        // init sticky
         element.sticky({
           topSpacing : 0
         })
+
+        // init unstick
+        if ( unstickPoint ) {
+          
+          $window.scroll(function() {
+            var scrollTop = $window.scrollTop()
+
+            console.log(scrollTop, unstickPoint)
+          })
+
+        }
+
       })
 
     }
 
     // jquery.cookie.js
     // 
-    if ( $.cookie() ) {
+    if ( $.cookie ) {
 
     }
 
@@ -220,6 +263,15 @@ var APP = (function () {
 
       app.sliders()
 
+    }
+
+
+    // wow.js
+    // https://github.com/matthieua/WOW
+    if ( window.WOW ) {
+
+      new WOW().init()
+      
     }
 
     // walkway.js
@@ -237,6 +289,7 @@ var APP = (function () {
 
 
   }
+
 
 
   
@@ -385,6 +438,40 @@ var APP = (function () {
       }
 
   }
+
+
+
+  /**
+   * Forms
+   */
+  app.forms = {
+
+    init: function() {
+
+      this.inputSelect()
+    },
+
+    inputSelect: function() {
+
+      var select = app.$el.forms.inputs.select.find('select')
+
+      $(document).delegate(select.selector, 'change', function (event) {
+
+        var label = $(this).parent().find('label > span'),
+            selection = event.currentTarget.value;
+
+        label.html(selection)
+
+      })
+
+
+    }
+
+
+  }
+
+
+
 
 
   /**
@@ -601,7 +688,10 @@ var APP = (function () {
       this.controlCurtain()
       this.controlExpander()
       this.controlDisplay()
+      this.controlText()
       this.controlSibling()
+      this.controlScrollTo()
+      this.controlActiveItems()
 
     },
 
@@ -780,6 +870,32 @@ var APP = (function () {
 
     },
 
+
+
+    /**
+     * Control Text
+     */
+    controlText: function() {
+
+      $(document).delegate(app.$el.controls.text.selector, 'click', function (event) {
+
+        var $this        = $(this),
+            text         = $this.data('control-text').split(','),
+            $targetText  = $this.find('*[data-control-text-target]'),
+            currentText  = $targetText.text()
+
+          if ( currentText == text[0] ) {
+            $targetText.text(text[1])
+          } else {
+            $targetText.text(text[0])
+          }
+
+      })
+
+    }, 
+
+
+
     /**
      * Control Sibling
      */
@@ -815,7 +931,69 @@ var APP = (function () {
 
       })
 
-    }
+    },
+
+
+    
+
+    /**
+     * Control ScrollTo
+     */
+    controlScrollTo: function() {
+
+      $(document).delegate(app.$el.controls.scrollto.selector, 'click', function (event) {
+
+        event.preventDefault()
+
+        var $this            = $(this),
+            targetElementId  = $this.data('control-scrollto'),
+            $targetElement   = $(targetElementId)
+
+        var options = {
+          offset : $this.data('control-scrollto-offset') || 0,
+          duration : Math.floor( Math.abs($(window).scrollTop() - $targetElement.offset().top) / 2.75 ),
+          // easing : $.easing ? 'easeInOutExpo' : 'swing'
+          easing : 'swing'
+        }
+
+        if ( $targetElement.length > 0 ) {
+          
+          scrollToElement({
+            target : targetElementId,
+            offset : options.offset,
+            easing : options.easing,
+            duration : options.duration
+          })
+
+          if ( app.config.debug ) console.log('%cDATA-CONTROL', 'color:#d2a946', '- scrollto element '+targetElementId, options.offset, (options.duration / 1000)+'s', options.easing)
+          
+        } else {
+          if ( app.config.debug ) console.log('%cERROR : DATA-CONTROL', 'color:#eb1817', '- scrollto element '+targetElementId+' does not exist' + options.offset)
+        }
+
+      })
+
+    },
+
+
+    /**
+     * Control Active Items
+     */
+    controlActiveItems: function() {
+
+      $(document).delegate(app.$el.controls.active_items.selector, 'click', function (event) {
+
+        var $this = $(this)
+
+        $this.siblings().removeClass('active')
+        $this.addClass('active')
+
+      })
+
+    },
+
+
+
 
 
   }

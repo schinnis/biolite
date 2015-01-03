@@ -1,6 +1,7 @@
 /**
  * ADDITIONAL STYLES ADDED HERE
  */
+
 #locations-box {
   width: 250px;
   margin: 0;
@@ -56,6 +57,7 @@ select#locations, #locations_choice {
  * HERO
  */
 .hero--xsmall { height: 400px; }
+.hero--product { height: 750px; }
 
 /**
  * EXPANDABLE CONTENT AREAS - using faq layout/sidebar
@@ -128,7 +130,52 @@ select#locations, #locations_choice {
 /**
  * PRODUCTS
  */
+
+#ProductPrice.h4 {
+	font-size: 28px;
+	font-family: "din-next-pro";
+	font-weight: normal;
+}
+
+.product-grid-item__price {
+	&.primary { color: #35a8a6; }
+	&.h1 { font-size: 60px; }
+	&.h5 {
+		font-size: 21px;
+		font-weight: 500;
+	}
+	&.tight { letter-spacing: -3px; }
+}
+
 .product-single__thumbnails li .product-single__thumbnail img { max-width: 100px; }
+
+
+/**
+ * PRODUCT REVIEWS
+ */
+#shopify-product-reviews {
+	color: #a8a8a8;
+
+	.spr-summary-actions-newreview {
+		text-decoration: underline;
+	}
+
+	.spr-container { 
+		padding: 0;
+		border: none;
+	}
+
+	.spr-icon { color: #ecb660; }
+
+	.spr-review-reportreview {
+		opacity: 0;
+		text-decoration: underline;
+	}
+
+	.spr-review:hover {
+		.spr-review-reportreview { opacity: 1; }
+	}
+}
 
 
 /**
@@ -137,6 +184,7 @@ select#locations, #locations_choice {
 @media only screen and (max-width: 768px) {
 
 	.hero--xsmall { height: 300px; }
+	.hero--product { height: 400px; }
 
 	.footer-social .grid__item {
 	  padding-left: 0 !important;

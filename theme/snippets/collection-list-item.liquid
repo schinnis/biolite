@@ -23,7 +23,18 @@
   
   <footer class="product-grid-item__footer">
     <h5 class="product-grid-item__title" itemprop="name">{{ product.title }}</h5>
-    <h5 class="product-grid-item__price" itemprop="variantPrice">{{ product.price | money }}</h5>
+    <select name="id" id="productSelect" class="product-single__variants">
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-locale="{{ variant.option1 }}">{{ variant.price | money_with_currency }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+
+    {% assign default_variant = product.variants.first %}
+    <span id="ProductPrice" itemprop="price" class="product-grid-item__price h5">
+      {{ default_variant.price | money }}
+    </span>
   </footer>
 </div>
 {% endfor %}

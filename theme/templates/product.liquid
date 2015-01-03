@@ -41,6 +41,7 @@
       <div class="grid__item large--one-half table">
         <div class="table-cell">
           {{ product.content }}
+          
           {% comment %}
             ID addToCartForm is a selector for the ajaxify cart plugin
           {% endcomment %}
@@ -55,14 +56,17 @@
             </select>
 
             {% assign default_variant = product.variants.first %}
-            <span id="ProductPrice" itemprop="price" class="h2">
+            <span id="ProductPrice" itemprop="price" class="h4 primary-warm">
               {{ default_variant.price | money }}
             </span>
-
+            
+            {% comment %}
             <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
             <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
-
-            <button type="submit" name="add" id="AddToCart" class="btn">
+            {% endcomment %}
+            
+            <br>
+            <button type="submit" name="add" id="AddToCart" class="btn btn-primary mt20">
               <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
             </button>
           </form>
@@ -102,7 +106,7 @@
         <h3 class="mb0">CampStove</h3>
         <h4 class="primary-warm m0">$129.95</h4>
         <p class="mt0 gray-light text-links">Order as a part of the <a href="#">Bundle and Save!</a></p>
-
+        
         <a href="#" class="mt20 btn btn-primary">Add To Cart</a>
       </div>
       <div class="product-card__overlay"></div>
@@ -115,7 +119,7 @@
         <h4 class="primary-warm m0">$299.95</h4>
         <p class="mt0 gray-light text-links">Includes the <a href="#">CampStove</a>, <a href="#">KettlePot</a> and <a href="#">Portable Grill</a></a></p>
 
-        <a href="#" class="mt20 btn btn-primary">Add To Cart</a>
+        <a href="#" class="mt20 btn btn-primary">See Bundle</a>
       </div>
       <div class="product-card__overlay"></div>
     </div>
@@ -251,108 +255,35 @@
 </section>
 
 
+
 <section id="content" class="">
+
   <section id="product-specs" class="product-specs section">
     <div class="wrapper">
-      <header class="product-specs__header text-center">
-        <h3 class="light">Tech Specs</h3>
-      </header>
-      
-      <div id="product-specs__expander" class="product-specs__expander">
-        <div class="product-specs__body">
-          
-          <div class="product-specs__top clearfix">
-            <div class="grid__item large--two-thirds">
-              <table class="product-specs__table">
-                <tbody>
-                  <tr>
-                    <td class="spec-title">Packed Size</td>
-                    <td class="spec-desc"><span>Height 8.25 inches (209.6 mm) <br/> Width 5 inches (127 mm)</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">Weight</td>
-                    <td class="spec-desc"><span>Height 8.25 inches (209.6 mm) <br/> Width 5 inches (127 mm)</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+      {% comment %}
+        Don't insert Tech Specs section for Product: eGift
+        todo: Add separate template for eGift?
+      {% endcomment %}
 
-            <div class="grid__item large--one-third">
-              <img class="product-specs__img" src="{{ 'product-specs--campstove-1.jpg' | asset_url }}" alt="CampStove">
-            </div>
-          </div><!-- .product-specs__top -->
+      {% if product.title != 'BioLite eGift' %}
+        <header class="product-specs__header text-center">
+          <h3 class="light">Tech Specs</h3>
+        </header>
+        
+        {% comment %}
+          Grabbing the Tech Specs portion dynamically by product name
+          Unless product is eGift.
 
-          <div class="product-specs__middle clearfix">
-            <div class="grid__item large--one-half">
-              <div class="product-specs__header-icon"></div>
+          Could also use SKU for easier access
+          {{ product.variants.first.sku }}
 
-              <table class="product-specs__table product-specs__table--half">
-                <tbody>
-                  <tr>
-                    <td class="spec-title">Fuel</td>
-                    <td class="spec-desc"><span>Renewable BioMass <br/> (twigs, pinecone, wood pellets, etc.)</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">Fire Quality</td>
-                    <td class="spec-desc"><span>1.6 oz (46 grams) of wood to boil <br/> 1 liter of water</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">Fire Power Output</td>
-                    <td class="spec-desc"><span>Peak: 3.4 kW (LO), 5.5 kW (HI)</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">Boil Time</td>
-                    <td class="spec-desc"><span>4.5 minutes to boil 1 liter of water <br/> Boiling times vary by strength of fire</span></td>
-                  </tr>
-                </tbody>
-              </table>
+          Assign the tech_specs variable, then include techspecs-{file_name}
+        {% endcomment %}
 
-            </div>
-            <div class="grid__item large--one-half">
-              <div class="product-specs__header-icon"></div>
-
-              <table class="product-specs__table product-specs__table--half">
-                <tbody>
-                  <tr>
-                    <td class="spec-title">Compatible Devices</td>
-                    <td class="spec-desc"><span>Powers most USB-chargeable <br/> devices including smart phones</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">USB Power Output</td>
-                    <td class="spec-desc"><span>Max Continuous: 2W @5V <br/> Peak: 4W @5V</span></td>
-                  </tr>
-                  <tr>
-                    <td class="spec-title">Charging Time</td>
-                    <td class="spec-desc"><span>iPhone 4S (2G): 20 minutes of <br/> charging provides 60 minues of <br/> talk time. Charging times vary by <br/>device and by strength of fire</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div><!-- .product-specs__middle -->
-
-          <div class="product-specs__bottom clearfix">
-            <div class="grid__item large--two-thirds">
-              <table class="product-specs__table">
-                <tbody>
-                  <tr>
-                    <td class="spec-title">In The Box</td>
-                    <td class="spec-desc"><span>Stuff Sack <br/> Instructions <br/> USB Chord (for internal battery charging) <br/> BioLite Stove <br/> Firelighter</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>  
-            <div class="grid__item large--one-third">
-              <p class="product-specs__footnote"><em>(Note: Most devices come with specific <br/> charging tips. In an effort to reduce <br/> waste, we have not included charging <br/> cables for devices.)</em></p>
-            </div>
-          </div>
-
-        </div>
-
-          <div class="product-specs__expander-btn btn-circle-tab btn-circle-tab--bottom" data-control-expander="#product-specs__expander">
-            <i class="fa fa-plus"></i>
-          </div>
-      </div>
-
+        {% assign tech_specs = product.title | remove: 'BioLite ' | strip | prepend: 'techspecs_' | downcase | handleize %}
+        
+        {% include tech_specs %}
+      {% endif %}
     </div>
   </section>
 
@@ -378,22 +309,57 @@
         <img src="{{ featured_image | img_url: 'large' }}" alt="{{ product.title }}">
       </div>
       <div class="product-featurette__content grid__item large--one-half table">
-        <h3 class="alt baseline">BioLite CampStove</h3>
-        <h1 class="primary light tight m0">$129.95</h1>
+        <h3 class="alt baseline">{{ product.title }}</h3>
+        <select name="id" id="productSelect" class="product-single__variants">
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-locale="{{ variant.option1 }}">{{ variant.price | money_with_currency }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+
+        {% assign default_variant = product.variants.first %}
+        <span id="ProductPrice" itemprop="price" class="product-grid-item__price h1 primary light tight m0">
+          {{ default_variant.price | money }}
+        </span>
+
         <p class="gray-light text-links baseline">Order as a part of the <a href="#" class="underline">Bundle and Save</a>!</p>
 
-        <a href="#" class="btn btn-primary btn-icon btn-icon--left mt40 mb40">
-          <i class="fa fa-shopping-cart"></i>
-          <span>Buy Now</span>
-        </a>
+        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="mb40">
+          
+          {% comment %}
+          <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
+          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+          {% endcomment %}
+          
+          <br>
+          <button type="submit" name="add" id="AddToCart" class="btn btn-primary mt20">
+            <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+          </button>
+        </form>
 
-        <div class="product-featurette__review">
-          <div class="review-rating">4.5 out of 5</div>
-          <div class="review-stars review-stars--4_5"></div>
-          <p class="gray-light text-links">
-            <a href="#" class="underline">See All Reviews</a>
-          </p>
-        </div>
+        {% comment %}
+          Styled 'Buy Now' btn. Using button in form above
+          <a href="#" class="btn btn-primary btn-icon btn-icon--left mt40 mb40">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Buy Now</span>
+          </a>
+        {% endcomment %}
+
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+
+        {% comment %}
+          Product Review sample from html site
+
+          <div class="product-featurette__review">
+            <div class="review-rating">4.5 out of 5</div>
+            <div class="review-stars review-stars--4_5"></div>
+            <p class="gray-light text-links">
+              <a href="#" class="underline">See All Reviews</a>
+            </p>
+          </div>
+
+
       </div>
     </section>
 

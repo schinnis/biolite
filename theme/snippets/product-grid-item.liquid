@@ -74,8 +74,10 @@
   <p class="h6">
     <a itemprop="name" href="{{ product.url | within: collection }}">{{ product.title }}</a>
   </p>
+    
   <p>
     <span id="ProductPrice" itemprop="price">{{ product.price | money }}</span></p></span>
+
     {% if sold_out %}
       <br><strong>Sold Out</strong>
     {% endif %}

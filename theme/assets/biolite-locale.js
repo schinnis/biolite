@@ -35,28 +35,28 @@ BioliteLocale.init = function()
 		'JPY' :	['JP'],
 		'KRW' :	['KR'],
 	}
-
-	BioliteLocale.default_currency 							= 'USD';
-	BioliteLocale.default_locale   							= 'US';
 	
-	BioliteLocale.current_locale    						= BioliteLocale.cookie.read() || BioliteLocale.default_locale;
-	BioliteLocale.current_currency  						= Currency.cookie.read() || BioliteLocale.default_currency;
-
-	BioliteLocale.location_box 		  						= $('#locations-box');
-	BioliteLocale.location_switcher 						= $('select#locations');
-
-	BioliteLocale.variant_prefix 							= 'pricing-'; // for example, as in: 'price-UK'
+	BioliteLocale.default_currency             = 'USD';
+	BioliteLocale.default_locale               = 'US';
 	
-	BioliteLocale.currency_container 						= $("meta[itemprop='priceCurrency']");
-	BioliteLocale.variant_price 						    = $("meta[itemprop='variantPrice']");
-	BioliteLocale.variant_price_default						= $("meta[itemprop='variantPrice'][location='Default']");
-
-	BioliteLocale.single_product_container					= $("div[itemtype='http://schema.org/Product']");
-	BioliteLocale.single_prod_price_container				= $("div[itemprop='price'], span[itemprop='price']");
-	BioliteLocale.single_prod_price_class 					= $("span.money");
-	BioliteLocale.single_prod_variant_selector				= $("#productSelect");
-
-	BioliteLocale.multiple_products_container				= $("div[itemtype='http://schema.org/SomeProducts']");
+	BioliteLocale.current_locale               = BioliteLocale.cookie.read() || BioliteLocale.default_locale;
+	BioliteLocale.current_currency             = Currency.cookie.read() || BioliteLocale.default_currency;
+	
+	BioliteLocale.location_box                 = $('#locations-box');
+	BioliteLocale.location_switcher            = $('select#locations');
+	
+	BioliteLocale.variant_prefix               = 'pricing-'; // for example, as in: 'price-UK'
+	
+	BioliteLocale.currency_container           = $("meta[itemprop='priceCurrency']");
+	BioliteLocale.variant_price                = $("meta[itemprop='variantPrice']");
+	BioliteLocale.variant_price_default        = $("meta[itemprop='variantPrice'][location='Default']");
+	
+	BioliteLocale.single_product_container     = $("div[itemtype='http://schema.org/Product']");
+	BioliteLocale.single_prod_price_container  = $("div[itemprop='price'], span[itemprop='price']");
+	BioliteLocale.single_prod_price_class      = $("span.money");
+	BioliteLocale.single_prod_variant_selector = $("#productSelect");
+	
+	BioliteLocale.multiple_products_container  = $("div[itemtype='http://schema.org/SomeProducts']");
 
 	BioliteLocale.add_location_choices();
 
